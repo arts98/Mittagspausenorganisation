@@ -25,7 +25,7 @@ MPOMe5BaseView >> beforeCreateComponents [
 			nodeTitle: 'Restaurantbewertung';
 			yourself);
 		addChildNode: (Me5PageSidebarItemNode new
-			nodeTitle: 'Kalenderübersicht';
+			nodeTitle: 'Kalender';
 			yourself);
 		yourself) roles: nil
 ]
