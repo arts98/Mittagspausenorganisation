@@ -65,17 +65,7 @@ MPOMe5CalendarView >> createComponents [
 { #category : 'Events' }
 MPOMe5CalendarView >> currentClicked [
 	
-	|theNewCalendar |
-	theNewCalendar := (Me5CalendarMonth new
-		days: (self dayCollectionForDate: (Date newDay: 1 monthIndex: Date today monthIndex year: Date today year));
-		width: '800px';
-		yourself).
-		
-	self 
-		replaceComponent: self calendar 
-		with: theNewCalendar 
-		ifAbsent: [] 
-		ensure: [self calendar: theNewCalendar]
+	self replaceCalendarForMonth: Date today monthIndex andYear: Date today year
 ]
 
 { #category : 'Events' }
@@ -107,20 +97,18 @@ MPOMe5CalendarView >> dayCollectionForDate: aDate [
 { #category : 'Events' }
 MPOMe5CalendarView >> nextMonthClicked [
 
-	| theCurrentMonth theCurrentYear theNewCalendar |
+	| theCurrentMonth theCurrentYear |
 	theCurrentMonth := self calendar monthIndex.
-	theCurrentYear := self calendar year.
 	
-	theNewCalendar := (Me5CalendarMonth new
-		days: (self dayCollectionForDate: (Date newDay: 1 monthIndex: theCurrentMonth + 1 year: theCurrentYear));
-		width: '800px';
-		yourself).
-		
-	self 
-		replaceComponent: self calendar 
-		with: theNewCalendar 
-		ifAbsent: [] 
-		ensure: [self calendar: theNewCalendar]
+	theCurrentMonth = 12
+		ifTrue: [
+			theCurrentMonth := 1.
+			theCurrentYear := self calendar year + 1]
+		ifFalse: [
+			theCurrentMonth := theCurrentMonth + 1.
+			theCurrentYear := self calendar year].
+	
+	self replaceCalendarForMonth: theCurrentMonth andYear: theCurrentYear
 ]
 
 { #category : 'Accessing' }
@@ -138,12 +126,26 @@ MPOMe5CalendarView >> overviewPortlet: aMe5Portlet [
 { #category : 'Events' }
 MPOMe5CalendarView >> previousMonthClicked [
 
-	| theCurrentMonth theCurrentYear theNewCalendar |
+	| theCurrentMonth theCurrentYear |
 	theCurrentMonth := self calendar monthIndex.
-	theCurrentYear := self calendar year.
 	
+	theCurrentMonth = 1
+		ifTrue: [
+			theCurrentMonth := 12.
+			theCurrentYear := self calendar year - 1]
+		ifFalse: [
+			theCurrentMonth := theCurrentMonth - 1.
+			theCurrentYear := self calendar year].
+	
+	self replaceCalendarForMonth: theCurrentMonth andYear: theCurrentYear
+]
+
+{ #category : 'Internal' }
+MPOMe5CalendarView >> replaceCalendarForMonth: aMonthIndex andYear: aYear [
+	
+	| theNewCalendar |
 	theNewCalendar := (Me5CalendarMonth new
-		days: (self dayCollectionForDate: (Date newDay: 1 monthIndex: theCurrentMonth - 1 year: theCurrentYear));
+		days: (self dayCollectionForDate: (Date newDay: 1 monthIndex: aMonthIndex year: aYear));
 		width: '800px';
 		yourself).
 		
