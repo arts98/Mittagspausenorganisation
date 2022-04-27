@@ -5,7 +5,8 @@ Class {
 		'masterDetailList',
 		'restaurantTextField',
 		'restaurantShortDescriptionTextField',
-		'reviewsFormPortlet'
+		'descriptionFormGroup',
+		'ordersFormPortlet'
 	],
 	#category : 'MPOFrontendApp'
 }
@@ -46,26 +47,94 @@ MPOMe5RestaurantsView >> createComponents [
 					addChild: (Me5AccordionItem new
 						icon: Me5I newFasInfoCircle;
 						title: 'Beschreibung';
-						addChildToContent: (Me5P new
-							text: 'Beschreibungstext, Link zur Speisekarte, ...';
+						addChildToContent:  (Me5Portlet new
+							addChildToBody: (descriptionFormGroup := Me5TextArea new
+								text: 'Beschreibung';
+								helpText: 'Hilfe-Text';
+								yourself);
+							addChildToFootButtonGroup: (Me5Button newPrimary
+								icon: Me5I newFasHome;
+								text: 'Webseite';
+								yourself);
+							addChildToFootButtonGroup: (Me5Button newPrimary
+								icon: Me5I newFasList;
+								text: 'Speisekarte';
+								yourself);
+							addChildToFootButtonGroup: (Me5Button newPrimary
+								icon: Me5I newFasLocationArrow;
+								text: 'Anfahrt';
+								yourself);
 							yourself);
 						yourself);
 					addChild: (Me5AccordionItem new
 						icon: Me5I newFasStar;
 						title: 'Bewertungen';
-						addChildToContent: (Me5P new
-							"text: 'Bestellungen'"
-							addChild: (reviewsFormPortlet := Me5FormPortlet new
-								title: 'Bewertungen';
+						addChildToContent: (Me5Portlet new
+								addChildToBody: (Me5MetronicListGroup new
+									enableHoverable;
+									addChild: (Me5MetronicListGroupItem new
+										pictureSrc: ('%1/default/dist/default/assets/app/media/img/users/100_4.jpg' bindWith: self cloudFrontDistributionFrameworkUrl);
+										title: 'Top!';
+										subtitle: 'Alles Top!';
+										addChildToRightExtension: (Me5ButtonGroup newDivided
+											addChild: (Me5Button newPrimary
+												addCssClassBtnSm;
+												icon: Me5I newFasEdit;
+												text: 'Edit';
+												yourself);
+											addChild: (Me5Button newDanger
+												addCssClassBtnSm;
+												icon: Me5I newFasTrash;
+												text: 'Delete';
+												yourself);
+											yourself);
+										yourself);
+									addChild: (Me5MetronicListGroupItem new
+										pictureSrc: ('%1/default/dist/default/assets/app/media/img/users/100_14.jpg' bindWith: self cloudFrontDistributionFrameworkUrl);
+										title: 'Super Bedienung!';
+										subtitle: 'Bedienung war sehr freundlich.';
+										addChildToRightExtension: (Me5ButtonGroup newDivided
+											addChild: (Me5Button newPrimary
+												addCssClassBtnSm;
+												icon: Me5I newFasEdit;
+												text: 'Edit';
+												yourself);
+											addChild: (Me5Button newDanger
+												addCssClassBtnSm;
+												icon: Me5I newFasTrash;
+												text: 'Delete';
+												yourself);
+											yourself);
+										yourself);
+									addChild: (Me5MetronicListGroupItem new
+										pictureSrc: ('%1/default/dist/default/assets/app/media/img/users/100_11.jpg' bindWith: self cloudFrontDistributionFrameworkUrl);
+										title: 'Alles Super';
+										subtitle: 'Macht gute Pizza.';
+										addChildToRightExtension: (Me5ButtonGroup newDivided
+											addChild: (Me5Button newPrimary
+												addCssClassBtnSm;
+												icon: Me5I newFasEdit;
+												text: 'Edit';
+												yourself);
+											addChild: (Me5Button newDanger
+												addCssClassBtnSm;
+												icon: Me5I newFasTrash;
+												text: 'Delete';
+												yourself);
+											yourself);
+										yourself);
+									yourself);
+								addChildToFootButtonGroup: (Me5Button newPrimary
+									icon: Me5I newFasEdit;
+									text: 'Bewertung schreiben';
+									yourself);
 								yourself);
 							yourself);
-						yourself);
 					addChild: (Me5AccordionItem new
 						icon: Me5I newFasShoppingCart;
 						title: 'Bestellungen';
-						addChildToContent: (Me5P new
-							text: 'Bestellungen'
-							yourself);
+						
+							
 						expand;
 						yourself);
 					yourself);
@@ -101,32 +170,10 @@ MPOMe5RestaurantsView >> createMasterDetailListGroupItemForRestaurant: aRestaura
 		yourself
 ]
 
-{ #category : 'Internal' }
-MPOMe5RestaurantsView >> createNewReviewTextFieldWithValue: aString [
-
-	^Me5TextField new
-		leftOuterIcon: Me5I newFasStar;
-		placeholder: 'Super Restaurant, alles Top...';
-		focus;
-		addEnterKeypressEventSelector: #newReviewClicked;
-		value: aString;
-		rightButton: (Me5Button newDanger
-			rightIcon: Me5I newFasTrash;
-			addClickEventSelector: #deleteReviewClicked:;
-			yourself);
-		yourself
-]
-
 { #category : 'Events' }
 MPOMe5RestaurantsView >> deleteClicked [
 
 	self showWarningNotificationWithMessage: 'Not implemented yet'
-]
-
-{ #category : 'Events' }
-MPOMe5RestaurantsView >> deleteReviewClicked: aMeEvent [
-
-	aMeEvent formGroup removeComponent
 ]
 
 { #category : 'Events' }
@@ -164,12 +211,6 @@ MPOMe5RestaurantsView >> newClicked [
 	self masterDetailList newDummyListGroupItem triggerClickEvent
 ]
 
-{ #category : 'Events' }
-MPOMe5RestaurantsView >> newReviewClicked [
-
-	self reviewsFormPortlet addChildToBody: (self createNewReviewTextFieldWithValue:  nil)
-]
-
 { #category : 'Accessing' }
 MPOMe5RestaurantsView >> restaurantShortDescriptionTextField [
 
@@ -192,18 +233,6 @@ MPOMe5RestaurantsView >> restaurantTextField [
 MPOMe5RestaurantsView >> restaurantTextField: anObject [
 
 	restaurantTextField := anObject
-]
-
-{ #category : 'Accessing' }
-MPOMe5RestaurantsView >> reviewsFormPortlet [
-
-	^reviewsFormPortlet
-]
-
-{ #category : 'Accessing' }
-MPOMe5RestaurantsView >> reviewsFormPortlet: aMe5FormPortlet [
-
-	reviewsFormPortlet := aMe5FormPortlet
 ]
 
 { #category : 'Events' }
@@ -230,11 +259,4 @@ MPOMe5RestaurantsView >> saveRestaurant: aRestaurant [
 		name: self restaurantTextField value;
 		shortDescription: self restaurantShortDescriptionTextField value;
 		yourself
-]
-
-{ #category : 'Events' }
-MPOMe5RestaurantsView >> saveReviewsClicked [
-
-	"self session reviews (self reviewsFormPortlet allFormGroups collect: [ :eachTextField | eachTextField value])."
-	self showSuccessNotificationWithTitle: 'Bewertungen gespeichert!'
 ]
