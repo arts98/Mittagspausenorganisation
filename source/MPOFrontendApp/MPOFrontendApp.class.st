@@ -12,5 +12,6 @@ theHttpServer := Me5SstHttpServer startUpHttpServerOnPort: '9003' serverApplicat
 theHttpServer 
 	addViewClass: MPOMe5BaseView;
 	addViewClass: MPOMe5CalendarView;
+	addViewClass: MPOMe5RestaurantsView;
 	yourself
 ]

@@ -16,13 +16,8 @@ MPOMe5BaseView >> beforeCreateComponents [
 			nodeTitle: 'Dashboard';
 			yourself);
 		addChildNode: (Me5PageSidebarItemNode new
-			nodeTitle: 'Restaurantabstimmung';
-			yourself);
-		addChildNode: (Me5PageSidebarItemNode new
-			nodeTitle: 'Bestellungen';
-			yourself);
-		addChildNode: (Me5PageSidebarItemNode new
-			nodeTitle: 'Restaurantbewertung';
+			nodeTitle: 'Restaurants';
+			viewClass: MPOMe5RestaurantsView 
 			yourself);
 		addChildNode: (Me5PageSidebarItemNode new
 			nodeTitle: 'Kalender';
