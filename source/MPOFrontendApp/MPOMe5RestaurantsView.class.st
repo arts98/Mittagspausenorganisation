@@ -80,12 +80,12 @@ MPOMe5RestaurantsView >> createComponents [
 											addChild: (Me5Button newPrimary
 												addCssClassBtnSm;
 												icon: Me5I newFasEdit;
-												text: 'Edit';
+												text: 'Bearbeiten';
 												yourself);
 											addChild: (Me5Button newDanger
 												addCssClassBtnSm;
 												icon: Me5I newFasTrash;
-												text: 'Delete';
+												text: 'Loeschen';
 												yourself);
 											yourself);
 										yourself);
@@ -97,12 +97,12 @@ MPOMe5RestaurantsView >> createComponents [
 											addChild: (Me5Button newPrimary
 												addCssClassBtnSm;
 												icon: Me5I newFasEdit;
-												text: 'Edit';
+												text: 'Bearbeiten';
 												yourself);
 											addChild: (Me5Button newDanger
 												addCssClassBtnSm;
 												icon: Me5I newFasTrash;
-												text: 'Delete';
+												text: 'Loeschen';
 												yourself);
 											yourself);
 										yourself);
@@ -114,12 +114,12 @@ MPOMe5RestaurantsView >> createComponents [
 											addChild: (Me5Button newPrimary
 												addCssClassBtnSm;
 												icon: Me5I newFasEdit;
-												text: 'Edit';
+												text: 'Bearbeiten';
 												yourself);
 											addChild: (Me5Button newDanger
 												addCssClassBtnSm;
 												icon: Me5I newFasTrash;
-												text: 'Delete';
+												text: 'Loeschen';
 												yourself);
 											yourself);
 										yourself);
