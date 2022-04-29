@@ -11,7 +11,7 @@ Class {
 { #category : 'logic' }
 Order >> addFood: aFood [
 
-	food add: aFood
+	self food add: aFood
 ]
 
 { #category : 'Accessing' }

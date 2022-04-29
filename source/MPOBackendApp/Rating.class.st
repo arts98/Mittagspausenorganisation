@@ -2,8 +2,9 @@ Class {
 	#name : 'Rating',
 	#superclass : 'Object',
 	#instVars : [
-		'comment',
-		'tags'
+		'note',
+		'tags',
+		'starRating'
 	],
 	#category : 'MPOBackendApp'
 }
@@ -11,25 +12,43 @@ Class {
 { #category : 'logic' }
 Rating >> addTag: aTag [
 
-	tags add: aTag
+	self tags add: aTag
 ]
 
 { #category : 'Accessing' }
-Rating >> comment: aString [
-
-	"<aString: iOf String, ^self>"
-	"Set the comment of the receiver"
-
-	comment := aString
-]
-
-{ #category : 'Accessing' }
-Rating >> comment1 [
+Rating >> note [
 
 	"<^iOf String>"
-	"Answer the comment of the receiver"
+	"Answer the note of the receiver"
 
-	^comment
+	^note
+]
+
+{ #category : 'Accessing' }
+Rating >> note: aString [
+
+	"<aString: iOf String, ^self>"
+	"Set the note of the receiver"
+
+	note := aString
+]
+
+{ #category : 'Accessing' }
+Rating >> starRating [
+
+	"<^hOf Integer>"
+	"Answer the starRating of the receiver"
+
+	^starRating
+]
+
+{ #category : 'Accessing' }
+Rating >> starRating: anInteger [
+
+	"<anInteger: hOf Integer, ^self>"
+	"Set the starRating of the receiver"
+
+	starRating := anInteger
 ]
 
 { #category : 'Accessing' }
