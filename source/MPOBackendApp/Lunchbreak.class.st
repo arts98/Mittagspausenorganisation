@@ -11,7 +11,7 @@ Class {
 { #category : 'logic' }
 Lunchbreak >> addRestaurant: aRestaurant [
 
-	restaurant add: aRestaurant
+	self restaurant add: aRestaurant
 ]
 
 { #category : 'Accessing' }

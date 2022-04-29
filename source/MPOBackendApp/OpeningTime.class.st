@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : 'logic' }
-OpeningTime >> addDay: aDay key: aKey [
+OpeningTime >> addOpeningTime: aOpeningTime atDay: aDay [
 
-	week at: aKey put: aDay
+	self week at: aDay put: aOpeningTime
 ]
 
 { #category : 'Accessing' }

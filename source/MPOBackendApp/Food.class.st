@@ -67,17 +67,17 @@ Food >> price: aString [
 { #category : 'Accessing' }
 Food >> vegetarian [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the vegetarian of the receiver"
 
 	^vegetarian
 ]
 
 { #category : 'Accessing' }
-Food >> vegetarian: aString [
+Food >> vegetarian: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the vegetarian of the receiver"
 
-	vegetarian := aString
+	vegetarian := aBoolean
 ]
