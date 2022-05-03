@@ -8,8 +8,42 @@ Class {
 		'email',
 		'password'
 	],
+	#classVars : [
+		'Persons'
+	],
 	#category : 'MPOBackendApp'
 }
+
+{ #category : 'logic' }
+Person class >> createPersonFirstname: aFirstname lastname: aLastname username: aUsername email: anEmail password: aPassword [
+
+	self persons add: (Person new
+		firstname: aFirstname;
+		lastname: aLastname;
+		username: aUsername;
+		email: anEmail;
+		password: aPassword
+		yourself
+	)
+]
+
+{ #category : 'Accessing' }
+Person class >> persons [
+
+	"<^hOf Collection of: {iOf Person}>"
+	"Answer the Persons of the receiver"
+
+	^Persons
+]
+
+{ #category : 'Accessing' }
+Person class >> persons: aCollection [
+
+	"<aCollection: hOf Collection of: {iOf Person}, ^self>"
+	"Set the Persons of the receiver"
+
+	Persons := aCollection
+]
 
 { #category : 'Accessing' }
 Person >> email [
