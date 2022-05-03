@@ -16,13 +16,23 @@ Class {
 }
 
 { #category : 'accessing' }
+Restaurant >> addOrder: anOrder [
+	self orders add: anOrder
+]
+
+{ #category : 'accessing' }
+Restaurant >> addReview: aReview [
+	self review add:  aReview
+]
+
+{ #category : 'accessing' }
 Restaurant >> adress [
 	^adress
 ]
 
 { #category : 'accessing' }
-Restaurant >> adress: anObject [
-	adress := anObject
+Restaurant >> adress: aString [
+	adress := aString
 ]
 
 { #category : 'accessing' }
@@ -31,8 +41,13 @@ Restaurant >> category [
 ]
 
 { #category : 'accessing' }
-Restaurant >> category: anObject [
-	category := anObject
+Restaurant >> category: aRestaurantType [
+	category := aRestaurantType
+]
+
+{ #category : 'accessing' }
+Restaurant >> deleteReview: aReview [
+	self review remove: aReview
 ]
 
 { #category : 'accessing' }
@@ -41,8 +56,8 @@ Restaurant >> location [
 ]
 
 { #category : 'accessing' }
-Restaurant >> location: anObject [
-	location := anObject
+Restaurant >> location: aLocation [
+	location := aLocation
 ]
 
 { #category : 'accessing' }
@@ -51,8 +66,8 @@ Restaurant >> menu [
 ]
 
 { #category : 'accessing' }
-Restaurant >> menu: anObject [
-	menu := anObject
+Restaurant >> menu: aString [
+	menu := aString
 ]
 
 { #category : 'accessing' }
@@ -61,8 +76,8 @@ Restaurant >> name [
 ]
 
 { #category : 'accessing' }
-Restaurant >> name: anObject [
-	name := anObject
+Restaurant >> name: aString [
+	name := aString
 ]
 
 { #category : 'accessing' }
@@ -71,8 +86,8 @@ Restaurant >> orders [
 ]
 
 { #category : 'accessing' }
-Restaurant >> orders: anObject [
-	orders := anObject
+Restaurant >> orders: anOrderCollection [
+	orders := anOrderCollection
 ]
 
 { #category : 'accessing' }
@@ -81,8 +96,8 @@ Restaurant >> review [
 ]
 
 { #category : 'accessing' }
-Restaurant >> review: anObject [
-	review := anObject
+Restaurant >> review: aReviewCollection [
+	review := aReviewCollection
 ]
 
 { #category : 'accessing' }
@@ -91,8 +106,18 @@ Restaurant >> services [
 ]
 
 { #category : 'accessing' }
-Restaurant >> services: anObject [
-	services := anObject
+Restaurant >> services: aFoodCollection [
+	services := aFoodCollection
+]
+
+{ #category : 'accessing' }
+Restaurant >> sumofOrderPrice [
+	|sum|
+	sum := 0.
+	self orders do: [ :orderelm | 
+		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
+	].
+	^sum
 ]
 
 { #category : 'accessing' }

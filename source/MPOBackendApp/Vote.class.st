@@ -15,8 +15,8 @@ Vote >> person [
 ]
 
 { #category : 'accessing' }
-Vote >> person: anObject [
-	person := anObject
+Vote >> person: aPerson [
+	person := aPerson
 ]
 
 { #category : 'accessing' }
@@ -25,8 +25,8 @@ Vote >> restaurant [
 ]
 
 { #category : 'accessing' }
-Vote >> restaurant: anObject [
-	restaurant := anObject
+Vote >> restaurant: aRestaurant [
+	restaurant := aRestaurant
 ]
 
 { #category : 'accessing' }
@@ -35,6 +35,6 @@ Vote >> vote [
 ]
 
 { #category : 'accessing' }
-Vote >> vote: anObject [
-	vote := anObject
+Vote >> vote: aBool [
+	vote := aBool
 ]
