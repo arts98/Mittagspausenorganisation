@@ -23,5 +23,9 @@ MPOMe5BaseView >> beforeCreateComponents [
 			nodeTitle: 'Kalender';
 			viewClass: MPOMe5CalendarView;
 			yourself);
+		addChildNode: (Me5PageSidebarItemNode new
+			nodeTitle: 'Login (nur zum vorfuehren hier im menu)';
+			viewClass: MPOMe5LoginView;
+			yourself);
 		yourself) roles: nil
 ]
