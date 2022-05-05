@@ -16,14 +16,17 @@ Voting >> addVote: aVote [
 { #category : 'accessing' }
 Voting >> getFavorit [
 	|highest countvote top|
-	highest := 0.
-	countvote := 0.
+	highest := 0.	
 	
 	self restaurantsToVote do: [:rest | 
-		(highest < countvote) ifTrue: [top := rest] |
+		countvote := 0.
 		self voting do: [:votee | 
-			(votee vote == true & votee restaurant == rest) 
-				ifTrue: [countvote := (countvote + 1)]  ]
+			(votee vote and: [votee restaurant = rest]) 
+				ifTrue: [countvote := (countvote + 1)]].
+		(highest < countvote) 
+			ifTrue: [
+				top := rest.
+				highest := countvote]
 	].
 	^top
 

@@ -111,6 +111,17 @@ Restaurant >> services: aFoodCollection [
 ]
 
 { #category : 'accessing' }
+Restaurant >> sumOfOrderPerson: aPerson [
+	|sum|
+	sum := 0.
+	self orders do: [ :orderelm  | (orderelm person = aPerson) ifTrue: [
+		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
+	]		
+	].
+	^sum
+]
+
+{ #category : 'accessing' }
 Restaurant >> sumofOrderPrice [
 	|sum|
 	sum := 0.
