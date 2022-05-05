@@ -76,7 +76,7 @@ MPOMe5LoginView >> logInClicked [
 	| thePerson |
 	"thePerson := MPOMe5Person logInEmail: self emailTextField value password: self passwordTextField value."
 	thePerson isNil
-		ifTrue: [self emailTextField dangerText: 'Wrong email or password.']
+		ifTrue: [self emailTextField dangerText: 'Falsche Email oder falsches Passwort.']
 		ifFalse: [
 			self session person: thePerson.
 			"self replaceView: MPOMe5Dashboard new"]
@@ -86,12 +86,15 @@ MPOMe5LoginView >> logInClicked [
 MPOMe5LoginView >> logInWithGoogleClicked [
 
 	| thePerson |
+	
+	self showWarningNotificationWithMessage: 'Not implemented yet'
+	
 	"thePerson := MPOMe5Person logInEmail: self emailTextField value password: self passwordTextField value. -> get from google?"
-	thePerson isNil
+	"thePerson isNil
 		ifTrue: [self emailTextField dangerText: 'Falsche Email oder falsches Passwort.']
 		ifFalse: [
 			self session person: thePerson.
-			"self replaceView: MPOMe5Dashboard new"]
+			self replaceView: MPOMe5Dashboard new]"
 ]
 
 { #category : 'Accessing' }

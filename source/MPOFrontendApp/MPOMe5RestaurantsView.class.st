@@ -139,7 +139,7 @@ MPOMe5RestaurantsView >> createComponents [
 							addChildToBody: (orderList := Me5MetronicListGroup new
 								enableHoverable;
 								addChild: (Me5MetronicListGroupItem new
-									title: 'DÃƒÂ¶ner';
+									title: 'DÃƒÆ’Ã‚Â¶ner';
 									subtitle: '4,50';			
 									addChildToInfo: (Me5TextField newWithNoMarginBottom
 										text:  'Extras';
@@ -176,7 +176,7 @@ MPOMe5RestaurantsView >> createComponents [
 								yourself);
 							addChildToFootButtonGroup: (Me5Button newDanger
 								icon: Me5I newFasTrash;
-								text: 'Alle lÃƒÂ¶schen';
+								text: 'Alle lÃƒÆ’Ã‚Â¶schen';
 									addClickEventSelector: #deleteAllOrdersClicked;
 								yourself);
 							yourself);
@@ -194,7 +194,7 @@ MPOMe5RestaurantsView >> createComponents [
 
 	self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
 		title: 'Neues Restaurant';
-		subtitle: 'Neues Restaurant hinzufÃƒÂ¼gen.';
+		subtitle: 'Neues Restaurant hinzufÃƒÆ’Ã‚Â¼gen.';
 		addAfterMasterDetailListGroupItemSelectedEventSelector: #itemRestaurantClicked:;
 		itemSelectedWindowHistoryPushUrl: '?new';
 		enableIsActive;

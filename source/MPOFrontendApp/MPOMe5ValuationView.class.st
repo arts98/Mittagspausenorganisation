@@ -39,7 +39,7 @@ MPOMe5ValuationView >> commentForm: anObject [
 { #category : 'Not categorized' }
 MPOMe5ValuationView >> createComponents [
 
-"LÃ¶schfunktion fÃ¼r hinzugefÃ¼gte Kommentare noch einbauen!"
+"LÃƒÂ¶schfunktion fÃƒÂ¼r hinzugefÃƒÂ¼gte Kommentare noch einbauen!"
 
 self
 	
