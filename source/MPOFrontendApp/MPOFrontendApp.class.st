@@ -13,7 +13,8 @@ theHttpServer
 	addViewClass: MPOMe5BaseView;
 	addViewClass: MPOMe5CalendarView;
 	addViewClass: MPOMe5RestaurantsView;
-	addViewClass:  MPOMe5LoginView;
+	addViewClass: MPOMe5LoginView;
 	addViewClass: MPOMe5RegistrationView;
+	addViewClass: MPOMe5ValuationView;
 	yourself
 ]

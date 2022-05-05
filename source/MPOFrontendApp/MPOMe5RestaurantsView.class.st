@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'masterDetailList',
 		'restaurantTextField',
-		'restaurantShortDescriptionTextField',
 		'descriptionFormGroup',
 		'reviewList',
 		'orderList'
@@ -36,12 +35,6 @@ MPOMe5RestaurantsView >> createComponents [
 						leftInnerIcon: Me5I newFasEdit;
 						text: 'Name';
 						focus;
-						yourself);
-					addChild: (restaurantShortDescriptionTextField := Me5TextField new 
-						addCssClassCol12;
-						addCssClassColSm6;
-						leftInnerIcon: Me5I newFasEdit;
-						text: 'Kurzbeschreibung';
 						yourself);
 					yourself);
 				addChild: (Me5Accordion newSeparatedTabs
@@ -146,7 +139,7 @@ MPOMe5RestaurantsView >> createComponents [
 							addChildToBody: (orderList := Me5MetronicListGroup new
 								enableHoverable;
 								addChild: (Me5MetronicListGroupItem new
-									title: 'DÃ¶ner';
+									title: 'DÃƒÂ¶ner';
 									subtitle: '4,50';			
 									addChildToInfo: (Me5TextField newWithNoMarginBottom
 										text:  'Extras';
@@ -183,7 +176,7 @@ MPOMe5RestaurantsView >> createComponents [
 								yourself);
 							addChildToFootButtonGroup: (Me5Button newDanger
 								icon: Me5I newFasTrash;
-								text: 'Alle lÃ¶schen';
+								text: 'Alle lÃƒÂ¶schen';
 									addClickEventSelector: #deleteAllOrdersClicked;
 								yourself);
 							yourself);
@@ -201,7 +194,7 @@ MPOMe5RestaurantsView >> createComponents [
 
 	self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
 		title: 'Neues Restaurant';
-		subtitle: 'Neues Restaurant hinzufÃ¼gen.';
+		subtitle: 'Neues Restaurant hinzufÃƒÂ¼gen.';
 		addAfterMasterDetailListGroupItemSelectedEventSelector: #itemRestaurantClicked:;
 		itemSelectedWindowHistoryPushUrl: '?new';
 		enableIsActive;
@@ -215,7 +208,7 @@ MPOMe5RestaurantsView >> createMasterDetailListGroupItemForRestaurant: aRestaura
 
 	^Me5MasterDetailListGroupItem new
 		updateBlock: [ :theComponent | theComponent title: aRestaurant name];
-		subtitle: aRestaurant shortDescription;
+		subtitle: aRestaurant category;
 		componentObject: aRestaurant;
 		addAfterMasterDetailListGroupItemSelectedEventSelector: #itemRestaurantClicked:;
 		itemSelectedWindowHistoryPushUrl: '?',  aRestaurant name;
@@ -260,7 +253,7 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 		ifFalse: [ | theRestaurant |
 			theRestaurant := anEvent componentObject.
 			self restaurantTextField value: theRestaurant name.
-			self restaurantShortDescriptionTextField value: theRestaurant shortDescription]
+			]
 ]
 
 { #category : 'Accessing' }
@@ -346,18 +339,6 @@ MPOMe5RestaurantsView >> orderList: aList [
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantShortDescriptionTextField [
-
-	^restaurantShortDescriptionTextField
-]
-
-{ #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantShortDescriptionTextField: anObject [
-
-	restaurantShortDescriptionTextField := anObject
-]
-
-{ #category : 'Accessing' }
 MPOMe5RestaurantsView >> restaurantTextField [
 
 	^restaurantTextField
@@ -386,7 +367,7 @@ MPOMe5RestaurantsView >> saveClicked [
 
 	self masterDetailList isNewDummyListGroupItemActive
 		ifTrue: [ | theRestaurant theMasterDetailListGroupItem |
-			theRestaurant := MPORestaurant new.
+			theRestaurant := Restaurant new.
 			self saveRestaurant:  theRestaurant.
 			theMasterDetailListGroupItem := self createMasterDetailListGroupItemForRestaurant: theRestaurant.
 			self masterDetailList addMasterDetailListGroupItem: (theMasterDetailListGroupItem
@@ -403,7 +384,7 @@ MPOMe5RestaurantsView >> saveRestaurant: aRestaurant [
 
 	aRestaurant
 		name: self restaurantTextField value;
-		shortDescription: self restaurantShortDescriptionTextField value;
+
 		yourself
 ]
 
