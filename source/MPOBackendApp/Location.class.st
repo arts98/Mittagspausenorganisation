@@ -9,6 +9,16 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
+{ #category : 'Not categorized' }
+Location class >> getLocations [
+	
+	^OrderedCollection new
+		add: 'Freiburg';
+		add: 'Frankfurt';
+		add: 'Berlin';
+		yourself
+]
+
 { #category : 'Accessing' }
 Location >> berlin [
 
