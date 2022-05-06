@@ -37,7 +37,7 @@ MPORestaurant class >> createRestaurants [
 			self restaurants: (OrderedCollection new
 				add: (MPORestaurant new
 					name: 'Mr Doener';
-					adress: 'EschholzstraÃƒÅ¸e 76';
+					adress: 'Eschholzstrasse 76';
 					location: 'Freiburg';
 					category: (MPORestaurantType new
 						doener: true;
@@ -71,7 +71,7 @@ MPORestaurant class >> createRestaurants [
 				
 			self restaurants add: (MPORestaurant new
 				name: 'Hier und Jetzt';
-				adress: 'ZÃƒÂ¤hringer Str. 44';
+				adress: 'Zaehringer Str. 44';
 				location: 'Freiburg';
 				category: MPORestaurantType new;
 				services: (OrderedCollection new	
