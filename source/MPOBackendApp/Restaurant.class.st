@@ -37,7 +37,7 @@ Restaurant class >> createRestaurants [
 			self restaurants: (OrderedCollection new
 				add: (Restaurant new
 					name: 'Mr Doener';
-					adress: 'EschholzstraÃŸe 76';
+					adress: 'EschholzstraÃƒÅ¸e 76';
 					location: 'Freiburg';
 					category: (RestaurantType new
 						doener: true;
@@ -71,7 +71,7 @@ Restaurant class >> createRestaurants [
 				
 			self restaurants add: (Restaurant new
 				name: 'Hier und Jetzt';
-				adress: 'ZÃ¤hringer Str. 44';
+				adress: 'ZÃƒÂ¤hringer Str. 44';
 				location: 'Freiburg';
 				category: RestaurantType new;
 				services: (OrderedCollection new	
