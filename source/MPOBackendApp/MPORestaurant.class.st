@@ -3,31 +3,224 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'name',
-		'shortDescription'
+		'adress',
+		'services',
+		'review',
+		'location',
+		'category',
+		'menu',
+		'week',
+		'orders'
+	],
+	#classVars : [
+		'Restaurants'
 	],
 	#category : 'MPOBackendApp'
 }
 
 { #category : 'Not categorized' }
-MPORestaurant >> name [
+MPORestaurant class >> createRestaurants [
 
+	self restaurants isEmptyOrNil
+		ifTrue: [ | theOpeningTime |
+			theOpeningTime := MPOOpeningTime new.
+			theOpeningTime week 
+				at: 'Montag' put: '10:30 am - 11:00 pm';
+				at: 'Dienstag' put: '10:30 am - 11:00 pm';
+				at: 'Mittwoch' put: '10:30 am - 11:00 pm';
+				at: 'Donnerstag' put: '10:30 am - 11:00 pm';
+				at: 'Freitag' put: '10:30 am - 12:00 pm';
+				at: 'Samstag' put: '10:30 am - 12:00 pm';
+				at: 'Sonntag' put: '11:30 am - 11:00 pm';
+				yourself.
+			
+			self restaurants: (OrderedCollection new
+				add: (MPORestaurant new
+					name: 'Mr Doener';
+					adress: 'EschholzstraÃƒÅ¸e 76';
+					location: 'Freiburg';
+					category: (MPORestaurantType new
+						doener: true;
+						yourself);
+					services: (OrderedCollection new
+						add: (MPOFood new
+							name: 'doener';
+							vegetarian: false;
+							price: 5.5;
+							yourself);
+						add: (MPOFood new
+							name: 'Pizza Vegetaria';
+							vegetarian: true;
+							price: 7.5;
+							yourself);
+						yourself);
+					week: theOpeningTime;
+				yourself);
+			yourself).
+				
+			theOpeningTime := MPOOpeningTime new.
+			theOpeningTime week
+				at: 'Montag' put: '12:00 - 14:00';
+				at: 'Dienstag' put: '12:00 - 14:00';
+				at: 'Mittwoch' put: '12:00 - 14:00, 17:30 - 23:00';
+				at: 'Donnerstag' put: '12:00 - 14:00, 17:30 - 23:00';
+				at: 'Freitag' put: '12:00 - 14:00, 17:30 - 23:00';
+				at: 'Samstag' put: '17:30 - 23:00';
+				at: 'Sonntag' put: '17:30 - 23:00';
+				yourself.
+				
+			self restaurants add: (MPORestaurant new
+				name: 'Hier und Jetzt';
+				adress: 'ZÃƒÂ¤hringer Str. 44';
+				location: 'Freiburg';
+				category: MPORestaurantType new;
+				services: (OrderedCollection new	
+					add: (MPOFood new
+						name: 'Mittagstisch 1';
+						vegetarian: false;
+						price: 10.20;
+						yourself);
+					add: (MPOFood new
+						name: 'Mittagstisch 2';
+						vegetarian: true;
+						price: 9.20;
+						yourself);
+					yourself);
+				week: theOpeningTime;
+				yourself)]
+				
+			
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant class >> restaurants [
+
+	"<^hOf Collection of: {iOf Restaurants}>"
+	"Answer the Restaurants"
+	
+	^Restaurants
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant class >> restaurants: aCollection [
+
+	"<aCollection: hOf Collection of: {iOf Restaurant}, ^self>"
+	"Set the restaurants of the receiver"
+	
+	Restaurants := aCollection
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> addOrder: anOrder [
+	self orders add: anOrder
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> addReview: aReview [
+	self review add:  aReview
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> adress [
+	^adress
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> adress: aString [
+	adress := aString
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> category [
+	^category
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> category: aRestaurantType [
+	category := aRestaurantType
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> deleteReview: aReview [
+	self review remove: aReview
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> location [
+	^location
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> location: aLocation [
+	location := aLocation
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> menu [
+	^menu
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> menu: aString [
+	menu := aString
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> name [
 	^name
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'accessing' }
 MPORestaurant >> name: aString [
-
 	name := aString
 ]
 
-{ #category : 'Not categorized' }
-MPORestaurant >> shortDescription [
-
-	^shortDescription
+{ #category : 'accessing' }
+MPORestaurant >> orders [
+	^orders
 ]
 
-{ #category : 'Not categorized' }
-MPORestaurant >> shortDescription: aString [
+{ #category : 'accessing' }
+MPORestaurant >> orders: anOrderCollection [
+	orders := anOrderCollection
+]
 
-	shortDescription := aString
+{ #category : 'accessing' }
+MPORestaurant >> review [
+	^review
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> review: aReviewCollection [
+	review := aReviewCollection
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> services [
+	^services
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> services: aFoodCollection [
+	services := aFoodCollection
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> sumofOrderPrice [
+	|sum|
+	sum := 0.
+	self orders do: [ :orderelm | 
+		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
+	].
+	^sum
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> week [
+	^week
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> week: anObject [
+	week := anObject
 ]

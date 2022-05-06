@@ -165,7 +165,7 @@ MPOMe5RegistrationView >> registerClicked [
 	(theHasErrorBoolean not and: [self passwordTextField value ~= self repeatPasswordTextField value])
 		ifTrue: [
 			theHasErrorBoolean := true.
-			self repeatPasswordTextField dangerText: 'Passwort stimmt nicht ÃƒÂ¼berein'].
+			self repeatPasswordTextField dangerText: 'Passwort stimmt nicht ÃƒÆ’Ã‚Â¼berein'].
 	theHasErrorBoolean
 		ifFalse: [ | thePerson |
 			"thePerson := MPOMe5Person new
