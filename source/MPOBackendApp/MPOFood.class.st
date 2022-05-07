@@ -1,5 +1,5 @@
 Class {
-	#name : 'Food',
+	#name : 'MPOFood',
 	#superclass : 'Object',
 	#instVars : [
 		'name',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : 'Accessing' }
-Food >> content [
+MPOFood >> content [
 
 	"<^hOf Collection of: {iOf String}>"
 	"Answer the content of the receiver"
@@ -20,7 +20,7 @@ Food >> content [
 ]
 
 { #category : 'Accessing' }
-Food >> content: aCollection [
+MPOFood >> content: aCollection [
 
 	"<aCollection: hOf Collection of: {iOf String}, ^self>"
 	"Set the content of the receiver"
@@ -29,7 +29,7 @@ Food >> content: aCollection [
 ]
 
 { #category : 'Accessing' }
-Food >> name [
+MPOFood >> name [
 
 	"<^iOf String>"
 	"Answer the name of the receiver"
@@ -38,7 +38,7 @@ Food >> name [
 ]
 
 { #category : 'Accessing' }
-Food >> name: aString [
+MPOFood >> name: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the name of the receiver"
@@ -47,7 +47,7 @@ Food >> name: aString [
 ]
 
 { #category : 'Accessing' }
-Food >> price [
+MPOFood >> price [
 
 	"<^iOf String>"
 	"Answer the price of the receiver"
@@ -56,7 +56,7 @@ Food >> price [
 ]
 
 { #category : 'Accessing' }
-Food >> price: aString [
+MPOFood >> price: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the price of the receiver"
@@ -65,7 +65,7 @@ Food >> price: aString [
 ]
 
 { #category : 'Accessing' }
-Food >> vegetarian [
+MPOFood >> vegetarian [
 
 	"<^(true | false)>"
 	"Answer the vegetarian of the receiver"
@@ -74,7 +74,7 @@ Food >> vegetarian [
 ]
 
 { #category : 'Accessing' }
-Food >> vegetarian: aBoolean [
+MPOFood >> vegetarian: aBoolean [
 
 	"<aBoolean: (true | false), ^self>"
 	"Set the vegetarian of the receiver"

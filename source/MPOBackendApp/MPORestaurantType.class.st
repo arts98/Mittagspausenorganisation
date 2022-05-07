@@ -1,5 +1,5 @@
 Class {
-	#name : 'RestaurantType',
+	#name : 'MPORestaurantType',
 	#superclass : 'Object',
 	#instVars : [
 		'doener',
@@ -16,7 +16,7 @@ Class {
 }
 
 { #category : 'Not categorized' }
-RestaurantType class >> new [
+MPORestaurantType class >> new [
 	
 	^super new
 		doener: false;
@@ -33,163 +33,163 @@ RestaurantType class >> new [
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> asiatisch [
+MPORestaurantType >> asiatisch [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the asiatisch of the receiver"
 
 	^asiatisch
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> asiatisch: aString [
+MPORestaurantType >> asiatisch: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the asiatisch of the receiver"
 
-	asiatisch := aString
+	asiatisch := aBoolean
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> baecker [
+MPORestaurantType >> baecker [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the baecker of the receiver"
 
 	^baecker
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> baecker: aString [
+MPORestaurantType >> baecker: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the baecker of the receiver"
 
-	baecker := aString
+	baecker := aBoolean
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> burgerking [
+MPORestaurantType >> burgerking [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the burgerking of the receiver"
 
 	^burgerking
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> burgerking: aString [
+MPORestaurantType >> burgerking: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the burgerking of the receiver"
 
-	burgerking := aString
+	burgerking := aBoolean
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> doener [
+MPORestaurantType >> doener [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the doener of the receiver"
 
 	^doener
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> doener: aString [
+MPORestaurantType >> doener: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the doener of the receiver"
 
-	doener := aString
+	doener := aBoolean
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> mcdonalds [
+MPORestaurantType >> mcdonalds [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the mcdonalds of the receiver"
 
 	^mcdonalds
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> mcdonalds: aString [
+MPORestaurantType >> mcdonalds: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the mcdonalds of the receiver"
 
-	mcdonalds := aString
+	mcdonalds := aBoolean
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> metzger [
+MPORestaurantType >> metzger [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the metzger of the receiver"
 
 	^metzger
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> metzger: aString [
+MPORestaurantType >> metzger: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the metzger of the receiver"
 
-	metzger := aString
+	metzger := aBoolean
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> pizzeria [
+MPORestaurantType >> pizzeria [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the pizzeria of the receiver"
 
 	^pizzeria
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> pizzeria: aString [
+MPORestaurantType >> pizzeria: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the pizzeria of the receiver"
 
-	pizzeria := aString
+	pizzeria := aBoolean
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> subway [
+MPORestaurantType >> subway [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the subway of the receiver"
 
 	^subway
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> subway: aString [
+MPORestaurantType >> subway: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the subway of the receiver"
 
-	subway := aString
+	subway := aBoolean
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> supermarkt [
+MPORestaurantType >> supermarkt [
 
-	"<^iOf String>"
+	"<^(true | false)>"
 	"Answer the supermarkt of the receiver"
 
 	^supermarkt
 ]
 
 { #category : 'Accessing' }
-RestaurantType >> supermarkt: aString [
+MPORestaurantType >> supermarkt: aBoolean [
 
-	"<aString: iOf String, ^self>"
+	"<aBoolean: (true | false), ^self>"
 	"Set the supermarkt of the receiver"
 
-	supermarkt := aString
+	supermarkt := aBoolean
 ]

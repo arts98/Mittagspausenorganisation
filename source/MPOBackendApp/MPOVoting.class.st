@@ -1,5 +1,5 @@
 Class {
-	#name : 'Voting',
+	#name : 'MPOVoting',
 	#superclass : 'Object',
 	#instVars : [
 		'voting',
@@ -9,12 +9,12 @@ Class {
 }
 
 { #category : 'accessing' }
-Voting >> addVote: aVote [
+MPOVoting >> addVote: aVote [
 	self voting add: aVote
 ]
 
 { #category : 'accessing' }
-Voting >> getFavorit [
+MPOVoting >> getFavorit [
 	|highest countvote top|
 	highest := 0.	
 	
@@ -33,21 +33,21 @@ Voting >> getFavorit [
 ]
 
 { #category : 'accessing' }
-Voting >> restaurantsToVote [
+MPOVoting >> restaurantsToVote [
 	^restaurantsToVote
 ]
 
 { #category : 'accessing' }
-Voting >> restaurantsToVote: anObject [
+MPOVoting >> restaurantsToVote: anObject [
 	restaurantsToVote := anObject
 ]
 
 { #category : 'accessing' }
-Voting >> voting [
+MPOVoting >> voting [
 	^voting
 ]
 
 { #category : 'accessing' }
-Voting >> voting: anObject [
+MPOVoting >> voting: anObject [
 	voting := anObject
 ]

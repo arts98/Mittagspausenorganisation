@@ -1,5 +1,5 @@
 Class {
-	#name : 'Lunchbreak',
+	#name : 'MPOLunchbreak',
 	#superclass : 'Object',
 	#instVars : [
 		'restaurant',
@@ -9,13 +9,13 @@ Class {
 }
 
 { #category : 'logic' }
-Lunchbreak >> addRestaurant: aRestaurant [
+MPOLunchbreak >> addRestaurant: aRestaurant [
 
 	self restaurant add: aRestaurant
 ]
 
 { #category : 'Accessing' }
-Lunchbreak >> restaurant [
+MPOLunchbreak >> restaurant [
 
 	"<^hOf Collection of: {iOf Restaurant}>"
 	"Answer the restaurant of the receiver"
@@ -24,7 +24,7 @@ Lunchbreak >> restaurant [
 ]
 
 { #category : 'Accessing' }
-Lunchbreak >> restaurant: aCollection [
+MPOLunchbreak >> restaurant: aCollection [
 
 	"<aCollection: hOf Collection of: {iOf Restaurant}, ^self>"
 	"Set the restaurant of the receiver"
@@ -33,7 +33,7 @@ Lunchbreak >> restaurant: aCollection [
 ]
 
 { #category : 'Accessing' }
-Lunchbreak >> voting [
+MPOLunchbreak >> voting [
 
 	"<^iOf Voting>"
 	"Answer the voting of the receiver"
@@ -42,7 +42,7 @@ Lunchbreak >> voting [
 ]
 
 { #category : 'Accessing' }
-Lunchbreak >> voting: aVoting [
+MPOLunchbreak >> voting: aVoting [
 
 	"<aVoting: iOf Voting, ^self>"
 	"Set the voting of the receiver"

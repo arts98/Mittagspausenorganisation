@@ -1,5 +1,5 @@
 Class {
-	#name : 'Person',
+	#name : 'MPOPerson',
 	#superclass : 'Object',
 	#instVars : [
 		'firstname',
@@ -15,12 +15,12 @@ Class {
 }
 
 { #category : 'logic' }
-Person class >> createPersonFirstname: aFirstname lastname: aLastname username: aUsername email: anEmail password: aPassword [
+MPOPerson class >> createPersonFirstname: aFirstname lastname: aLastname username: aUsername email: anEmail password: aPassword [
 
 	self persons isNil
 		ifTrue: [self persons: OrderedCollection new].
 		
-	self persons add: (Person new
+	self persons add: (MPOPerson new
 		firstname: aFirstname;
 		lastname: aLastname;
 		username: aUsername;
@@ -31,7 +31,7 @@ Person class >> createPersonFirstname: aFirstname lastname: aLastname username: 
 ]
 
 { #category : 'logic' }
-Person class >> createPersonsCollection [
+MPOPerson class >> createPersonsCollection [
 
 	self persons isEmptyOrNil
 		ifTrue: [
@@ -45,7 +45,7 @@ Person class >> createPersonsCollection [
 ]
 
 { #category : 'Accessing' }
-Person class >> persons [
+MPOPerson class >> persons [
 
 	"<^hOf Collection of: {iOf Person}>"
 	"Answer the Persons of the receiver"
@@ -54,7 +54,7 @@ Person class >> persons [
 ]
 
 { #category : 'Accessing' }
-Person class >> persons: aCollection [
+MPOPerson class >> persons: aCollection [
 
 	"<aCollection: hOf Collection of: {iOf Person}, ^self>"
 	"Set the Persons of the receiver"
@@ -63,7 +63,7 @@ Person class >> persons: aCollection [
 ]
 
 { #category : 'Accessing' }
-Person >> email [
+MPOPerson >> email [
 
 	"<^iOf String>"
 	"Answer the email of the receiver"
@@ -72,7 +72,7 @@ Person >> email [
 ]
 
 { #category : 'Accessing' }
-Person >> email: aString [
+MPOPerson >> email: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the email of the receiver"
@@ -81,7 +81,7 @@ Person >> email: aString [
 ]
 
 { #category : 'Accessing' }
-Person >> firstname [
+MPOPerson >> firstname [
 
 	"<^iOf String>"
 	"Answer the firstname of the receiver"
@@ -90,7 +90,7 @@ Person >> firstname [
 ]
 
 { #category : 'Accessing' }
-Person >> firstname: aString [
+MPOPerson >> firstname: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the firstname of the receiver"
@@ -99,7 +99,7 @@ Person >> firstname: aString [
 ]
 
 { #category : 'Accessing' }
-Person >> lastname [
+MPOPerson >> lastname [
 
 	"<^iOf String>"
 	"Answer the lastname of the receiver"
@@ -108,7 +108,7 @@ Person >> lastname [
 ]
 
 { #category : 'Accessing' }
-Person >> lastname: aString [
+MPOPerson >> lastname: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the lastname of the receiver"
@@ -117,7 +117,7 @@ Person >> lastname: aString [
 ]
 
 { #category : 'Accessing' }
-Person >> password [
+MPOPerson >> password [
 
 	"<^iOf String>"
 	"Answer the password of the receiver"
@@ -126,7 +126,7 @@ Person >> password [
 ]
 
 { #category : 'Accessing' }
-Person >> password: aString [
+MPOPerson >> password: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the password of the receiver"
@@ -135,7 +135,7 @@ Person >> password: aString [
 ]
 
 { #category : 'Accessing' }
-Person >> username [
+MPOPerson >> username [
 
 	"<^iOf String>"
 	"Answer the username of the receiver"
@@ -144,7 +144,7 @@ Person >> username [
 ]
 
 { #category : 'Accessing' }
-Person >> username: aString [
+MPOPerson >> username: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the username of the receiver"

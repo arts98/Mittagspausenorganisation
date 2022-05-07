@@ -1,5 +1,5 @@
 Class {
-	#name : 'Restaurant',
+	#name : 'MPORestaurant',
 	#superclass : 'Object',
 	#instVars : [
 		'name',
@@ -19,11 +19,11 @@ Class {
 }
 
 { #category : 'Not categorized' }
-Restaurant class >> createRestaurants [
+MPORestaurant class >> createRestaurants [
 
 	self restaurants isEmptyOrNil
 		ifTrue: [ | theOpeningTime |
-			theOpeningTime := OpeningTime new.
+			theOpeningTime := MPOOpeningTime new.
 			theOpeningTime week 
 				at: 'Montag' put: '10:30 am - 11:00 pm';
 				at: 'Dienstag' put: '10:30 am - 11:00 pm';
@@ -35,20 +35,20 @@ Restaurant class >> createRestaurants [
 				yourself.
 			
 			self restaurants: (OrderedCollection new
-				add: (Restaurant new
+				add: (MPORestaurant new
 					name: 'Mr Doener';
-					adress: 'EschholzstraÃƒÅ¸e 76';
+					adress: 'Eschholzstrasse 76';
 					location: 'Freiburg';
-					category: (RestaurantType new
+					category: (MPORestaurantType new
 						doener: true;
 						yourself);
 					services: (OrderedCollection new
-						add: (Food new
+						add: (MPOFood new
 							name: 'doener';
 							vegetarian: false;
 							price: 5.5;
 							yourself);
-						add: (Food new
+						add: (MPOFood new
 							name: 'Pizza Vegetaria';
 							vegetarian: true;
 							price: 7.5;
@@ -58,7 +58,7 @@ Restaurant class >> createRestaurants [
 				yourself);
 			yourself).
 				
-			theOpeningTime := OpeningTime new.
+			theOpeningTime := MPOOpeningTime new.
 			theOpeningTime week
 				at: 'Montag' put: '12:00 - 14:00';
 				at: 'Dienstag' put: '12:00 - 14:00';
@@ -69,18 +69,18 @@ Restaurant class >> createRestaurants [
 				at: 'Sonntag' put: '17:30 - 23:00';
 				yourself.
 				
-			self restaurants add: (Restaurant new
+			self restaurants add: (MPORestaurant new
 				name: 'Hier und Jetzt';
-				adress: 'ZÃƒÂ¤hringer Str. 44';
+				adress: 'Zaehringer Str. 44';
 				location: 'Freiburg';
-				category: RestaurantType new;
+				category: MPORestaurantType new;
 				services: (OrderedCollection new	
-					add: (Food new
+					add: (MPOFood new
 						name: 'Mittagstisch 1';
 						vegetarian: false;
 						price: 10.20;
 						yourself);
-					add: (Food new
+					add: (MPOFood new
 						name: 'Mittagstisch 2';
 						vegetarian: true;
 						price: 9.20;
@@ -93,7 +93,7 @@ Restaurant class >> createRestaurants [
 ]
 
 { #category : 'Not categorized' }
-Restaurant class >> restaurants [
+MPORestaurant class >> restaurants [
 
 	"<^hOf Collection of: {iOf Restaurants}>"
 	"Answer the Restaurants"
@@ -102,7 +102,7 @@ Restaurant class >> restaurants [
 ]
 
 { #category : 'Not categorized' }
-Restaurant class >> restaurants: aCollection [
+MPORestaurant class >> restaurants: aCollection [
 
 	"<aCollection: hOf Collection of: {iOf Restaurant}, ^self>"
 	"Set the restaurants of the receiver"
@@ -111,22 +111,22 @@ Restaurant class >> restaurants: aCollection [
 ]
 
 { #category : 'accessing' }
-Restaurant >> addOrder: anOrder [
+MPORestaurant >> addOrder: anOrder [
 	self orders add: anOrder
 ]
 
 { #category : 'accessing' }
-Restaurant >> addReview: aReview [
+MPORestaurant >> addReview: aReview [
 	self review add:  aReview
 ]
 
 { #category : 'accessing' }
-Restaurant >> adress [
+MPORestaurant >> adress [
 	^adress
 ]
 
 { #category : 'accessing' }
-Restaurant >> adress: aString [
+MPORestaurant >> adress: aString [
 	adress := aString
 ]
 
@@ -139,12 +139,12 @@ Restaurant >> averageRating [
 ]
 
 { #category : 'accessing' }
-Restaurant >> category [
+MPORestaurant >> category [
 	^category
 ]
 
 { #category : 'accessing' }
-Restaurant >> category: aRestaurantType [
+MPORestaurant >> category: aRestaurantType [
 	category := aRestaurantType
 ]
 
@@ -163,31 +163,32 @@ Restaurant >> deleteOrder: anOrder [
 ]
 
 { #category : 'accessing' }
-Restaurant >> deleteReview: aReview [
+MPORestaurant >> deleteReview: aReview [
 	self review remove: aReview
 ]
 
 { #category : 'accessing' }
-Restaurant >> location [
+MPORestaurant >> location [
 	^location
 ]
 
 { #category : 'accessing' }
-Restaurant >> location: aLocation [
+MPORestaurant >> location: aLocation [
 	location := aLocation
 ]
 
 { #category : 'accessing' }
-Restaurant >> menu [
+MPORestaurant >> menu [
 	^menu
 ]
 
 { #category : 'accessing' }
-Restaurant >> menu: aString [
+MPORestaurant >> menu: aString [
 	menu := aString
 ]
 
 { #category : 'accessing' }
+<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
 Restaurant >> modifyOrder: aOrder food: aFood person: aPerson [
 	self orders do: [:each | (each = aOrder) ifTrue: [each person: aPerson. each food: aFood]].
 	
@@ -198,45 +199,54 @@ Restaurant >> modifyOrder: aOrder food: aFood person: aPerson [
 
 { #category : 'accessing' }
 Restaurant >> name [
+=======
+MPORestaurant >> name [
+>>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 	^name
 ]
 
 { #category : 'accessing' }
-Restaurant >> name: aString [
+MPORestaurant >> name: aString [
 	name := aString
 ]
 
 { #category : 'accessing' }
-Restaurant >> orders [
+MPORestaurant >> orders [
 	^orders
 ]
 
 { #category : 'accessing' }
-Restaurant >> orders: anOrderCollection [
+MPORestaurant >> orders: anOrderCollection [
 	orders := anOrderCollection
 ]
 
 { #category : 'accessing' }
-Restaurant >> review [
+MPORestaurant >> review [
 	^review
 ]
 
 { #category : 'accessing' }
+<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
 Restaurant >> review: aReview [
 	review := aReview
+=======
+MPORestaurant >> review: aReviewCollection [
+	review := aReviewCollection
+>>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 ]
 
 { #category : 'accessing' }
-Restaurant >> services [
+MPORestaurant >> services [
 	^services
 ]
 
 { #category : 'accessing' }
-Restaurant >> services: aFoodCollection [
+MPORestaurant >> services: aFoodCollection [
 	services := aFoodCollection
 ]
 
 { #category : 'accessing' }
+<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
 Restaurant >> sumOfOrderPerson: aPerson [
 	|sum|
 	sum := 0.
@@ -249,6 +259,9 @@ Restaurant >> sumOfOrderPerson: aPerson [
 
 { #category : 'accessing' }
 Restaurant >> sumofOrderPrice [
+=======
+MPORestaurant >> sumofOrderPrice [
+>>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 	|sum|
 	sum := 0.
 	self orders do: [ :orderelm | 
@@ -258,11 +271,11 @@ Restaurant >> sumofOrderPrice [
 ]
 
 { #category : 'accessing' }
-Restaurant >> week [
+MPORestaurant >> week [
 	^week
 ]
 
 { #category : 'accessing' }
-Restaurant >> week: anObject [
+MPORestaurant >> week: anObject [
 	week := anObject
 ]

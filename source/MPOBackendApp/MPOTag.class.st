@@ -1,5 +1,5 @@
 Class {
-	#name : 'Tag',
+	#name : 'MPOTag',
 	#superclass : 'Object',
 	#instVars : [
 		'guterPreis',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : 'Accessing' }
-Tag >> gutePizza [
+MPOTag >> gutePizza [
 
 	"<^iOf String>"
 	"Answer the gutePizza of the receiver"
@@ -22,7 +22,7 @@ Tag >> gutePizza [
 ]
 
 { #category : 'Accessing' }
-Tag >> gutePizza: aString [
+MPOTag >> gutePizza: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the gutePizza of the receiver"
@@ -31,7 +31,7 @@ Tag >> gutePizza: aString [
 ]
 
 { #category : 'Accessing' }
-Tag >> guterPreis [
+MPOTag >> guterPreis [
 
 	"<^iOf String>"
 	"Answer the guterPreis of the receiver"
@@ -40,7 +40,7 @@ Tag >> guterPreis [
 ]
 
 { #category : 'Accessing' }
-Tag >> guterPreis: aString [
+MPOTag >> guterPreis: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the guterPreis of the receiver"
@@ -49,7 +49,7 @@ Tag >> guterPreis: aString [
 ]
 
 { #category : 'Accessing' }
-Tag >> guterService [
+MPOTag >> guterService [
 
 	"<^iOf String>"
 	"Answer the guterService of the receiver"
@@ -58,7 +58,7 @@ Tag >> guterService [
 ]
 
 { #category : 'Accessing' }
-Tag >> guterService: aString [
+MPOTag >> guterService: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the guterService of the receiver"
@@ -67,7 +67,7 @@ Tag >> guterService: aString [
 ]
 
 { #category : 'Accessing' }
-Tag >> nettesPersonal [
+MPOTag >> nettesPersonal [
 
 	"<^iOf String>"
 	"Answer the nettesPersonal of the receiver"
@@ -76,7 +76,7 @@ Tag >> nettesPersonal [
 ]
 
 { #category : 'Accessing' }
-Tag >> nettesPersonal: aString [
+MPOTag >> nettesPersonal: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the nettesPersonal of the receiver"
@@ -85,7 +85,7 @@ Tag >> nettesPersonal: aString [
 ]
 
 { #category : 'Accessing' }
-Tag >> schoeneUmgebung [
+MPOTag >> schoeneUmgebung [
 
 	"<^iOf String>"
 	"Answer the schoeneUmgebung of the receiver"
@@ -94,7 +94,7 @@ Tag >> schoeneUmgebung [
 ]
 
 { #category : 'Accessing' }
-Tag >> schoeneUmgebung: aString [
+MPOTag >> schoeneUmgebung: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the schoeneUmgebung of the receiver"
@@ -103,7 +103,7 @@ Tag >> schoeneUmgebung: aString [
 ]
 
 { #category : 'Accessing' }
-Tag >> vegetarisch [
+MPOTag >> vegetarisch [
 
 	"<^iOf String>"
 	"Answer the vegetarisch of the receiver"
@@ -112,7 +112,7 @@ Tag >> vegetarisch [
 ]
 
 { #category : 'Accessing' }
-Tag >> vegetarisch: aString [
+MPOTag >> vegetarisch: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the vegetarisch of the receiver"

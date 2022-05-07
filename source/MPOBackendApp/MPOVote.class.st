@@ -1,5 +1,5 @@
 Class {
-	#name : 'Vote',
+	#name : 'MPOVote',
 	#superclass : 'Object',
 	#instVars : [
 		'person',
@@ -10,31 +10,31 @@ Class {
 }
 
 { #category : 'accessing' }
-Vote >> person [
+MPOVote >> person [
 	^person
 ]
 
 { #category : 'accessing' }
-Vote >> person: aPerson [
+MPOVote >> person: aPerson [
 	person := aPerson
 ]
 
 { #category : 'accessing' }
-Vote >> restaurant [
+MPOVote >> restaurant [
 	^restaurant
 ]
 
 { #category : 'accessing' }
-Vote >> restaurant: aRestaurant [
+MPOVote >> restaurant: aRestaurant [
 	restaurant := aRestaurant
 ]
 
 { #category : 'accessing' }
-Vote >> vote [
+MPOVote >> vote [
 	^vote
 ]
 
 { #category : 'accessing' }
-Vote >> vote: aBool [
+MPOVote >> vote: aBool [
 	vote := aBool
 ]

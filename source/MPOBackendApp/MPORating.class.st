@@ -1,5 +1,5 @@
 Class {
-	#name : 'Rating',
+	#name : 'MPORating',
 	#superclass : 'Object',
 	#instVars : [
 		'note',
@@ -10,13 +10,13 @@ Class {
 }
 
 { #category : 'logic' }
-Rating >> addTag: aTag [
+MPORating >> addTag: aTag [
 
 	self tags add: aTag
 ]
 
 { #category : 'Accessing' }
-Rating >> note [
+MPORating >> note [
 
 	"<^iOf String>"
 	"Answer the note of the receiver"
@@ -25,7 +25,7 @@ Rating >> note [
 ]
 
 { #category : 'Accessing' }
-Rating >> note: aString [
+MPORating >> note: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the note of the receiver"
@@ -34,7 +34,7 @@ Rating >> note: aString [
 ]
 
 { #category : 'Accessing' }
-Rating >> starRating [
+MPORating >> starRating [
 
 	"<^hOf Integer>"
 	"Answer the starRating of the receiver"
@@ -43,7 +43,7 @@ Rating >> starRating [
 ]
 
 { #category : 'Accessing' }
-Rating >> starRating: anInteger [
+MPORating >> starRating: anInteger [
 
 	"<anInteger: hOf Integer, ^self>"
 	"Set the starRating of the receiver"
@@ -52,7 +52,7 @@ Rating >> starRating: anInteger [
 ]
 
 { #category : 'Accessing' }
-Rating >> tags [
+MPORating >> tags [
 
 	"<^hOf Collection of: {iOf Tag}>"
 	"Answer the tags of the receiver"
@@ -61,7 +61,7 @@ Rating >> tags [
 ]
 
 { #category : 'Accessing' }
-Rating >> tags: aCollection [
+MPORating >> tags: aCollection [
 
 	"<aCollection: hOf Collection of: {iOf Tag}, ^self>"
 	"Set the tags of the receiver"

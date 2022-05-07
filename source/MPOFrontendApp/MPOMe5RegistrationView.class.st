@@ -3,6 +3,7 @@ Class {
 	#superclass : 'Me5BaseView',
 	#instVars : [
 		'registerForm',
+		'usernameTextField',
 		'firstnameTextField',
 		'lastnameTextField',
 		'emailTextField',
@@ -28,6 +29,11 @@ MPOMe5RegistrationView >> createComponents [
 			addChild: (Me5Portlet new
 				title: 'Registrierung';
 				addChildToBody: (registerForm := Me5Form new
+					addChildToBody: (usernameTextField := Me5TextField new
+						leftOuterIcon: Me5I newFasAddressCard;
+						text: 'Username';
+						focus;
+						yourself);
 					addChildToBody: (firstnameTextField := Me5TextField new
 						leftOuterIcon: Me5I newFasAddressCard;
 						text: 'Vorname';
@@ -165,10 +171,13 @@ MPOMe5RegistrationView >> registerClicked [
 	(theHasErrorBoolean not and: [self passwordTextField value ~= self repeatPasswordTextField value])
 		ifTrue: [
 			theHasErrorBoolean := true.
-			self repeatPasswordTextField dangerText: 'Passwort stimmt nicht ÃƒÂ¼berein'].
+			self repeatPasswordTextField dangerText: 'Passwort stimmt nicht ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼berein'].
 	theHasErrorBoolean
 		ifFalse: [ | thePerson |
 			"thePerson := MPOMe5Person new
+				username: self usernameTextField value
+				firstname: self firstnameTextField value
+				lastname: self lastnameTextField value
 				email: self emailTextField value;
 				password: (MPOMe5Person hashPassword: self passwordTextField value);
 				yourself.
@@ -211,4 +220,22 @@ MPOMe5RegistrationView >> repeatPasswordTextField: anObject [
 	"Set the repeatPasswordTextField of the receiver"
 
 	repeatPasswordTextField := anObject
+]
+
+{ #category : 'Accessing' }
+MPOMe5RegistrationView >> usernameTextField [
+
+	"<^iOf Object>"
+	"Answer the usernameTextField of the receiver"
+
+	^usernameTextField
+]
+
+{ #category : 'Accessing' }
+MPOMe5RegistrationView >> usernameTextField: anObject [
+
+	"<anObject: iOf Object, ^self>"
+	"Set the usernameTextField of the receiver"
+
+	usernameTextField := anObject
 ]

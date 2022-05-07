@@ -1,5 +1,5 @@
 Class {
-	#name : 'Location',
+	#name : 'MPOLocation',
 	#superclass : 'Object',
 	#instVars : [
 		'freiburg',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : 'Not categorized' }
-Location class >> getLocations [
+MPOLocation class >> getLocations [
 	
 	^OrderedCollection new
 		add: 'Freiburg';
@@ -20,7 +20,7 @@ Location class >> getLocations [
 ]
 
 { #category : 'Accessing' }
-Location >> berlin [
+MPOLocation >> berlin [
 
 	"<^iOf String>"
 	"Answer the berlin of the receiver"
@@ -29,7 +29,7 @@ Location >> berlin [
 ]
 
 { #category : 'Accessing' }
-Location >> berlin: aString [
+MPOLocation >> berlin: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the berlin of the receiver"
@@ -38,7 +38,7 @@ Location >> berlin: aString [
 ]
 
 { #category : 'Accessing' }
-Location >> frankfurt [
+MPOLocation >> frankfurt [
 
 	"<^iOf String>"
 	"Answer the frankfurt of the receiver"
@@ -47,7 +47,7 @@ Location >> frankfurt [
 ]
 
 { #category : 'Accessing' }
-Location >> frankfurt: aString [
+MPOLocation >> frankfurt: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the frankfurt of the receiver"
@@ -56,7 +56,7 @@ Location >> frankfurt: aString [
 ]
 
 { #category : 'Accessing' }
-Location >> freiburg [
+MPOLocation >> freiburg [
 
 	"<^iOf String>"
 	"Answer the freiburg of the receiver"
@@ -65,7 +65,7 @@ Location >> freiburg [
 ]
 
 { #category : 'Accessing' }
-Location >> freiburg: aString [
+MPOLocation >> freiburg: aString [
 
 	"<aString: iOf String, ^self>"
 	"Set the freiburg of the receiver"

@@ -1,5 +1,5 @@
 Class {
-	#name : 'Order',
+	#name : 'MPOOrder',
 	#superclass : 'Object',
 	#instVars : [
 		'person',
@@ -9,13 +9,13 @@ Class {
 }
 
 { #category : 'logic' }
-Order >> addFood: aFood [
+MPOOrder >> addFood: aFood [
 
 	self food add: aFood
 ]
 
 { #category : 'Accessing' }
-Order >> food [
+MPOOrder >> food [
 
 	"<^hOf Collection of: {iOf Food}>"
 	"Answer the food of the receiver"
@@ -24,7 +24,7 @@ Order >> food [
 ]
 
 { #category : 'Accessing' }
-Order >> food: aCollection [
+MPOOrder >> food: aCollection [
 
 	"<aCollection: hOf Collection of: {iOf Food}, ^self>"
 	"Set the food of the receiver"
@@ -33,7 +33,7 @@ Order >> food: aCollection [
 ]
 
 { #category : 'Accessing' }
-Order >> person [
+MPOOrder >> person [
 
 	"<^iOf Person>"
 	"Answer the person of the receiver"
@@ -42,7 +42,7 @@ Order >> person [
 ]
 
 { #category : 'Accessing' }
-Order >> person: aPerson [
+MPOOrder >> person: aPerson [
 
 	"<aPerson: iOf Person, ^self>"
 	"Set the person of the receiver"

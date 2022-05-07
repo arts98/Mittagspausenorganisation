@@ -1,5 +1,5 @@
 Class {
-	#name : 'OpeningTime',
+	#name : 'MPOOpeningTime',
 	#superclass : 'Object',
 	#instVars : [
 		'week'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : 'Not categorized' }
-OpeningTime class >> new [
+MPOOpeningTime class >> new [
 	
 	^super new
 		week: Dictionary new
@@ -16,13 +16,13 @@ OpeningTime class >> new [
 ]
 
 { #category : 'logic' }
-OpeningTime >> addOpeningTime: aOpeningTime atDay: aDay [
+MPOOpeningTime >> addOpeningTime: aOpeningTime atDay: aDay [
 
 	self week at: aDay put: aOpeningTime
 ]
 
 { #category : 'Accessing' }
-OpeningTime >> week [
+MPOOpeningTime >> week [
 
 	"<^hOf Dictionary: {key: iOf String, value: iOf String}>"
 	"Answer the week of the receiver"
@@ -31,7 +31,7 @@ OpeningTime >> week [
 ]
 
 { #category : 'Accessing' }
-OpeningTime >> week: aDictionary [
+MPOOpeningTime >> week: aDictionary [
 
 	"<aDictionary: hOf Dictionary: {key: iOf String, value: iOf String}, ^self>"
 	"Set the week of the receiver"
