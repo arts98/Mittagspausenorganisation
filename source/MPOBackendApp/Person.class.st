@@ -17,6 +17,9 @@ Class {
 { #category : 'logic' }
 Person class >> createPersonFirstname: aFirstname lastname: aLastname username: aUsername email: anEmail password: aPassword [
 
+	self persons isNil
+		ifTrue: [self persons: OrderedCollection new].
+		
 	self persons add: (Person new
 		firstname: aFirstname;
 		lastname: aLastname;
@@ -25,6 +28,20 @@ Person class >> createPersonFirstname: aFirstname lastname: aLastname username: 
 		password: aPassword
 		yourself
 	)
+]
+
+{ #category : 'logic' }
+Person class >> createPersonsCollection [
+
+	self persons isEmptyOrNil
+		ifTrue: [
+			self 
+				createPersonFirstname: 'Katrin' lastname: 'Arts' username: 'kat' email: 'katrin.arts@hs-furtwangen.de' password: '123';
+				createPersonFirstname: 'Max' lastname: 'Brombach' username: 'max' email: 'max.brombach@hs-furtwangen.de' password: '123';
+				createPersonFirstname: 'Leonard' lastname: 'Lemke' username: 'leo' email: 'leonard.lemke@hs-furtwangen.de' password: '123';
+				createPersonFirstname: 'Silas' lastname: 'Schulz' username: 'sil' email: 'silas.schulz@hs-furtwangen.de' password: '123';
+				createPersonFirstname: 'Siyar' lastname: 'Kartal' username: 'siy' email: 'siyar.kartal@hs-furtwangen.de' password: '123';
+				yourself]
 ]
 
 { #category : 'Accessing' }

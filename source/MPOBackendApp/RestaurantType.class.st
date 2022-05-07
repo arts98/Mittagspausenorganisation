@@ -15,6 +15,23 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
+{ #category : 'Not categorized' }
+RestaurantType class >> new [
+	
+	^super new
+		doener: false;
+		pizzeria: false;
+		asiatisch: false;
+		metzger: false;
+		baecker: false;
+		mcdonalds: false;
+		burgerking: false;
+		subway: false;
+		supermarkt: false;
+		yourself
+		
+]
+
 { #category : 'Accessing' }
 RestaurantType >> asiatisch [
 

@@ -7,6 +7,14 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
+{ #category : 'Not categorized' }
+OpeningTime class >> new [
+	
+	^super new
+		week: Dictionary new
+		yourself
+]
+
 { #category : 'logic' }
 OpeningTime >> addOpeningTime: aOpeningTime atDay: aDay [
 
