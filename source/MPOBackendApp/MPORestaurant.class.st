@@ -130,6 +130,14 @@ MPORestaurant >> adress: aString [
 	adress := aString
 ]
 
+{ #category : 'Not categorized' }
+Restaurant >> averageRating [
+	|avg|
+	avg := 0.
+	self review do: [:rev | avg := (avg + rev starRating)].
+	^(avg / (self review size))
+]
+
 { #category : 'accessing' }
 MPORestaurant >> category [
 	^category
@@ -138,6 +146,20 @@ MPORestaurant >> category [
 { #category : 'accessing' }
 MPORestaurant >> category: aRestaurantType [
 	category := aRestaurantType
+]
+
+{ #category : 'Not categorized' }
+Restaurant >> delete [
+
+	"<^self>"
+	"Answer the receiver"
+
+	self
+]
+
+{ #category : 'Not categorized' }
+Restaurant >> deleteOrder: anOrder [
+	"deleteOrder"
 ]
 
 { #category : 'accessing' }
@@ -166,7 +188,20 @@ MPORestaurant >> menu: aString [
 ]
 
 { #category : 'accessing' }
+<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
+Restaurant >> modifyOrder: aOrder food: aFood person: aPerson [
+	self orders do: [:each | (each = aOrder) ifTrue: [each person: aPerson. each food: aFood]].
+	
+	
+	
+
+]
+
+{ #category : 'accessing' }
+Restaurant >> name [
+=======
 MPORestaurant >> name [
+>>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 	^name
 ]
 
@@ -191,8 +226,13 @@ MPORestaurant >> review [
 ]
 
 { #category : 'accessing' }
+<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
+Restaurant >> review: aReview [
+	review := aReview
+=======
 MPORestaurant >> review: aReviewCollection [
 	review := aReviewCollection
+>>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 ]
 
 { #category : 'accessing' }
@@ -206,7 +246,22 @@ MPORestaurant >> services: aFoodCollection [
 ]
 
 { #category : 'accessing' }
+<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
+Restaurant >> sumOfOrderPerson: aPerson [
+	|sum|
+	sum := 0.
+	self orders do: [ :orderelm  | (orderelm person = aPerson) ifTrue: [
+		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
+	]		
+	].
+	^sum
+]
+
+{ #category : 'accessing' }
+Restaurant >> sumofOrderPrice [
+=======
 MPORestaurant >> sumofOrderPrice [
+>>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 	|sum|
 	sum := 0.
 	self orders do: [ :orderelm | 
