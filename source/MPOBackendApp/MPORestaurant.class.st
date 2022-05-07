@@ -188,20 +188,13 @@ MPORestaurant >> menu: aString [
 ]
 
 { #category : 'accessing' }
-<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
 Restaurant >> modifyOrder: aOrder food: aFood person: aPerson [
 	self orders do: [:each | (each = aOrder) ifTrue: [each person: aPerson. each food: aFood]].
-	
-	
-	
-
 ]
 
 { #category : 'accessing' }
-Restaurant >> name [
-=======
+
 MPORestaurant >> name [
->>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 	^name
 ]
 
@@ -226,13 +219,8 @@ MPORestaurant >> review [
 ]
 
 { #category : 'accessing' }
-<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
-Restaurant >> review: aReview [
-	review := aReview
-=======
 MPORestaurant >> review: aReviewCollection [
 	review := aReviewCollection
->>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 ]
 
 { #category : 'accessing' }
@@ -246,7 +234,6 @@ MPORestaurant >> services: aFoodCollection [
 ]
 
 { #category : 'accessing' }
-<<<<<<< HEAD:source/MPOBackendApp/Restaurant.class.st
 Restaurant >> sumOfOrderPerson: aPerson [
 	|sum|
 	sum := 0.
@@ -258,10 +245,7 @@ Restaurant >> sumOfOrderPerson: aPerson [
 ]
 
 { #category : 'accessing' }
-Restaurant >> sumofOrderPrice [
-=======
 MPORestaurant >> sumofOrderPrice [
->>>>>>> main:source/MPOBackendApp/MPORestaurant.class.st
 	|sum|
 	sum := 0.
 	self orders do: [ :orderelm | 
