@@ -35,6 +35,14 @@ Restaurant >> adress: aString [
 	adress := aString
 ]
 
+{ #category : 'Not categorized' }
+Restaurant >> averageRating [
+	|avg|
+	avg := 0.
+	self review do: [:rev | avg := (avg + rev starRating)].
+	^(avg / (self review size))
+]
+
 { #category : 'accessing' }
 Restaurant >> category [
 	^category
@@ -43,6 +51,20 @@ Restaurant >> category [
 { #category : 'accessing' }
 Restaurant >> category: aRestaurantType [
 	category := aRestaurantType
+]
+
+{ #category : 'Not categorized' }
+Restaurant >> delete [
+
+	"<^self>"
+	"Answer the receiver"
+
+	self
+]
+
+{ #category : 'Not categorized' }
+Restaurant >> deleteOrder: anOrder [
+	"deleteOrder"
 ]
 
 { #category : 'accessing' }
@@ -71,6 +93,15 @@ Restaurant >> menu: aString [
 ]
 
 { #category : 'accessing' }
+Restaurant >> modifyOrder: aOrder food: aFood person: aPerson [
+	self orders do: [:each | (each = aOrder) ifTrue: [each person: aPerson. each food: aFood]].
+	
+	
+	
+
+]
+
+{ #category : 'accessing' }
 Restaurant >> name [
 	^name
 ]
@@ -96,8 +127,8 @@ Restaurant >> review [
 ]
 
 { #category : 'accessing' }
-Restaurant >> review: aReviewCollection [
-	review := aReviewCollection
+Restaurant >> review: aReview [
+	review := aReview
 ]
 
 { #category : 'accessing' }
