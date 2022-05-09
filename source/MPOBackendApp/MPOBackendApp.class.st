@@ -8,5 +8,5 @@ Class {
 MPOBackendApp class >> startUp [
 
 	MPORestaurant createRestaurants.
-	MPOPerson createPersonsCollection
+	MPOPerson fillPersons
 ]

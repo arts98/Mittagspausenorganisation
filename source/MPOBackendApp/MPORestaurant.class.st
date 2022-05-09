@@ -131,7 +131,7 @@ MPORestaurant >> adress: aString [
 ]
 
 { #category : 'Not categorized' }
-Restaurant >> averageRating [
+MPORestaurant >> averageRating [
 	|avg|
 	avg := 0.
 	self review do: [:rev | avg := (avg + rev starRating)].
@@ -149,7 +149,7 @@ MPORestaurant >> category: aRestaurantType [
 ]
 
 { #category : 'Not categorized' }
-Restaurant >> delete [
+MPORestaurant >> delete [
 
 	"<^self>"
 	"Answer the receiver"
@@ -158,7 +158,7 @@ Restaurant >> delete [
 ]
 
 { #category : 'Not categorized' }
-Restaurant >> deleteOrder: anOrder [
+MPORestaurant >> deleteOrder: anOrder [
 	"deleteOrder"
 ]
 
@@ -188,12 +188,11 @@ MPORestaurant >> menu: aString [
 ]
 
 { #category : 'accessing' }
-Restaurant >> modifyOrder: aOrder food: aFood person: aPerson [
+MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson [
 	self orders do: [:each | (each = aOrder) ifTrue: [each person: aPerson. each food: aFood]].
 ]
 
 { #category : 'accessing' }
-
 MPORestaurant >> name [
 	^name
 ]
@@ -234,7 +233,7 @@ MPORestaurant >> services: aFoodCollection [
 ]
 
 { #category : 'accessing' }
-Restaurant >> sumOfOrderPerson: aPerson [
+MPORestaurant >> sumOfOrderPerson: aPerson [
 	|sum|
 	sum := 0.
 	self orders do: [ :orderelm  | (orderelm person = aPerson) ifTrue: [

@@ -15,51 +15,83 @@ Class {
 }
 
 { #category : 'logic' }
-MPOPerson class >> createPersonFirstname: aFirstname lastname: aLastname username: aUsername email: anEmail password: aPassword [
+MPOPerson class >> deletePersons [
 
-	self persons isNil
-		ifTrue: [self persons: OrderedCollection new].
-		
-	self persons add: (MPOPerson new
-		firstname: aFirstname;
-		lastname: aLastname;
-		username: aUsername;
-		email: anEmail;
-		password: aPassword
-		yourself
-	)
+	self persons: nil
 ]
 
 { #category : 'logic' }
-MPOPerson class >> createPersonsCollection [
+MPOPerson class >> fillPersons [
 
 	self persons isEmptyOrNil
 		ifTrue: [
-			self 
-				createPersonFirstname: 'Katrin' lastname: 'Arts' username: 'kat' email: 'katrin.arts@hs-furtwangen.de' password: '123';
-				createPersonFirstname: 'Max' lastname: 'Brombach' username: 'max' email: 'max.brombach@hs-furtwangen.de' password: '123';
-				createPersonFirstname: 'Leonard' lastname: 'Lemke' username: 'leo' email: 'leonard.lemke@hs-furtwangen.de' password: '123';
-				createPersonFirstname: 'Silas' lastname: 'Schulz' username: 'sil' email: 'silas.schulz@hs-furtwangen.de' password: '123';
-				createPersonFirstname: 'Siyar' lastname: 'Kartal' username: 'siy' email: 'siyar.kartal@hs-furtwangen.de' password: '123';
+			self
+				registerPerson: (MPOPerson new firstname: 'Katrin'; lastname: 'Arts'; username: 'kat'; email: 'katrin.arts@hs-furtwangen.de'; password: (ClwCryptoFunctions hashSha256: '123'); yourself);
+				registerPerson: (MPOPerson new firstname: 'Max'; lastname: 'Brombach'; username: 'max'; email: 'max.brombach@hs-furtwangen.de'; password: (ClwCryptoFunctions hashSha256: '123'); yourself);
+				registerPerson: (MPOPerson new firstname: 'Leonard'; lastname: 'Lemke'; username: 'leo'; email: 'leonard.lemke@hs-furtwangen.de'; password: (ClwCryptoFunctions hashSha256: '123'); yourself);
+				registerPerson: (MPOPerson new firstname: 'Silas'; lastname: 'Schulz'; username: 'sil'; email: 'silas.schulz@hs-furtwangen.de'; password: (ClwCryptoFunctions hashSha256: '123'); yourself);
+				registerPerson: (MPOPerson new firstname: 'Siyar'; lastname: 'Kartal'; username: 'siy'; email: 'siyar.kartal@hs-furtwangen.de'; password: (ClwCryptoFunctions hashSha256: '123'); yourself);
 				yourself]
+]
+
+{ #category : 'logic',
+  #vaVisibility : 'private' }
+MPOPerson class >> hashPassword: aString [
+
+	^ClwCryptoFunctions hashSha256: aString
+]
+
+{ #category : 'logic' }
+MPOPerson class >> hasPerson [
+
+	^self persons isEmptyOrNil not
+]
+
+{ #category : 'logic' }
+MPOPerson class >> hasPersonForEmail: anEmail [
+
+	^(self personForEmail: anEmail) notNil
+]
+
+{ #category : 'logic' }
+MPOPerson class >> logInEmail: anEmail password: aPassword [
+
+	| thePerson |
+	thePerson := self personForEmail: anEmail.
+	^(thePerson notNil and: [thePerson password = (self hashPassword: aPassword)])
+		ifTrue: [thePerson]
+]
+
+{ #category : 'logic' }
+MPOPerson class >> personForEmail: anEmail [
+
+	^self persons at: anEmail ifAbsent: []
 ]
 
 { #category : 'Accessing' }
 MPOPerson class >> persons [
 
-	"<^hOf Collection of: {iOf Person}>"
+	"<^hOf Dictionary: {key: iOf String, value: iOf MPOPerson}>"
 	"Answer the Persons of the receiver"
 
 	^Persons
 ]
 
 { #category : 'Accessing' }
-MPOPerson class >> persons: aCollection [
+MPOPerson class >> persons: aDictionary [
 
-	"<aCollection: hOf Collection of: {iOf Person}, ^self>"
+	"<aDictionary: hOf Dictionary: {key: iOf String, value: iOf MPOPerson}, ^self>"
 	"Set the Persons of the receiver"
 
-	Persons := aCollection
+	Persons := aDictionary
+]
+
+{ #category : 'logic' }
+MPOPerson class >> registerPerson: aPerson [
+
+	self persons isNil
+		ifTrue: [self persons: Dictionary new].
+	self persons at: aPerson email put: aPerson
 ]
 
 { #category : 'Accessing' }
