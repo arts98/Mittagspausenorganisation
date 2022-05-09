@@ -3,7 +3,8 @@ Class {
 	#superclass : 'MPOMe5BaseView',
 	#instVars : [
 		'masterDetailList',
-		'restaurantTextField',
+		'restaurantNameField',
+		'restaurantTypeField',
 		'descriptionFormGroup',
 		'reviewList',
 		'orderList'
@@ -29,12 +30,21 @@ MPOMe5RestaurantsView >> createComponents [
 				yourself);
 			addChildToDetailFormPortletBody: (Me5Col new
 				addChild: (Me5Row new
-					addChild: (restaurantTextField := Me5TextField new
+					addChild: (restaurantNameField := Me5TextField new
 						addCssClassCol12;
-						addCssClassColSm6;
+						addCssClassColSm5;
 						leftInnerIcon: Me5I newFasEdit;
 						text: 'Name';
+						helpText: 'Restaurant-Name.';
 						focus;
+						yourself);
+					addChild: (restaurantTypeField := Me5SelectBox new
+						addCssClassCol12;
+						addCssClassColSm4;
+						text: 'Typ';
+						helpText: 'Restaurant-Typ.';
+						addObjects: #('Pizzeria' 'Doener' 'Baecker' 'Fast Food' 'Asiatisch' 'Supermarkt');
+						selectObject: 'Pizzeria';
 						yourself);
 					yourself);
 				addChild: (Me5Accordion newSeparatedTabs
@@ -44,7 +54,7 @@ MPOMe5RestaurantsView >> createComponents [
 						addChildToContent:  (Me5Portlet new
 							addChildToBody: (descriptionFormGroup := Me5TextArea new
 								text: 'Beschreibung';
-								helpText: 'Hilfe-Text';
+								helpText: 'Restaurant-Beschreibung';
 								yourself);
 							addChildToFootButtonGroup: (Me5Button newPrimary
 								icon: Me5I newFasHome;
@@ -139,7 +149,7 @@ MPOMe5RestaurantsView >> createComponents [
 							addChildToBody: (orderList := Me5MetronicListGroup new
 								enableHoverable;
 								addChild: (Me5MetronicListGroupItem new
-									title: 'DÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶ner';
+									title: 'Doener';
 									subtitle: '4,50';			
 									addChildToInfo: (Me5TextField newWithNoMarginBottom
 										text:  'Extras';
@@ -176,7 +186,7 @@ MPOMe5RestaurantsView >> createComponents [
 								yourself);
 							addChildToFootButtonGroup: (Me5Button newDanger
 								icon: Me5I newFasTrash;
-								text: 'Alle lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶schen';
+								text: 'Alle loeschen';
 									addClickEventSelector: #deleteAllOrdersClicked;
 								yourself);
 							yourself);
@@ -194,7 +204,7 @@ MPOMe5RestaurantsView >> createComponents [
 
 	self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
 		title: 'Neues Restaurant';
-		subtitle: 'Neues Restaurant hinzufÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼gen.';
+		subtitle: 'Neues Restaurant hinzufuegen.';
 		addAfterMasterDetailListGroupItemSelectedEventSelector: #itemRestaurantClicked:;
 		itemSelectedWindowHistoryPushUrl: '?new';
 		enableIsActive;
@@ -207,12 +217,34 @@ MPOMe5RestaurantsView >> createComponents [
 MPOMe5RestaurantsView >> createMasterDetailListGroupItemForRestaurant: aRestaurant [
 
 	^Me5MasterDetailListGroupItem new
-		updateBlock: [ :theComponent | theComponent title: aRestaurant name];
-		subtitle: aRestaurant category;
+		updateBlock: [ :theComponent | 
+			theComponent title: aRestaurant name.
+			theComponent subtitle: aRestaurant category
+		];
 		componentObject: aRestaurant;
 		addAfterMasterDetailListGroupItemSelectedEventSelector: #itemRestaurantClicked:;
 		itemSelectedWindowHistoryPushUrl: '?',  aRestaurant name;
 		yourself
+]
+
+{ #category : 'Internal' }
+MPOMe5RestaurantsView >> createNewOrderListItem: anOrder [
+
+	^Me5MetronicListGroupItem new
+			title: 'Neue Bestellung';
+			subtitle: '4,50';			
+			addChildToInfo: (Me5TextField newWithNoMarginBottom
+				text:  'Extras';
+				value:  'Mit alles';
+				yourself);
+			addChildToRightExtension: (Me5ButtonGroup newDivided
+				addChild: (Me5Button newDanger
+					addCssClassBtnSm;
+					icon: Me5I newFasTrash;
+					addClickEventSelector: #deleteOrderClicked:;
+					yourself);
+				yourself)
+									
 ]
 
 { #category : 'Events' }
@@ -252,7 +284,8 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 		ifTrue: [self masterDetailList detailFormClearValues]
 		ifFalse: [ | theRestaurant |
 			theRestaurant := anEvent componentObject.
-			self restaurantTextField value: theRestaurant name.
+			self restaurantNameField value: theRestaurant name.
+			self restaurantTypeField value: theRestaurant category.
 			]
 ]
 
@@ -339,15 +372,28 @@ MPOMe5RestaurantsView >> orderList: aList [
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantTextField [
+MPOMe5RestaurantsView >> restaurantNameField [
 
-	^restaurantTextField
+	^restaurantNameField
+	
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantTextField: anObject [
+MPOMe5RestaurantsView >> restaurantNameField: anObject [
 
-	restaurantTextField := anObject
+	restaurantNameField := anObject
+]
+
+{ #category : 'Accessing' }
+MPOMe5RestaurantsView >> restaurantTypeField [
+
+	^restaurantTypeField
+]
+
+{ #category : 'Accessing' }
+MPOMe5RestaurantsView >> restaurantTypeField: anObject [
+
+	restaurantTypeField := anObject
 ]
 
 { #category : 'Accessing' }
@@ -383,7 +429,8 @@ MPOMe5RestaurantsView >> saveClicked [
 MPOMe5RestaurantsView >> saveRestaurant: aRestaurant [
 
 	aRestaurant
-		name: self restaurantTextField value;
+		name: self restaurantNameField value;
+		category: self restaurantTypeField value;
 
 		yourself
 ]

@@ -14,6 +14,7 @@ MPOMe5BaseView >> beforeCreateComponents [
 	self addItemsByPageSidebarNode: (Me5PageSidebarItemNode new
 		addChildNode: (Me5PageSidebarItemNode new
 			nodeTitle: 'Dashboard';
+			viewClass: MPOMe5DashboardView 
 			yourself);
 		addChildNode: (Me5PageSidebarItemNode new
 			nodeTitle: 'Restaurants';
