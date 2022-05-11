@@ -156,7 +156,7 @@ MPOMe5RegistrationView >> registerClicked [
 		ifFalse: [
 			theHasErrorBoolean := true.
 			self emailTextField dangerText: 'Bitte gib eine Email ein'].
-	(true "MPOMe5Person hasPersonForEmail: self emailTextField value")
+	(MPOPerson hasPersonForEmail: self emailTextField value)
 		ifTrue: [
 			theHasErrorBoolean := true.
 			self emailTextField dangerText: 'Email wurde bereits verwendet'].
@@ -174,16 +174,16 @@ MPOMe5RegistrationView >> registerClicked [
 			self repeatPasswordTextField dangerText: 'Passwort stimmt nicht ueberein'].
 	theHasErrorBoolean
 		ifFalse: [ | thePerson |
-			"thePerson := MPOMe5Person new
-				username: self usernameTextField value
-				firstname: self firstnameTextField value
-				lastname: self lastnameTextField value
+			thePerson := MPOPerson new
+				username: self usernameTextField value;
+				firstname: self firstnameTextField value;
+				lastname: self lastnameTextField value;
 				email: self emailTextField value;
-				password: (MPOMe5Person hashPassword: self passwordTextField value);
+				password: (MPOPerson hashPassword: self passwordTextField value);
 				yourself.
-			MPOMe5Person registerPerson: thePerson.
-			self session person: thePerson.
-			self replaceView: Me5MetronicExampleLoginTutorialStartView new"]
+			MPOPerson registerPerson: thePerson.
+			"self session person: thePerson."
+			self replaceView: MPOMe5DashboardView new]
 ]
 
 { #category : 'Accessing' }

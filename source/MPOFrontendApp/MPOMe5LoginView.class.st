@@ -74,12 +74,12 @@ MPOMe5LoginView >> emailTextField: anObject [
 MPOMe5LoginView >> logInClicked [
 
 	| thePerson |
-	"thePerson := MPOMe5Person logInEmail: self emailTextField value password: self passwordTextField value."
+	thePerson := MPOPerson logInEmail: self emailTextField value password: self passwordTextField value.
 	thePerson isNil
 		ifTrue: [self emailTextField dangerText: 'Falsche Email oder falsches Passwort.']
 		ifFalse: [
-			self session person: thePerson.
-			"self replaceView: MPOMe5Dashboard new"]
+			"self session person: thePerson."
+			self replaceView: MPOMe5DashboardView new]
 ]
 
 { #category : 'Events' }
