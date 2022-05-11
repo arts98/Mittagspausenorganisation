@@ -12,6 +12,11 @@ Class {
 	#category : 'MPOFrontendApp'
 }
 
+{ #category : 'Events' }
+MPOMe5RestaurantsView >> addOrder: anOrder [
+	self orderList addChild: (self createNewOrderListItem: (MPOOrder new))
+]
+
 { #category : 'Initial-Events' }
 MPOMe5RestaurantsView >> createComponents [
 
@@ -309,23 +314,7 @@ MPOMe5RestaurantsView >> masterDetailList: anObject [
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> newOrderClicked [
-	
-	self orderList addChild: (Me5MetronicListGroupItem new
-									title: 'Neue Bestellung';
-									subtitle: '4,50';			
-									addChildToInfo: (Me5TextField newWithNoMarginBottom
-										text:  'Extras';
-										value:  'Mit alles';
-										yourself);
-									addChildToRightExtension: (Me5ButtonGroup newDivided
-										addChild: (Me5Button newDanger
-											addCssClassBtnSm;
-											icon: Me5I newFasTrash;
-											addClickEventSelector: #deleteOrderClicked:;
-											yourself);
-										yourself);
-									yourself)
-									
+	self openModal: MPOMe5NewOrderFormModalModalView new
 ]
 
 { #category : 'Events' }
@@ -336,8 +325,8 @@ MPOMe5RestaurantsView >> newRestaurantClicked [
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> newReviewClicked [
-
-	self reviewList addChild: (Me5MetronicListGroupItem new
+	self replaceView: MPOMe5ValuationView new
+	"self reviewList addChild: (Me5MetronicListGroupItem new
 			pictureSrc: ('%1/default/dist/default/assets/app/media/img/users/100_7.jpg' bindWith: self cloudFrontDistributionFrameworkUrl);
 				title: 'Bewertung';
 				subtitle: 'Bewertungstext.';
@@ -355,7 +344,7 @@ MPOMe5RestaurantsView >> newReviewClicked [
 						addClickEventSelector: #deleteReviewClicked:;
 						yourself);
 					yourself);
-				yourself)		
+				yourself)		"
 
 ]
 
