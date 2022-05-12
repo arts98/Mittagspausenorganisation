@@ -8,5 +8,6 @@ Class {
 MPOBackendApp class >> startUp [
 
 	MPORestaurant createRestaurants.
-	MPOPerson fillPersons
+	MPOPerson fillPersons.
+	MPORestaurantType createRestaurantTypes
 ]

@@ -39,9 +39,7 @@ MPORestaurant class >> createRestaurants [
 					name: 'Mr Doener';
 					adress: 'Eschholzstrasse 76';
 					location: 'Freiburg';
-					category: (MPORestaurantType new
-						doener: true;
-						yourself);
+					category: 'Doener';
 					services: (OrderedCollection new
 						add: (MPOFood new
 							name: 'doener';
@@ -73,7 +71,7 @@ MPORestaurant class >> createRestaurants [
 				name: 'Hier und Jetzt';
 				adress: 'Zaehringer Str. 44';
 				location: 'Freiburg';
-				category: MPORestaurantType new;
+				category: '';
 				services: (OrderedCollection new	
 					add: (MPOFood new
 						name: 'Mittagstisch 1';
@@ -245,11 +243,10 @@ MPORestaurant >> sumOfOrderPerson: aPerson [
 
 { #category : 'accessing' }
 MPORestaurant >> sumofOrderPrice [
+
 	|sum|
 	sum := 0.
-	self orders do: [ :orderelm | 
-		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
-	].
+	self orders do: [ :orderelm | sum := (sum + orderelm priceOfOrder )].
 	^sum
 ]
 
