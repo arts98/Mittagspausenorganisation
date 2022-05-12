@@ -85,9 +85,38 @@ MPORestaurant class >> createRestaurants [
 						yourself);
 					yourself);
 				week: theOpeningTime;
-				yourself)]
-				
+				yourself).
 			
+			theOpeningTime := MPOOpeningTime new.
+					theOpeningTime week
+						at: 'Montag' put: '11:30 - 00:00';
+						at: 'Dienstag' put: '11:30 - 00:00';
+						at: 'Mittwoch' put: '11:30 - 00:00';
+						at: 'Donnerstag' put: '11:30 - 00:00';
+						at: 'Freitag' put: '11:30 - 00:00';
+						at: 'Samstag' put: '15:00 - 00:00';
+						at: 'Sonntag' put: '10:00 - 00:00';
+						yourself.	
+			
+			self restaurants add: (MPORestaurant new
+				name: 'Die Kantina';
+				adress: 'Berta-Ottenstein-Straße 3';
+				location: 'Freiburg';
+				category: '';
+				services: (OrderedCollection new
+					add: (MPOFood new
+						name: 'Mittagstisch mit Fleisch';
+						vegetarian: false;
+						price: 12;
+						yourself);
+					add: (MPOFood new
+						name: 'Vegetarischer Mittagstisch';
+						vegetarian: true;
+						price: 11;
+						yourself);
+					yourself);
+				week: theOpeningTime;
+				yourself)]
 ]
 
 { #category : 'Not categorized' }
@@ -130,9 +159,11 @@ MPORestaurant >> adress: aString [
 
 { #category : 'Not categorized' }
 MPORestaurant >> averageRating [
+	
 	|avg|
 	avg := 0.
-	self review do: [:rev | avg := (avg + rev starRating)].
+	self review do: [:rev | 
+		avg := (avg + rev starRating)].
 	^(avg / (self review size))
 ]
 
@@ -232,12 +263,14 @@ MPORestaurant >> services: aFoodCollection [
 
 { #category : 'accessing' }
 MPORestaurant >> sumOfOrderPerson: aPerson [
+	
 	|sum|
 	sum := 0.
-	self orders do: [ :orderelm  | (orderelm person = aPerson) ifTrue: [
-		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
-	]		
-	].
+	self orders do: [ :orderelm  | 
+		(orderelm person = aPerson) 
+			ifTrue: [
+				orderelm food do: [ :foodelem | 
+					sum := (sum + foodelem price)]]].
 	^sum
 ]
 
@@ -246,7 +279,8 @@ MPORestaurant >> sumofOrderPrice [
 
 	|sum|
 	sum := 0.
-	self orders do: [ :orderelm | sum := (sum + orderelm priceOfOrder )].
+	self orders do: [ :orderelm | 
+		sum := (sum + orderelm priceOfOrder )].
 	^sum
 ]
 

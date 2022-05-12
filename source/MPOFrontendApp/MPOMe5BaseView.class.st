@@ -14,11 +14,11 @@ MPOMe5BaseView >> beforeCreateComponents [
 	self addItemsByPageSidebarNode: (Me5PageSidebarItemNode new
 		addChildNode: (Me5PageSidebarItemNode new
 			nodeTitle: 'Dashboard';
-			viewClass: MPOMe5DashboardView 
+			viewClass: MPOMe5DashboardView;
 			yourself);
 		addChildNode: (Me5PageSidebarItemNode new
 			nodeTitle: 'Restaurants';
-			viewClass: MPOMe5RestaurantsView 
+			viewClass: MPOMe5RestaurantsView;
 			yourself);
 		addChildNode: (Me5PageSidebarItemNode new
 			nodeTitle: 'Kalender';

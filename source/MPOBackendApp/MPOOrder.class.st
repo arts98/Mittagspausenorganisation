@@ -82,6 +82,7 @@ MPOOrder >> priceOfOrder [
 
 	| sum |
 	sum := 0.
-	self food do: [ :aFood | sum := (sum + aFood price)].
+	self food do: [ :aFood | 
+		sum := (sum + aFood price)].
 	^sum
 ]

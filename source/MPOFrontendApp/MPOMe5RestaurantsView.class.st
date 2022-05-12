@@ -420,7 +420,6 @@ MPOMe5RestaurantsView >> saveRestaurant: aRestaurant [
 	aRestaurant
 		name: self restaurantNameField value;
 		category: self restaurantTypeField value;
-
 		yourself
 ]
 

@@ -26,8 +26,7 @@ MPOVoting >> getFavorit [
 		(highest < countvote) 
 			ifTrue: [
 				top := rest.
-				highest := countvote]
-	].
+				highest := countvote]].
 	^top
 
 ]
