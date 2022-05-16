@@ -9,10 +9,22 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
+{ #category : 'Not categorized' }
+MPORating class >> new [
+
+	^super new initialize
+]
+
 { #category : 'logic' }
 MPORating >> addTag: aTag [
 
 	self tags add: aTag
+]
+
+{ #category : 'logic' }
+MPORating >> initialize [
+
+	self tags: OrderedCollection new
 ]
 
 { #category : 'Accessing' }

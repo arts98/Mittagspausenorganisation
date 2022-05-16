@@ -100,7 +100,7 @@ MPORestaurant class >> createRestaurants [
 			
 			self restaurants add: (MPORestaurant new
 				name: 'Die Kantina';
-				adress: 'Berta-Ottenstein-Straße 3';
+				adress: 'Berta-Ottenstein-StraÃŸe 3';
 				location: 'Freiburg';
 				category: '';
 				services: (OrderedCollection new

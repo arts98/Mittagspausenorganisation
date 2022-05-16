@@ -12,9 +12,7 @@ Class {
 { #category : 'OnCreate' }
 MPOOrder class >> new [
 
-	^super new
-		food: OrderedCollection new
-		yourself
+	^super new initialize
 ]
 
 { #category : 'logic' }
@@ -39,6 +37,12 @@ MPOOrder >> food: aCollection [
 	"Set the food of the receiver"
 
 	food := aCollection
+]
+
+{ #category : 'logic' }
+MPOOrder >> initialize [
+
+	self food: OrderedCollection new
 ]
 
 { #category : 'Accessing' }

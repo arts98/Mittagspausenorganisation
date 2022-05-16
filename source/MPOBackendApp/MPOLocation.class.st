@@ -1,74 +1,37 @@
 Class {
 	#name : 'MPOLocation',
 	#superclass : 'Object',
-	#instVars : [
-		'freiburg',
-		'frankfurt',
-		'berlin'
+	#classVars : [
+		'Locations'
 	],
 	#category : 'MPOBackendApp'
 }
 
-{ #category : 'Not categorized' }
-MPOLocation class >> getLocations [
-	
-	^OrderedCollection new
-		add: 'Freiburg';
-		add: 'Frankfurt';
-		add: 'Berlin';
-		yourself
+{ #category : 'Startup' }
+MPOLocation class >> createLocations [
+
+	self locations isNil
+		ifTrue: [self locations: (OrderedCollection new
+			add: 'Freiburg';
+			add: 'Frankfurt';
+			add: 'Berlin';
+			yourself)]
 ]
 
 { #category : 'Accessing' }
-MPOLocation >> berlin [
+MPOLocation class >> locations [
 
-	"<^iOf String>"
-	"Answer the berlin of the receiver"
+	"<^hOf Collection of: {iOf String}>"
+	"Answer the Locations of the receiver"
 
-	^berlin
+	^Locations
 ]
 
 { #category : 'Accessing' }
-MPOLocation >> berlin: aString [
+MPOLocation class >> locations: aCollection [
 
-	"<aString: iOf String, ^self>"
-	"Set the berlin of the receiver"
+	"<aCollection: hOf Collection of: {iOf String}, ^self>"
+	"Set the Locations of the receiver"
 
-	berlin := aString
-]
-
-{ #category : 'Accessing' }
-MPOLocation >> frankfurt [
-
-	"<^iOf String>"
-	"Answer the frankfurt of the receiver"
-
-	^frankfurt
-]
-
-{ #category : 'Accessing' }
-MPOLocation >> frankfurt: aString [
-
-	"<aString: iOf String, ^self>"
-	"Set the frankfurt of the receiver"
-
-	frankfurt := aString
-]
-
-{ #category : 'Accessing' }
-MPOLocation >> freiburg [
-
-	"<^iOf String>"
-	"Answer the freiburg of the receiver"
-
-	^freiburg
-]
-
-{ #category : 'Accessing' }
-MPOLocation >> freiburg: aString [
-
-	"<aString: iOf String, ^self>"
-	"Set the freiburg of the receiver"
-
-	freiburg := aString
+	Locations := aCollection
 ]
