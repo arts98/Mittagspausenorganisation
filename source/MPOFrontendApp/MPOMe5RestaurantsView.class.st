@@ -29,7 +29,12 @@ MPOMe5RestaurantsView >> createComponents [
 				icon: Me5I newFasPlus;
 				addClickEventSelector: #newRestaurantClicked;
 				yourself);
-			addChildToDetailFormPortletHeadTools: (Me5A newIconOnlyDanger
+			addChildToDetailFormPortletHeadTools: (Me5Button newPillSuccess 
+				leftIcon: Me5I newFasSave;
+				text: 'Speichern';
+				addClickEventSelector: #saveClicked;
+				yourself);
+			addChildToDetailFormPortletHeadTools: (Me5Button newPillDanger
 				icon: Me5I newFasTrash;
 				addClickEventSelector: #deleteRestaurantClicked;
 				yourself);
@@ -48,8 +53,8 @@ MPOMe5RestaurantsView >> createComponents [
 						addCssClassColSm4;
 						text: 'Typ';
 						helpText: 'Restaurant-Typ.';
-						addObjects: #('Pizzeria' 'Doener' 'Baecker' 'Fast Food' 'Asiatisch' 'Supermarkt');
-						selectObject: 'Pizzeria';
+						addObjects: MPORestaurantType restaurantTypes;
+						"selectObject: 'Pizzeria';"
 						yourself);
 					yourself);
 				addChild: (Me5Accordion newSeparatedTabs
@@ -69,6 +74,7 @@ MPOMe5RestaurantsView >> createComponents [
 							addChildToFootButtonGroup: (Me5Button newPrimary
 								icon: Me5I newFasList;
 								text: 'Speisekarte';
+								addClickEventSelector: #menuClicked;
 								yourself);
 							addChildToFootButtonGroup: (Me5Button newPrimary
 								icon: Me5I newFasLocationArrow;
@@ -310,6 +316,12 @@ MPOMe5RestaurantsView >> masterDetailList: anObject [
 	"Set the masterDetailList of the receiver"
 
 	masterDetailList := anObject
+]
+
+{ #category : 'Events' }
+MPOMe5RestaurantsView >> menuClicked [
+
+	self showWarningNotificationWithMessage: 'Not implemented yet'
 ]
 
 { #category : 'Events' }
