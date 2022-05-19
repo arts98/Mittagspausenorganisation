@@ -20,8 +20,8 @@ MPOVoting >> getFavorit [
 	
 	self restaurantsToVote do: [:rest | 
 		countvote := 0.
-		self voting do: [:votee | 
-			(votee vote and: [votee restaurant = rest]) 
+		self voting do: [:aVote | 
+			(aVote vote and: [aVote restaurant = rest]) 
 				ifTrue: [countvote := (countvote + 1)]].
 		(highest < countvote) 
 			ifTrue: [
@@ -48,6 +48,6 @@ MPOVoting >> voting [
 ]
 
 { #category : 'accessing' }
-MPOVoting >> voting: anObject [
-	voting := anObject
+MPOVoting >> voting: aVote [
+	voting := aVote
 ]
