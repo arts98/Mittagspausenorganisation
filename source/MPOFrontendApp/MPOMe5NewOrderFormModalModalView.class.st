@@ -14,13 +14,8 @@ MPOMe5NewOrderFormModalModalView class >> layoutClass [
 ]
 
 { #category : 'Events' }
-MPOMe5NewOrderFormModalModalView >> addOrder [
-	super addOrder: (MPOOrder new)
-]
-
-{ #category : 'Events' }
-MPOMe5NewOrderFormModalModalView >> addOrder: anOrder [
-	super addOrder: (MPOOrder new)
+MPOMe5NewOrderFormModalModalView >> addOrderClicked [
+	super addOrder: MPOOrder new
 ]
 
 { #category : 'Initial-Events' }
@@ -34,19 +29,23 @@ MPOMe5NewOrderFormModalModalView >> createComponents [
 			addChildToBody: (Me5TextArea new
 				text: 'Extras';
 				yourself);
+			addChildToBody: (Me5TextField new
+				text: 'Preis';
+				helpText: 'in Euro';
+				yourself);
 			addChildToBody: (Me5RadioGroup new
 				text: 'Radio Group';
-				addObjects:  #('Pizzeria' 'Doener' 'Baecker' 'Fast Food' 'Asiatisch' 'Supermarkt');
+				addObjects:  MPORestaurantType restaurantTypes;
 				yourself);
 			addChildToBody: (Me5SelectBox new
 				text: 'Select Box';
-				addObjects:  #('Pizzeria' 'Doener' 'Baecker' 'Fast Food' 'Asiatisch' 'Supermarkt');
+				addObjects:  MPORestaurantType restaurantTypes;
 				yourself);
 			yourself);
 			addChildToFoot: (Me5Column new
 				addChild: (Me5Button newPrimary
 					text: 'Ok';
-					addClickEventSelector: #addOrder ;
+					addClickEventSelector:  #addOrderClicked;
 					yourself);
 				addChild: (Me5Button newPrimary
 					text: 'Abbrechen';

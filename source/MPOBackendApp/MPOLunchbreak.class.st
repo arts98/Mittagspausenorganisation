@@ -8,10 +8,22 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
+{ #category : 'Not categorized' }
+MPOLunchbreak class >> new [
+	
+	^super new initialize
+]
+
 { #category : 'logic' }
 MPOLunchbreak >> addRestaurant: aRestaurant [
 
 	self restaurant add: aRestaurant
+]
+
+{ #category : 'logic' }
+MPOLunchbreak >> initialize [
+	
+	self restaurant: OrderedCollection new
 ]
 
 { #category : 'Accessing' }

@@ -30,74 +30,61 @@ self replaceRootViewAndScrollToTop: MPOMe5CalendarView new
 { #category : 'Not categorized' }
 MPOMe5DashboardView >> createComponents [
 
-self
-		
+	self
 		addChild: (heading := Me5H1 new
-				text: 'HR-Works Mittagspausenplaner';
-				addBreak30;
-		addChild: (Me5Row new
-				 
-			addChild: (Me5Portlet new
-				addChildToBody: (Me5PagingCardViewContainer new
-					addCardView: (MPOMe5RestaurantsPreviewView new
-					yourself);
-				yourself);
+			text: 'HR-Works Mittagspausenplaner';
+			addBreak30;
+			addChild: (Me5Row new
+				addChild: (Me5Portlet new
+					addChildToBody: (Me5PagingCardViewContainer new
+						addCardView: MPOMe5RestaurantsPreviewView new;
+						yourself);
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
-					
-			yourself);
-					
+					yourself);
 				addChild: (Me5Portlet new
 					addChildToBody: (Me5PagingCardViewContainer new
-						addCardView: (MPOMe5CalendarPreviewView new
-						yourself);
+						addCardView: MPOMe5CalendarPreviewView new;
 					yourself);
 					addCssClassOffset1;
-					
 					addClickEventSelector: #cardClickedCalendar;
 					width: '400px';
 					height: '300px';
-				yourself);
-					
+					yourself);
 				addChild: (Me5Portlet new
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
-				yourself);
+					yourself);
 				addChild: (Me5Portlet new
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
-				yourself);
-					
+					yourself);
 				addChild: (Me5Portlet new
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
-					
-				yourself);
+					yourself);
 				addChild: (Me5Portlet new
-					
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
+					yourself);
 				yourself);
 			yourself);
-					
-		yourself);
-yourself.
-				
+		yourself.
 ]
 
 { #category : 'Not categorized' }
 MPOMe5DashboardView >> createPortlet [
 
-^Me5Portlet new 
-					addCssClassOffset1;
-					width: '350px';
-					height: '250px';
-					yourself
+	^Me5Portlet new 
+		addCssClassOffset1;
+		width: '350px';
+		height: '250px';
+		yourself
 ]
 
 { #category : 'Not categorized' }
