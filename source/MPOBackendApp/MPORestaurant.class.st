@@ -5,12 +5,14 @@ Class {
 		'name',
 		'adress',
 		'services',
-		'review',
+		'reviews',
 		'location',
 		'category',
 		'menu',
 		'week',
-		'orders'
+		'orders',
+		'description',
+		'linkToWebsite'
 	],
 	#classVars : [
 		'Restaurants'
@@ -144,7 +146,7 @@ MPORestaurant >> addOrder: anOrder [
 
 { #category : 'accessing' }
 MPORestaurant >> addReview: aReview [
-	self review add:  aReview
+	self reviews add:  aReview
 ]
 
 { #category : 'accessing' }
@@ -188,12 +190,71 @@ MPORestaurant >> delete [
 
 { #category : 'Not categorized' }
 MPORestaurant >> deleteOrder: anOrder [
-	"deleteOrder"
+	self orders remove: anOrder
 ]
 
 { #category : 'accessing' }
 MPORestaurant >> deleteReview: aReview [
-	self review remove: aReview
+	self reviews remove: aReview
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> description [
+
+	^description
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> description: aString [
+
+	description := aString
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> getSortedCommentsbasedonRating [
+	|sortedRatings starratingForSorting|
+	sortedRatings := OrderedCollection new.
+	starratingForSorting := 0.
+
+	0 to: 5 do:[
+		self reviews do: [:aReview | ( aReview starRating = starratingForSorting ) 
+			ifTrue: [sortedRatings add: aReview]
+		].
+		starratingForSorting := starratingForSorting + 1.
+	].
+	^sortedRatings
+	
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> getTopThreeRestaurants [
+	| topThree averageofRestaurant highestRestaurant|
+	averageofRestaurant := 10.
+	topThree := OrderedCollection new.
+	
+	0 to: 3 do: [
+		MPORestaurant restaurants do: [ :aRestaurant | 
+			(averageofRestaurant < aRestaurant averageRating) 
+				ifTrue: [ 
+					(topThree includes: aRestaurant) 
+						ifFalse: [
+							averageofRestaurant := aRestaurant averageRating. 
+							highestRestaurant := aRestaurant.]]].
+		(topThree includes: highestRestaurant) 
+			ifFalse: [topThree add: highestRestaurant.]].
+	^topThree
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> linkToWebsite [
+
+	^linkToWebsite
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> linkToWebsite: aString [
+	
+	linkToWebsite := aString
 ]
 
 { #category : 'accessing' }
@@ -231,6 +292,14 @@ MPORestaurant >> name: aString [
 	name := aString
 ]
 
+{ #category : 'Not categorized' }
+MPORestaurant >> orderReviewsByTimestamp [
+	
+	^SortedCollection new 
+		addAll: self reviews;
+		yourself
+]
+
 { #category : 'accessing' }
 MPORestaurant >> orders [
 	^orders
@@ -242,13 +311,13 @@ MPORestaurant >> orders: anOrderCollection [
 ]
 
 { #category : 'accessing' }
-MPORestaurant >> review [
-	^review
+MPORestaurant >> reviews [
+	^reviews
 ]
 
 { #category : 'accessing' }
-MPORestaurant >> review: aReviewCollection [
-	review := aReviewCollection
+MPORestaurant >> reviews: aReviewCollection [
+	reviews := aReviewCollection
 ]
 
 { #category : 'accessing' }
