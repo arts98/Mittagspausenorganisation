@@ -23,6 +23,11 @@ MPOMe5NewOrderFormModalModalView >> createComponents [
 	self modal
 		title: 'Neue Bestellung';
 		addChildToBody:(Me5Form new		
+			addChildToBody: (Me5DateField new
+				text: 'Datum';
+				enableDatePicker: true;
+				setDatePickerButton;
+				yourself);
 			addChildToBody: (Me5TextField new
 				text: 'Essen';
 				yourself);

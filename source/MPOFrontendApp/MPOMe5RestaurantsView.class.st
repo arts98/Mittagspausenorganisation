@@ -5,7 +5,7 @@ Class {
 		'masterDetailList',
 		'restaurantNameField',
 		'restaurantTypeField',
-		'descriptionFormGroup',
+		'restaurantDescriptionTextArea',
 		'reviewList',
 		'orderList'
 	],
@@ -62,7 +62,7 @@ MPOMe5RestaurantsView >> createComponents [
 						icon: Me5I newFasInfoCircle;
 						title: 'Beschreibung';
 						addChildToContent:  (Me5Portlet new
-							addChildToBody: (descriptionFormGroup := Me5TextArea new
+							addChildToBody: (restaurantDescriptionTextArea := Me5TextArea new
 								text: 'Beschreibung';
 								helpText: 'Restaurant-Beschreibung';
 								yourself);
@@ -297,6 +297,7 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 			theRestaurant := anEvent componentObject.
 			self restaurantNameField value: theRestaurant name.
 			self restaurantTypeField value: theRestaurant category.
+			self restaurantDescriptionTextArea value: theRestaurant description.
 			]
 ]
 
@@ -373,6 +374,24 @@ MPOMe5RestaurantsView >> orderList: aList [
 ]
 
 { #category : 'Accessing' }
+MPOMe5RestaurantsView >> restaurantDescriptionTextArea [
+
+	"<^iOf Object>"
+	"Answer the restaurantDescriptionTextArea of the receiver"
+
+	^restaurantDescriptionTextArea
+]
+
+{ #category : 'Accessing' }
+MPOMe5RestaurantsView >> restaurantDescriptionTextArea: anObject [
+
+	"<anObject: iOf Object, ^self>"
+	"Set the restaurantDescriptionTextArea of the receiver"
+
+	restaurantDescriptionTextArea := anObject
+]
+
+{ #category : 'Accessing' }
 MPOMe5RestaurantsView >> restaurantNameField [
 
 	^restaurantNameField
@@ -432,6 +451,7 @@ MPOMe5RestaurantsView >> saveRestaurant: aRestaurant [
 	aRestaurant
 		name: self restaurantNameField value;
 		category: self restaurantTypeField value;
+		description: self restaurantDescriptionTextArea value;
 		yourself
 ]
 
