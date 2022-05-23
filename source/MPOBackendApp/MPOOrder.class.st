@@ -65,8 +65,8 @@ MPOOrder >> person: aPerson [
 
 { #category : 'logic' }
 MPOOrder >> priceOfOrder [
-
 	self food isNil
 		ifTrue: [^0].
 	^self food price
+
 ]
