@@ -17,20 +17,14 @@ self replaceRootViewAndScrollToTop: MPOMe5CalendarView new
 { #category : 'Not categorized' }
 MPOMe5CalendarPreviewView >> createComponents [
 
-self
-		
+	self
 		addChild: (Me5Section new
-		addCssClassOffset1;
-			
+			addCssClassOffset1;
 			addChildToBody: ((calendar := Me5CalendarMonth new fontSize: 11)
 				days: (self dayCollectionForDate: Date today);
-				
 				width: '350px';
-				
 				yourself);
 			yourself);
-		
-		
 		yourself
 ]
 

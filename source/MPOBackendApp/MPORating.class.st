@@ -4,15 +4,33 @@ Class {
 	#instVars : [
 		'note',
 		'tags',
-		'starRating'
+		'starRating',
+		'timestamp'
 	],
 	#category : 'MPOBackendApp'
 }
+
+{ #category : 'Not categorized' }
+MPORating class >> new [
+
+	^super new initialize
+]
+
+{ #category : 'logic' }
+MPORating >> < aMPORating [
+	^self timestamp < aMPORating timestamp 
+]
 
 { #category : 'logic' }
 MPORating >> addTag: aTag [
 
 	self tags add: aTag
+]
+
+{ #category : 'logic' }
+MPORating >> initialize [
+
+	self tags: OrderedCollection new
 ]
 
 { #category : 'Accessing' }
@@ -67,4 +85,14 @@ MPORating >> tags: aCollection [
 	"Set the tags of the receiver"
 
 	tags := aCollection
+]
+
+{ #category : 'Accessing' }
+MPORating >> timestamp [
+	^timestamp
+]
+
+{ #category : 'Accessing' }
+MPORating >> timestamp: aclwtimestamp [
+	timestamp := aclwtimestamp
 ]

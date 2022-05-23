@@ -9,16 +9,21 @@ Class {
 
 { #category : 'Not categorized' }
 MPOOpeningTime class >> new [
-	
-	^super new
-		week: Dictionary new
-		yourself
+
+
+	^super new initialize
 ]
 
 { #category : 'logic' }
 MPOOpeningTime >> addOpeningTime: aOpeningTime atDay: aDay [
 
 	self week at: aDay put: aOpeningTime
+]
+
+{ #category : 'logic' }
+MPOOpeningTime >> initialize [
+
+	self week: Dictionary new
 ]
 
 { #category : 'Accessing' }

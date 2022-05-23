@@ -13,6 +13,7 @@ Class {
 		'orders',
 		'linkToWebsite',
 		'description'
+
 	],
 	#classVars : [
 		'Restaurants'
@@ -87,9 +88,38 @@ MPORestaurant class >> createRestaurants [
 						yourself);
 					yourself);
 				week: theOpeningTime;
-				yourself)]
-				
+				yourself).
 			
+			theOpeningTime := MPOOpeningTime new.
+					theOpeningTime week
+						at: 'Montag' put: '11:30 - 00:00';
+						at: 'Dienstag' put: '11:30 - 00:00';
+						at: 'Mittwoch' put: '11:30 - 00:00';
+						at: 'Donnerstag' put: '11:30 - 00:00';
+						at: 'Freitag' put: '11:30 - 00:00';
+						at: 'Samstag' put: '15:00 - 00:00';
+						at: 'Sonntag' put: '10:00 - 00:00';
+						yourself.	
+			
+			self restaurants add: (MPORestaurant new
+				name: 'Die Kantina';
+				adress: 'Berta-Ottenstein-Strasse 3';
+				location: 'Freiburg';
+				category: '';
+				services: (OrderedCollection new
+					add: (MPOFood new
+						name: 'Mittagstisch mit Fleisch';
+						vegetarian: false;
+						price: 12;
+						yourself);
+					add: (MPOFood new
+						name: 'Vegetarischer Mittagstisch';
+						vegetarian: true;
+						price: 11;
+						yourself);
+					yourself);
+				week: theOpeningTime;
+				yourself)]
 ]
 
 { #category : 'Not categorized' }
@@ -199,6 +229,45 @@ MPORestaurant >> getSortedCommentsbasedonRating [
 	].
 	^sortedRatings
 	
+	
+]
+
+
+{ #category : 'accessing' }
+MPORestaurant >> deleteOrder: anOrder [
+	self orders remove: anOrder
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> deleteReview: aReview [
+	self reviews remove: aReview
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> description [
+
+	^description
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> description: aString [
+
+	description := aString
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> getSortedCommentsbasedonRating [
+	|sortedRatings starratingForSorting|
+	sortedRatings := OrderedCollection new.
+	starratingForSorting := 0.
+
+	0 to: 5 do:[
+		self reviews do: [:aReview | ( aReview starRating = starratingForSorting ) 
+			ifTrue: [sortedRatings add: aReview]
+		].
+		starratingForSorting := starratingForSorting + 1.
+	].
+	^sortedRatings
 	
 ]
 
@@ -319,6 +388,7 @@ MPORestaurant >> services: aFoodCollection [
 	services := aFoodCollection
 ]
 
+
 { #category : 'Not categorized' }
 MPORestaurant >> sumOfOrderPerson: aPerson atDate: aDate [
 	|sum|
@@ -327,6 +397,7 @@ MPORestaurant >> sumOfOrderPerson: aPerson atDate: aDate [
 		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
 	]		
 	].
+
 	^sum
 ]
 
