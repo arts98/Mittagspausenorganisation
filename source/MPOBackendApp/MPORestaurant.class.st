@@ -338,8 +338,7 @@ MPORestaurant >> sumOfOrderPerson: aPerson [
 	self orders do: [ :orderelm  | 
 		(orderelm person = aPerson) 
 			ifTrue: [
-				orderelm food do: [ :foodelem | 
-					sum := (sum + foodelem price)]]].
+				sum := (sum + orderelm priceOfOrder )]].
 	^sum
 ]
 
