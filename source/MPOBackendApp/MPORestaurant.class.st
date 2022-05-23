@@ -11,9 +11,8 @@ Class {
 		'menu',
 		'week',
 		'orders',
-		'linkToWebsite',
-		'description'
-
+		'description',
+		'linkToWebsite'
 	],
 	#classVars : [
 		'Restaurants'
@@ -192,50 +191,14 @@ MPORestaurant >> category: aRestaurantType [
 	category := aRestaurantType
 ]
 
-{ #category : 'Not categorized' }
-MPORestaurant >> deleteOrder: anOrder atDate: aDate [
-	(self orders at: aDate ifAbsent: []) remove: anOrder ifAbsent: [] 
-]
-
-{ #category : 'accessing' }
-MPORestaurant >> deleteReview: aReview [
-	self reviews remove: aReview
-]
-
-{ #category : 'Not categorized' }
-MPORestaurant >> description [
-
-	self description
-]
-
-{ #category : 'accessing' }
-MPORestaurant >> description: aString [
-
-	description := aString
-]
-
-{ #category : 'Not categorized' }
-MPORestaurant >> getSortedCommentsbasedonRating [
-	
-	|sortedRatings starratingForSorting|
-	sortedRatings := OrderedCollection new.
-	starratingForSorting := 0.
-
-	0 to: 5 do:[
-		self reviews do: [:aReview | ( aReview starRating = starratingForSorting ) 
-			ifTrue: [sortedRatings add: aReview]
-		].
-		starratingForSorting := starratingForSorting + 1.
-	].
-	^sortedRatings
-	
-	
-]
-
-
 { #category : 'accessing' }
 MPORestaurant >> deleteOrder: anOrder [
 	self orders remove: anOrder
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> deleteOrder: anOrder atDate: aDate [
+	(self orders at: aDate ifAbsent: []) remove: anOrder ifAbsent: [] 
 ]
 
 { #category : 'accessing' }
@@ -388,7 +351,6 @@ MPORestaurant >> services: aFoodCollection [
 	services := aFoodCollection
 ]
 
-
 { #category : 'Not categorized' }
 MPORestaurant >> sumOfOrderPerson: aPerson atDate: aDate [
 	|sum|
@@ -405,7 +367,7 @@ MPORestaurant >> sumOfOrderPerson: aPerson atDate: aDate [
 MPORestaurant >> sumofOrderPrice: aDate [
 	|sum|
 	sum := 0.	
-	(self orders at: aDate ifAbsent: []) do: [ :orderelm | sum := (sum + orderelm priceOfOrder )].
+	(self orders at: aDate ifAbsent: []) do: [ :orderelm | sum := (sum + orderelm price)].
 	^sum
 ]
 

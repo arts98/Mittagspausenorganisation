@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'person',
 		'food',
-		'note'
+		'note',
+		'price'
 	],
 	#category : 'MPOBackendApp'
 }
@@ -12,19 +13,19 @@ Class {
 { #category : 'Accessing' }
 MPOOrder >> food [
 
-	"<^iOf MPOFood>"
+	"<^iOf String>"
 	"Answer the food of the receiver"
 
 	^food
 ]
 
 { #category : 'Accessing' }
-MPOOrder >> food: aMPOFood [
+MPOOrder >> food: aString [
 
-	"<aMPOFood: iOf MPOFood, ^self>"
+	"<aString: iOf String, ^self>"
 	"Set the food of the receiver"
 
-	food := aMPOFood
+	food := aString
 ]
 
 { #category : 'Accessing' }
@@ -63,10 +64,20 @@ MPOOrder >> person: aPerson [
 	person := aPerson
 ]
 
-{ #category : 'logic' }
-MPOOrder >> priceOfOrder [
-	self food isNil
-		ifTrue: [^0].
-	^self food price
+{ #category : 'Accessing' }
+MPOOrder >> price [
 
+	"<^hOf Number>"
+	"Answer the price of the receiver"
+
+	^price
+]
+
+{ #category : 'Accessing' }
+MPOOrder >> price: aNumber [
+
+	"<aNumber: hOf Number, ^self>"
+	"Set the price of the receiver"
+
+	price := aNumber
 ]
