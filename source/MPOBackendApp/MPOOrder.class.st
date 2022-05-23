@@ -9,40 +9,22 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
-{ #category : 'OnCreate' }
-MPOOrder class >> new [
-
-	^super new initialize
-]
-
-{ #category : 'logic' }
-MPOOrder >> addFood: aFood [
-
-	self food add: aFood
-]
-
 { #category : 'Accessing' }
 MPOOrder >> food [
 
-	"<^hOf Collection of: {iOf Food}>"
+	"<^iOf MPOFood>"
 	"Answer the food of the receiver"
 
 	^food
 ]
 
 { #category : 'Accessing' }
-MPOOrder >> food: aCollection [
+MPOOrder >> food: aMPOFood [
 
-	"<aCollection: hOf Collection of: {iOf Food}, ^self>"
+	"<aMPOFood: iOf MPOFood, ^self>"
 	"Set the food of the receiver"
 
-	food := aCollection
-]
-
-{ #category : 'logic' }
-MPOOrder >> initialize [
-
-	self food: OrderedCollection new
+	food := aMPOFood
 ]
 
 { #category : 'Accessing' }
@@ -84,9 +66,7 @@ MPOOrder >> person: aPerson [
 { #category : 'logic' }
 MPOOrder >> priceOfOrder [
 
-	| sum |
-	sum := 0.
-	self food do: [ :aFood | 
-		sum := (sum + aFood price)].
-	^sum
+	self food isNil
+		ifTrue: [^0].
+	^self food price
 ]
