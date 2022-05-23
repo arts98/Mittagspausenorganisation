@@ -7,6 +7,7 @@ Class {
 		'restaurantTypeField',
 		'restaurantDescriptionTextArea',
 		'reviewList',
+		'orderDateField',
 		'orderList'
 	],
 	#category : 'MPOFrontendApp'
@@ -29,34 +30,15 @@ MPOMe5RestaurantsView >> createComponents [
 				icon: Me5I newFasPlus;
 				addClickEventSelector: #newRestaurantClicked;
 				yourself);
-			addChildToDetailFormPortletHeadTools: (Me5Button newPillSuccess 
-				leftIcon: Me5I newFasSave;
-				text: 'Speichern';
-				addClickEventSelector: #saveClicked;
+			addChildToDetailFormPortletHeadTools: (Me5Button newPillPrimary
+				icon: Me5I newFasEdit;
+				addClickEventSelector: #editRestaurantClicked;
 				yourself);
 			addChildToDetailFormPortletHeadTools: (Me5Button newPillDanger
 				icon: Me5I newFasTrash;
 				addClickEventSelector: #deleteRestaurantClicked;
 				yourself);
-			addChildToDetailFormPortletBody: (Me5Col new
-				addChild: (Me5Row new
-					addChild: (restaurantNameField := Me5TextField new
-						addCssClassCol12;
-						addCssClassColSm5;
-						leftInnerIcon: Me5I newFasEdit;
-						text: 'Name';
-						helpText: 'Restaurant-Name.';
-						focus;
-						yourself);
-					addChild: (restaurantTypeField := Me5SelectBox new
-						addCssClassCol12;
-						addCssClassColSm4;
-						text: 'Typ';
-						helpText: 'Restaurant-Typ.';
-						addObjects: MPORestaurantType restaurantTypes;
-						"selectObject: 'Pizzeria';"
-						yourself);
-					yourself);
+			addChildToDetailFormPortletBody: (Me5Col new					
 				addChild: (Me5Accordion newSeparatedTabs
 					addChild: (Me5AccordionItem new
 						icon: Me5I newFasInfoCircle;
@@ -66,130 +48,42 @@ MPOMe5RestaurantsView >> createComponents [
 								text: 'Beschreibung';
 								helpText: 'Restaurant-Beschreibung';
 								yourself);
-							addChildToFootButtonGroup: (Me5Button newPrimary
-								icon: Me5I newFasHome;
+							addChildToFootButtonGroup: (Me5A newBlockPrimary
+								href: 'https://www.google.com' ;
 								text: 'Webseite';
-								addClickEventSelector: #websiteClicked;
 								yourself);
-							addChildToFootButtonGroup: (Me5Button newPrimary
-								icon: Me5I newFasList;
+							addChildToFootButtonGroup: (Me5A newBlockPrimary
+								href: 'https://www.google.com/finance' ;
 								text: 'Speisekarte';
-								addClickEventSelector: #menuClicked;
 								yourself);
-							addChildToFootButtonGroup: (Me5Button newPrimary
-								icon: Me5I newFasLocationArrow;
-								text: 'Anfahrt';
+							addChildToFootButtonGroup: (Me5A newBlockPrimary
+								href: 'https://www.google.de/maps/' ;
+								text: 'Adresse';
 								yourself);
 							yourself);
 						yourself);
 					addChild: (Me5AccordionItem new
 						icon: Me5I newFasStar;
 						title: 'Bewertungen';
-						addChildToContent: (Me5Portlet new
-								addChildToBody: (reviewList := Me5MetronicListGroup new
-									enableHoverable;
-									addChild: (Me5MetronicListGroupItem new
-										pictureSrc: ('%1/default/dist/default/assets/app/media/img/users/100_4.jpg' bindWith: self cloudFrontDistributionFrameworkUrl);
-										title: 'Top!';
-										subtitle: 'Alles Top!';
-										addChildToRightExtension: (Me5ButtonGroup newDivided
-											addChild: (Me5Button newPrimary
-												addCssClassBtnSm;
-												icon: Me5I newFasEdit;
-												text: 'Bearbeiten';
-												addClickEventSelector: #editReviewClicked:;
-												yourself);
-											addChild: (Me5Button newDanger
-												addCssClassBtnSm;
-												icon: Me5I newFasTrash;
-												text: 'Loeschen';
-												addClickEventSelector: #deleteReviewClicked:;
-												yourself);
-											yourself);
-										yourself);
-									addChild: (Me5MetronicListGroupItem new
-										pictureSrc: ('%1/default/dist/default/assets/app/media/img/users/100_14.jpg' bindWith: self cloudFrontDistributionFrameworkUrl);
-										title: 'Super Bedienung!';
-										subtitle: 'Bedienung war sehr freundlich.';
-										addChildToRightExtension: (Me5ButtonGroup newDivided
-											addChild: (Me5Button newPrimary
-												addCssClassBtnSm;
-												icon: Me5I newFasEdit;
-												text: 'Bearbeiten';
-												addClickEventSelector: #editReviewClicked:;
-												yourself);
-											addChild: (Me5Button newDanger
-												addCssClassBtnSm;
-												icon: Me5I newFasTrash;
-												text: 'Loeschen';
-												addClickEventSelector: #deleteReviewClicked:;
-												yourself);
-											yourself);
-										yourself);
-									addChild: (Me5MetronicListGroupItem new
-										pictureSrc: ('%1/default/dist/default/assets/app/media/img/users/100_11.jpg' bindWith: self cloudFrontDistributionFrameworkUrl);
-										title: 'Alles Super';
-										subtitle: 'Macht gute Pizza.';
-										addChildToRightExtension: (Me5ButtonGroup newDivided
-											addChild: (Me5Button newPrimary
-												addCssClassBtnSm;
-												icon: Me5I newFasEdit;
-												text: 'Bearbeiten';
-												addClickEventSelector: #editReviewClicked:;
-												yourself);
-											addChild: (Me5Button newDanger
-												addCssClassBtnSm;
-												icon: Me5I newFasTrash;
-												text: 'Loeschen';
-												addClickEventSelector: #deleteReviewClicked:;
-												yourself);
-											yourself);
-										yourself);
-									yourself);
-								addChildToFootButtonGroup: (Me5Button newPrimary
-									icon: Me5I newFasEdit;
-									text: 'Bewertung schreiben';
-									addClickEventSelector: #newReviewClicked;
-									yourself);
-								yourself);
+						addChildToContent: (Me5ViewHolder new
+							holdingView: MPOMe5CalendarPreviewView new;
 							yourself);
+						yourself);
 					addChild: (Me5AccordionItem new
 						icon: Me5I newFasShoppingCart;
 						title: 'Bestellungen';
+						addChildToContent: (orderDateField := Me5DateField new
+							addCssClassCol12;
+							addCssClassColSm4;
+							text: 'Datum';
+							value: Date today;
+							enableDatePicker: true;
+							setDatePickerButton;
+							yourself);
 						addChildToContent:  (Me5Portlet new
 							addChildToBody: (orderList := Me5MetronicListGroup new
-								enableHoverable;
-								addChild: (Me5MetronicListGroupItem new
-									title: 'Doener';
-									subtitle: '4,50';			
-									addChildToInfo: (Me5TextField newWithNoMarginBottom
-										text:  'Extras';
-										value:  'Mit alles';
-										yourself);
-									addChildToRightExtension: (Me5ButtonGroup newDivided
-										addChild: (Me5Button newDanger
-											addCssClassBtnSm;
-											icon: Me5I newFasTrash;
-											addClickEventSelector: #deleteOrderClicked:;
-											yourself);
-										yourself);
-									yourself);
-								addChild: (Me5MetronicListGroupItem new
-									title: 'Pizza Salami';
-									subtitle: '5,50';			
-									addChildToInfo: (Me5TextField newWithNoMarginBottom
-										text:  'Extras';
-										value:  '';
-										yourself);
-									addChildToRightExtension: (Me5ButtonGroup newDivided
-										addChild: (Me5Button newDanger
-											addCssClassBtnSm;
-											icon: Me5I newFasTrash;
-											addClickEventSelector: #deleteOrderClicked:;
-											yourself);
-										yourself);
-									yourself);
-								yourself);
+								enableHoverable;		
+								yourself);								
 							addChildToFootButtonGroup: (Me5Button newSuccess
 								icon: Me5I newFasPlus;
 								text: 'Neue Bestellung';
@@ -205,21 +99,16 @@ MPOMe5RestaurantsView >> createComponents [
 						yourself);
 					yourself);
 				yourself);
-			addChildToDetailFormPortletFootButtonGroup: (Me5Button newSuccess
-				icon: Me5I newFasSave;
-				text: 'Speichern';
-				addClickEventSelector: #saveClicked;
-				yourself);
 			yourself);
 		yourself. 
 
-	self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
+	"self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
 		title: 'Neues Restaurant';
 		subtitle: 'Neues Restaurant hinzufuegen.';
 		addAfterMasterDetailListGroupItemSelectedEventSelector: #itemRestaurantClicked:;
 		itemSelectedWindowHistoryPushUrl: '?new';
 		enableIsActive;
-		yourself).
+		yourself)."
 
 	
 ]
@@ -243,7 +132,7 @@ MPOMe5RestaurantsView >> createNewOrderListItem: anOrder [
 
 	^Me5MetronicListGroupItem new
 			title: 'Neue Bestellung';
-			subtitle: '4,50';			
+			subtitle: '4,50';
 			addChildToInfo: (Me5TextField newWithNoMarginBottom
 				text:  'Extras';
 				value:  'Mit alles';
@@ -277,13 +166,7 @@ MPOMe5RestaurantsView >> deleteRestaurantClicked [
 ]
 
 { #category : 'Events' }
-MPOMe5RestaurantsView >> deleteReviewClicked: anEvent [
-
-	self showWarningNotificationWithMessage: 'Not implemented yet'
-]
-
-{ #category : 'Events' }
-MPOMe5RestaurantsView >> editReviewClicked: anEvent [
+MPOMe5RestaurantsView >> editRestaurantClicked [
 
 	self showWarningNotificationWithMessage: 'Not implemented yet'
 ]
@@ -295,8 +178,7 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 		ifTrue: [self masterDetailList detailFormClearValues]
 		ifFalse: [ | theRestaurant |
 			theRestaurant := anEvent componentObject.
-			self restaurantNameField value: theRestaurant name.
-			self restaurantTypeField value: theRestaurant category.
+			self masterDetailList detailFormPortletTitle: theRestaurant name , ' ('  , theRestaurant category , ')'.
 			self restaurantDescriptionTextArea value: theRestaurant description.
 			]
 ]
@@ -320,20 +202,13 @@ MPOMe5RestaurantsView >> masterDetailList: anObject [
 ]
 
 { #category : 'Events' }
-MPOMe5RestaurantsView >> menuClicked [
-
-	self showWarningNotificationWithMessage: 'Not implemented yet'
-]
-
-{ #category : 'Events' }
 MPOMe5RestaurantsView >> newOrderClicked [
 	self openModal: MPOMe5NewOrderFormModalModalView new
 ]
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> newRestaurantClicked [
-
-	self masterDetailList newDummyListGroupItem triggerClickEvent
+	self openModal: MPOMe5NewRestaurantFormModalModalView new
 ]
 
 { #category : 'Events' }
@@ -359,6 +234,24 @@ MPOMe5RestaurantsView >> newReviewClicked [
 					yourself);
 				yourself)		"
 
+]
+
+{ #category : 'Accessing' }
+MPOMe5RestaurantsView >> orderDateField [
+
+	"<^iOf DateField>"
+	"Answer the orderDateField of the receiver"
+
+	^orderDateField
+]
+
+{ #category : 'Accessing' }
+MPOMe5RestaurantsView >> orderDateField: aDateField [
+
+	"<aDateField: iOf DateField, ^self>"
+	"Set the orderDateField of the receiver"
+
+	orderDateField := aDateField
 ]
 
 { #category : 'Accessing' }
@@ -431,32 +324,28 @@ MPOMe5RestaurantsView >> reviewList: aList [
 { #category : 'Events' }
 MPOMe5RestaurantsView >> saveClicked [
 
-	self masterDetailList isNewDummyListGroupItemActive
-		ifTrue: [ | theRestaurant theMasterDetailListGroupItem |
-			theRestaurant := MPORestaurant new.
-			self saveRestaurant:  theRestaurant.
-			theMasterDetailListGroupItem := self createMasterDetailListGroupItemForRestaurant: theRestaurant.
-			self masterDetailList addMasterDetailListGroupItem: (theMasterDetailListGroupItem
-				enableIsActive;
-				yourself)]
+	self restaurantNameField hasValue
 		ifFalse: [
-			self saveRestaurant:  self masterDetailList activeMasterDetailListGroupItemComponentObject.
-			self masterDetailList updateMasterDetailList].
-	self showSuccessNotificationWithMessage: 'Saved?'
-]
-
-{ #category : 'Internal' }
-MPOMe5RestaurantsView >> saveRestaurant: aRestaurant [
-
-	aRestaurant
-		name: self restaurantNameField value;
-		category: self restaurantTypeField value;
-		description: self restaurantDescriptionTextArea value;
-		yourself
+				self restaurantNameField dangerText: 'Bitte gib einen Namen ein.']
+		ifTrue: [
+			self masterDetailList isNewDummyListGroupItemActive
+				ifTrue: [ | theRestaurant theMasterDetailListGroupItem |
+					theRestaurant := MPORestaurant new.
+					self saveRestaurant:  theRestaurant.
+					theMasterDetailListGroupItem := self createMasterDetailListGroupItemForRestaurant: theRestaurant.
+					self masterDetailList addMasterDetailListGroupItem: (theMasterDetailListGroupItem
+						enableIsActive;
+						yourself)]
+				ifFalse: [
+					self saveRestaurant:  self masterDetailList activeMasterDetailListGroupItemComponentObject.
+					self masterDetailList updateMasterDetailList.
+					self showSuccessNotificationWithMessage: 'Saved?']]
 ]
 
 { #category : 'Events' }
-MPOMe5RestaurantsView >> websiteClicked [
-
-	self showWarningNotificationWithMessage: 'Not implemented yet'
+MPOMe5RestaurantsView >> saveRestaurant: aRestaurant [
+	self masterDetailList addMasterDetailListGroupItem: (
+		(self createMasterDetailListGroupItemForRestaurant: aRestaurant)
+		enableIsActive;
+		yourself)
 ]

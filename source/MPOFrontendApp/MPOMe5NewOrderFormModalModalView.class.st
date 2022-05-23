@@ -15,7 +15,8 @@ MPOMe5NewOrderFormModalModalView class >> layoutClass [
 
 { #category : 'Events' }
 MPOMe5NewOrderFormModalModalView >> addOrderClicked [
-	super addOrder: MPOOrder new
+	self parentView addOrder: MPOOrder new.
+	self closeModal
 ]
 
 { #category : 'Initial-Events' }
@@ -25,6 +26,7 @@ MPOMe5NewOrderFormModalModalView >> createComponents [
 		addChildToBody:(Me5Form new		
 			addChildToBody: (Me5DateField new
 				text: 'Datum';
+				value: Date today;
 				enableDatePicker: true;
 				setDatePickerButton;
 				yourself);
