@@ -5,12 +5,14 @@ Class {
 		'name',
 		'adress',
 		'services',
-		'review',
+		'reviews',
 		'location',
 		'category',
 		'menu',
 		'week',
-		'orders'
+		'orders',
+		'linkToWebsite',
+		'description'
 	],
 	#classVars : [
 		'Restaurants'
@@ -108,14 +110,21 @@ MPORestaurant class >> restaurants: aCollection [
 	Restaurants := aCollection
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Not categorized' }
 MPORestaurant >> addOrder: anOrder [
 	self orders add: anOrder
 ]
 
+{ #category : 'Not categorized' }
+MPORestaurant >> addOrder: anOrder toDate: aDate [
+	self orders isNil
+		ifTrue: [self orders: Dictionary new].
+	(self orders at: aDate ifAbsentPut: [OrderedCollection new]) add: anOrder
+]
+
 { #category : 'accessing' }
 MPORestaurant >> addReview: aReview [
-	self review add:  aReview
+	self reviews add:  aReview
 ]
 
 { #category : 'accessing' }
@@ -130,10 +139,17 @@ MPORestaurant >> adress: aString [
 
 { #category : 'Not categorized' }
 MPORestaurant >> averageRating [
-	|avg|
-	avg := 0.
-	self review do: [:rev | avg := (avg + rev starRating)].
-	^(avg / (self review size))
+	|average|
+	average := 0.
+	(self reviews size = 0)
+		ifTrue: [
+		^0
+		]
+		ifFalse: [
+				self reviews do: [:aReview | average := (average + aReview starRating)].		
+				^(average / (self reviews size))
+		].
+
 ]
 
 { #category : 'accessing' }
@@ -147,22 +163,74 @@ MPORestaurant >> category: aRestaurantType [
 ]
 
 { #category : 'Not categorized' }
-MPORestaurant >> delete [
-
-	"<^self>"
-	"Answer the receiver"
-
-	self
-]
-
-{ #category : 'Not categorized' }
-MPORestaurant >> deleteOrder: anOrder [
-	"deleteOrder"
+MPORestaurant >> deleteOrder: anOrder atDate: aDate [
+	(self orders at: aDate ifAbsent: []) remove: anOrder ifAbsent: [] 
 ]
 
 { #category : 'accessing' }
 MPORestaurant >> deleteReview: aReview [
-	self review remove: aReview
+	self reviews remove: aReview
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> description [
+
+	self description
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> description: aString [
+
+	description := aString
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> getSortedCommentsbasedonRating [
+	
+	|sortedRatings starratingForSorting|
+	sortedRatings := OrderedCollection new.
+	starratingForSorting := 0.
+
+	0 to: 5 do:[
+		self reviews do: [:aReview | ( aReview starRating = starratingForSorting ) 
+			ifTrue: [sortedRatings add: aReview]
+		].
+		starratingForSorting := starratingForSorting + 1.
+	].
+	^sortedRatings
+	
+	
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> getTopThreeRestaurants [
+	| topThree averageofRestaurant highestRestaurant|
+	averageofRestaurant := 10.
+	topThree := OrderedCollection new.
+	
+	0 to: 3 do: [
+		MPORestaurant restaurants do: [ :aRestaurant | 
+			(averageofRestaurant < aRestaurant averageRating) 
+				ifTrue: [ 
+					(topThree includes: aRestaurant) 
+						ifFalse: [
+							averageofRestaurant := aRestaurant averageRating. 
+							highestRestaurant := aRestaurant.]]].
+		(topThree includes: highestRestaurant) 
+			ifFalse: [topThree add: highestRestaurant.]].
+	^topThree
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> linkToWebsite [
+
+	^linkToWebsite
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> linkToWebsite: aString [
+	
+	linkToWebsite := aString
 ]
 
 { #category : 'accessing' }
@@ -185,9 +253,14 @@ MPORestaurant >> menu: aString [
 	menu := aString
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson [
-	self orders do: [:each | (each = aOrder) ifTrue: [each person: aPerson. each food: aFood]].
+{ #category : 'Not categorized' }
+MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson date: aDate note: aString [
+	| myorder |
+	(self orders at: aDate ifAbsent: []) remove: aOrder ifAbsent: [].
+	myorder := MPOOrder new.
+	myorder person: aPerson.
+	myorder food: aFood.
+	myorder note: aString.
 ]
 
 { #category : 'accessing' }
@@ -200,24 +273,40 @@ MPORestaurant >> name: aString [
 	name := aString
 ]
 
+{ #category : 'Not categorized' }
+MPORestaurant >> orderByTimestamp [
+	
+	^SortedCollection new 
+		addAll: self reviews;
+		yourself
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> orderReviewsByTimestamp [
+	
+	^SortedCollection new 
+		addAll: self reviews;
+		yourself
+]
+
 { #category : 'accessing' }
 MPORestaurant >> orders [
 	^orders
 ]
 
 { #category : 'accessing' }
-MPORestaurant >> orders: anOrderCollection [
-	orders := anOrderCollection
+MPORestaurant >> orders: aDictionary [
+	orders := aDictionary
 ]
 
 { #category : 'accessing' }
-MPORestaurant >> review [
-	^review
+MPORestaurant >> reviews [
+	^reviews
 ]
 
 { #category : 'accessing' }
-MPORestaurant >> review: aReviewCollection [
-	review := aReviewCollection
+MPORestaurant >> reviews: aReviewCollection [
+	reviews := aReviewCollection
 ]
 
 { #category : 'accessing' }
@@ -230,23 +319,22 @@ MPORestaurant >> services: aFoodCollection [
 	services := aFoodCollection
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> sumOfOrderPerson: aPerson [
+{ #category : 'Not categorized' }
+MPORestaurant >> sumOfOrderPerson: aPerson atDate: aDate [
 	|sum|
 	sum := 0.
-	self orders do: [ :orderelm  | (orderelm person = aPerson) ifTrue: [
+	(self orders at: aDate ifAbsent: []) do: [ :orderelm  | (orderelm person = aPerson) ifTrue: [
 		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
 	]		
 	].
 	^sum
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> sumofOrderPrice [
-
+{ #category : 'Not categorized' }
+MPORestaurant >> sumofOrderPrice: aDate [
 	|sum|
-	sum := 0.
-	self orders do: [ :orderelm | sum := (sum + orderelm priceOfOrder )].
+	sum := 0.	
+	(self orders at: aDate ifAbsent: []) do: [ :orderelm | sum := (sum + orderelm priceOfOrder )].
 	^sum
 ]
 

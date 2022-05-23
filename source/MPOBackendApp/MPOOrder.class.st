@@ -79,7 +79,7 @@ MPOOrder >> person: aPerson [
 
 { #category : 'logic' }
 MPOOrder >> priceOfOrder [
-
+	"beauchen wir nicht wir haben eine order mit einem food "
 	| sum |
 	sum := 0.
 	self food do: [ :aFood | sum := (sum + aFood price)].
