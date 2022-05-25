@@ -233,8 +233,8 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 			self restaurantDescriptionTextArea value: theRestaurant description.
 			self refreshOrders: theRestaurant services.
 			self websiteRef href: theRestaurant linkToWebsite.
-			self menuRef href: theRestaurant menu.
-			self addressRef href: 'https://www.google.com/maps/search/?api=1&query=', theRestaurant adress.
+			self menuRef href: theRestaurant linkToMenu.
+			self addressRef href: 'https://www.google.com/maps/search/?api=1&query=', theRestaurant address.
 			]
 ]
 

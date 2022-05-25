@@ -3,12 +3,12 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'name',
-		'adress',
+		'address',
 		'services',
 		'reviews',
 		'location',
 		'category',
-		'menu',
+		'linkToMenu',
 		'week',
 		'orders',
 		'description',
@@ -39,22 +39,33 @@ MPORestaurant class >> createRestaurants [
 			self restaurants: (OrderedCollection new
 				add: (MPORestaurant new
 					name: 'Mr Doener';
-					adress: 'Eschholzstrasse 76';
+					address: 'Eschholzstrasse 76';
 					location: 'Freiburg';
 					category: 'Doener';
-					services: (OrderedCollection new
-						add: (MPOFood new
-							name: 'doener';
-							vegetarian: false;
-							price: 5.5;
+					week: theOpeningTime;
+					orders: (Dictionary new
+						at: (Date new year: 2022 month: 5 day: 25)
+						put: (MPOOrder new
+							food: 'Doener';
+							note: 'Scharf';
+							price: 4;
+							person: (MPOPerson persons at: 'silas.schulz@hs-furtwangen.de' ifAbsent: []);
 							yourself);
-						add: (MPOFood new
-							name: 'Pizza Vegetaria';
-							vegetarian: true;
-							price: 7.5;
+						at: (Date new year: 2022 month: 5 day: 25)
+						put: (MPOOrder new
+							food: 'Doener Box';
+							note: 'Viel Sosse';
+							price: 4;
+							person: (MPOPerson persons at: 'leonard.lemke@hs-furtwangen.de' ifAbsent: []);
+							yourself);
+						at: (Date new year: 2022 month: 5 day: 27)
+						put: (MPOOrder new
+							food: 'Salamipizza';
+							note: '';
+							price: 6.5;
+							person: (MPOPerson persons at: 'max.brombach@hs-furtwangen.de' ifAbsent: []);
 							yourself);
 						yourself);
-					week: theOpeningTime;
 				yourself);
 			yourself).
 				
@@ -71,22 +82,26 @@ MPORestaurant class >> createRestaurants [
 				
 			self restaurants add: (MPORestaurant new
 				name: 'Hier und Jetzt';
-				adress: 'Zaehringer Str. 44';
+				address: 'Zaehringer Str. 44';
 				location: 'Freiburg';
 				category: '';
-				services: (OrderedCollection new	
-					add: (MPOFood new
-						name: 'Mittagstisch 1';
-						vegetarian: false;
-						price: 10.20;
-						yourself);
-					add: (MPOFood new
-						name: 'Mittagstisch 2';
-						vegetarian: true;
-						price: 9.20;
-						yourself);
-					yourself);
 				week: theOpeningTime;
+				orders: (Dictionary new
+						at: (Date new year: 2022 month: 4 day: 13)
+						put: (MPOOrder new
+							food: 'Essen';
+							note: '';
+							price: 12;
+							person: (MPOPerson persons at: 'katrin.arts@hs-furtwangen.de' ifAbsent: []);
+							yourself);
+						at: (Date new year: 2022 month: 3 day: 25)
+						put: (MPOOrder new
+							food: 'Gericht';
+							note: '';
+							price: 15.5;
+							person: (MPOPerson persons at: 'siyar.kartal@hs-furtwangen.de' ifAbsent: []);
+							yourself);
+						yourself);
 				yourself).
 			
 			theOpeningTime := MPOOpeningTime new.
@@ -102,22 +117,26 @@ MPORestaurant class >> createRestaurants [
 			
 			self restaurants add: (MPORestaurant new
 				name: 'Die Kantina';
-				adress: 'Berta-Ottenstein-Strasse 3';
+				address: 'Berta-Ottenstein-Strasse 3';
 				location: 'Freiburg';
 				category: '';
-				services: (OrderedCollection new
-					add: (MPOFood new
-						name: 'Mittagstisch mit Fleisch';
-						vegetarian: false;
-						price: 12;
-						yourself);
-					add: (MPOFood new
-						name: 'Vegetarischer Mittagstisch';
-						vegetarian: true;
-						price: 11;
-						yourself);
-					yourself);
 				week: theOpeningTime;
+				orders: (Dictionary new
+						at: (Date new year: 2022 month: 4 day: 13)
+						put: (MPOOrder new
+							food: 'Mensamahl 1';
+							note: '';
+							price: 12;
+							person: (MPOPerson persons at: 'katrin.arts@hs-furtwangen.de' ifAbsent: []);
+							yourself);
+						at: (Date new year: 2022 month: 3 day: 25)
+						put: (MPOOrder new
+							food: 'Mensamahl 2';
+							note: '';
+							price: 15.5;
+							person: (MPOPerson persons at: 'siyar.kartal@hs-furtwangen.de' ifAbsent: []);
+							yourself);
+						yourself);
 				yourself)]
 ]
 
@@ -151,19 +170,27 @@ MPORestaurant >> addOrder: anOrder toDate: aDate [
 	(self orders at: aDate ifAbsentPut: [OrderedCollection new]) add: anOrder
 ]
 
+{ #category : 'Accessing' }
+MPORestaurant >> address [
+
+	"<^iOf String>"
+	"Answer the address of the receiver"
+
+	^address
+]
+
+{ #category : 'Accessing' }
+MPORestaurant >> address: aString [
+
+	"<aString: iOf String, ^self>"
+	"Set the address of the receiver"
+
+	address := aString
+]
+
 { #category : 'accessing' }
 MPORestaurant >> addReview: aReview [
 	self reviews add:  aReview
-]
-
-{ #category : 'accessing' }
-MPORestaurant >> adress [
-	^adress
-]
-
-{ #category : 'accessing' }
-MPORestaurant >> adress: aString [
-	adress := aString
 ]
 
 { #category : 'Not categorized' }
@@ -187,8 +214,8 @@ MPORestaurant >> category [
 ]
 
 { #category : 'accessing' }
-MPORestaurant >> category: aRestaurantType [
-	category := aRestaurantType
+MPORestaurant >> category: aString [
+	category := aString
 ]
 
 { #category : 'accessing' }
@@ -253,6 +280,24 @@ MPORestaurant >> getTopThreeRestaurants [
 	^topThree
 ]
 
+{ #category : 'Accessing' }
+MPORestaurant >> linkToMenu [
+
+	"<^iOf String>"
+	"Answer the linkToMenu of the receiver"
+
+	^linkToMenu
+]
+
+{ #category : 'Accessing' }
+MPORestaurant >> linkToMenu: aString [
+
+	"<aString: iOf String, ^self>"
+	"Set the linkToMenu of the receiver"
+
+	linkToMenu := aString
+]
+
 { #category : 'accessing' }
 MPORestaurant >> linkToWebsite [
 
@@ -273,16 +318,6 @@ MPORestaurant >> location [
 { #category : 'accessing' }
 MPORestaurant >> location: aLocation [
 	location := aLocation
-]
-
-{ #category : 'accessing' }
-MPORestaurant >> menu [
-	^menu
-]
-
-{ #category : 'accessing' }
-MPORestaurant >> menu: aString [
-	menu := aString
 ]
 
 { #category : 'Not categorized' }

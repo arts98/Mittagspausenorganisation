@@ -161,8 +161,8 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 				category: self restaurantTypeField value;
 				description: self descriptionTextArea value;
 				linkToWebsite: self website value;
-				menu: self menuLink value;
-				adress: self address value;
+				linkToMenu: self menuLink value;
+				address: self address value;
 				yourself).
 				self closeModal
 				]
