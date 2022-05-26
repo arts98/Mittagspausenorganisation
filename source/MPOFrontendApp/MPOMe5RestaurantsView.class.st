@@ -6,7 +6,7 @@ Class {
 		'currentRestaurant',
 		'restaurantNameField',
 		'restaurantTypeField',
-		'restaurantDescriptionTextArea',
+		'restaurantDescriptionText',
 		'reviewList',
 		'orderDateField',
 		'orderList',
@@ -74,9 +74,8 @@ MPOMe5RestaurantsView >> createComponents [
 						icon: Me5I newFasInfoCircle;
 						title: 'Beschreibung';
 						addChildToContent:  (Me5Portlet new
-							addChildToBody: (restaurantDescriptionTextArea := Me5TextArea new
+							addChildToBody: (restaurantDescriptionText := Me5P new
 								text: 'Beschreibung';
-								helpText: 'Restaurant-Beschreibung';
 								yourself);
 							addChildToFootButtonGroup: (websiteRef := Me5A newBlockPrimary
 								href: 'https://www.google.com' ;
@@ -119,11 +118,6 @@ MPOMe5RestaurantsView >> createComponents [
 								text: 'Neue Bestellung';
 								addClickEventSelector: #newOrderClicked;
 								yourself);
-							addChildToFootButtonGroup: (Me5Button newDanger
-								icon: Me5I newFasTrash;
-								text: 'Alle loeschen';
-									addClickEventSelector: #deleteAllOrdersClicked;
-								yourself);
 							yourself);
 						expand;
 						yourself);
@@ -133,7 +127,8 @@ MPOMe5RestaurantsView >> createComponents [
 		yourself. 
 
 	self refreshRestaurants: MPORestaurant restaurants.
-	self refreshOrders:  MPORestaurant restaurants first services.
+	self currentRestaurant: MPORestaurant restaurants first.
+	self refreshOrders: ( self currentRestaurant orders "at: (Date new year: 2022 month: 5 day: 25) " ).
 	"self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
 		title: 'Neues Restaurant';
 		subtitle: 'Neues Restaurant hinzufuegen.';
@@ -163,13 +158,14 @@ MPOMe5RestaurantsView >> createMasterDetailListGroupItemForRestaurant: aRestaura
 MPOMe5RestaurantsView >> createNewOrderListItem: anOrder [
 
 	^Me5MetronicListGroupItem new
-			title: anOrder name;
-			subtitle: anOrder price;
-			addChildToInfo: (Me5TextField newWithNoMarginBottom
-				text:  'Extras';
-				value:  '';
-				yourself);
+			title: anOrder food , ' (' , anOrder price asString, ' €)';
+			subtitle: anOrder note;
 			addChildToRightExtension: (Me5ButtonGroup newDivided
+				addChild: (Me5Button newPrimary
+					addCssClassBtnSm;
+					icon: Me5I newFasEdit;
+					addClickEventSelector: #editOrderClicked:;
+					yourself);
 				addChild: (Me5Button newDanger
 					addCssClassBtnSm;
 					icon: Me5I newFasTrash;
@@ -198,20 +194,18 @@ MPOMe5RestaurantsView >> currentRestaurant: anaMPORestaurant [
 ]
 
 { #category : 'Events' }
-MPOMe5RestaurantsView >> deleteAllOrdersClicked [
-
-	self orderList removeAllChildren
-]
-
-{ #category : 'Events' }
 MPOMe5RestaurantsView >> deleteOrderClicked: aMeEvent [
-
 	self showWarningNotificationWithMessage: 'Not implemented yet'
 ]
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> deleteRestaurantClicked [
 
+	self showWarningNotificationWithMessage: 'Not implemented yet'
+]
+
+{ #category : 'Events' }
+MPOMe5RestaurantsView >> editOrderClicked: aMeEvent [
 	self showWarningNotificationWithMessage: 'Not implemented yet'
 ]
 
@@ -230,8 +224,8 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 			theRestaurant := anEvent componentObject.
 			self currentRestaurant: theRestaurant.
 			self masterDetailList detailFormPortletTitle: theRestaurant name , ' ('  , theRestaurant category , ')'.
-			self restaurantDescriptionTextArea value: theRestaurant description.
-			self refreshOrders: theRestaurant services.
+			self restaurantDescriptionText text: theRestaurant description.
+			self refreshOrders: theRestaurant orders.
 			self websiteRef href: theRestaurant linkToWebsite.
 			self menuRef href: theRestaurant linkToMenu.
 			self addressRef href: 'https://www.google.com/maps/search/?api=1&query=', theRestaurant address.
@@ -356,21 +350,21 @@ MPOMe5RestaurantsView >> refreshRestaurants: aRestaurantCollection [
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantDescriptionTextArea [
+MPOMe5RestaurantsView >> restaurantDescriptionText [
 
 	"<^iOf Object>"
 	"Answer the restaurantDescriptionTextArea of the receiver"
 
-	^restaurantDescriptionTextArea
+	^restaurantDescriptionText
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantDescriptionTextArea: anObject [
+MPOMe5RestaurantsView >> restaurantDescriptionText: anObject [
 
 	"<anObject: iOf Object, ^self>"
 	"Set the restaurantDescriptionTextArea of the receiver"
 
-	restaurantDescriptionTextArea := anObject
+	restaurantDescriptionText := anObject
 ]
 
 { #category : 'Accessing' }

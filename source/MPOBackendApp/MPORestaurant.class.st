@@ -42,6 +42,7 @@ MPORestaurant class >> createRestaurants [
 					address: 'Eschholzstrasse 76';
 					location: 'Freiburg';
 					category: 'Doener';
+					description: 'Beschreibung von Mr Doener';
 					week: theOpeningTime;
 					orders: (Dictionary new
 						at: (Date new year: 2022 month: 5 day: 25)
@@ -84,7 +85,8 @@ MPORestaurant class >> createRestaurants [
 				name: 'Hier und Jetzt';
 				address: 'Zaehringer Str. 44';
 				location: 'Freiburg';
-				category: '';
+				category: 'Fast Food';
+				description: 'Beschreibung von Hier und Jetzt';
 				week: theOpeningTime;
 				orders: (Dictionary new
 						at: (Date new year: 2022 month: 4 day: 13)
@@ -119,7 +121,8 @@ MPORestaurant class >> createRestaurants [
 				name: 'Die Kantina';
 				address: 'Berta-Ottenstein-Strasse 3';
 				location: 'Freiburg';
-				category: '';
+				category: 'Pizzeria';
+				description: 'Beschreibung von Die Kantina';
 				week: theOpeningTime;
 				orders: (Dictionary new
 						at: (Date new year: 2022 month: 4 day: 13)
