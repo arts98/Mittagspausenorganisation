@@ -24,7 +24,7 @@ MPOMe5DashboardView >> calendarView: anObject [
 { #category : 'Not categorized' }
 MPOMe5DashboardView >> cardClickedCalendar [
 
-self replaceRootViewAndScrollToTop: MPOMe5CalendarView new
+	self replaceRootViewAndScrollToTop: MPOMe5CalendarView new
 ]
 
 { #category : 'Not categorized' }
@@ -46,28 +46,40 @@ MPOMe5DashboardView >> createComponents [
 				addChild: (Me5Portlet new
 					addChildToBody: (Me5PagingCardViewContainer new
 						addCardView: MPOMe5CalendarPreviewView new;
-					yourself);
+						yourself);
 					addCssClassOffset1;
 					addClickEventSelector: #cardClickedCalendar;
 					width: '400px';
 					height: '300px';
 					yourself);
 				addChild: (Me5Portlet new
+				addChildToBody: (Me5PagingCardViewContainer new
+						addCardView: MPOMe5BillsPreviewView new;
+						yourself);
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
 					yourself);
 				addChild: (Me5Portlet new
+				addChildToBody: (Me5PagingCardViewContainer new
+						addCardView: MPOMe5ReminderPreviewView new;
+						yourself);
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
 					yourself);
 				addChild: (Me5Portlet new
+				addChildToBody: (Me5PagingCardViewContainer new
+						addCardView: MPOMe5HistoryPreviewView new;
+						yourself);
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
 					yourself);
 				addChild: (Me5Portlet new
+				addChildToBody: (Me5PagingCardViewContainer new
+						addCardView: MPOMe5SettingsPreviewView new;
+						yourself);
 					addCssClassOffset1;
 					width: '400px';
 					height: '300px';
