@@ -122,6 +122,26 @@ MPORestaurant class >> createRestaurants [
 ]
 
 { #category : 'Not categorized' }
+MPORestaurant class >> deleteRestaurant: aRestaurant [
+	Restaurants remove: aRestaurant
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant class >> modifyRestaurant: aRestaurant [
+	self restaura
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant class >> modifyRestaurant: aRestaurant newMenu: aStringMenu newName: aStringName newServices: aString newAdress: adress newCategory: aRestaurantType [
+
+	"
+	self restaurants do: [:aRestaurantee | (aRestaurantee = aRestaurant) ifTrue: [
+		
+	]] 
+	"
+]
+
+{ #category : 'Not categorized' }
 MPORestaurant class >> restaurants [
 
 	"<^hOf Collection of: {iOf Restaurants}>"
@@ -140,15 +160,23 @@ MPORestaurant class >> restaurants: aCollection [
 ]
 
 { #category : 'Not categorized' }
-MPORestaurant >> addOrder: anOrder [
-	self orders add: anOrder
-]
-
-{ #category : 'Not categorized' }
 MPORestaurant >> addOrder: anOrder toDate: aDate [
 	self orders isNil
 		ifTrue: [self orders: Dictionary new].
 	(self orders at: aDate ifAbsentPut: [OrderedCollection new]) add: anOrder
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> addOrdertoDictionary: aString price: aNumber person: aPerson date: aDate note: aNoteString [
+	| newOrder |
+	newOrder := MPOOrder new.	
+	newOrder person: aPerson.
+	newOrder price: aNumber.
+	newOrder note: aNoteString.
+	newOrder food: aString.	
+	self addOrder: newOrder toDate: aDate
+	
+	
 ]
 
 { #category : 'accessing' }
@@ -191,14 +219,14 @@ MPORestaurant >> category: aRestaurantType [
 	category := aRestaurantType
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> deleteOrder: anOrder [
-	self orders remove: anOrder
-]
-
 { #category : 'Not categorized' }
 MPORestaurant >> deleteOrder: anOrder atDate: aDate [
 	(self orders at: aDate ifAbsent: []) remove: anOrder ifAbsent: [] 
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> deleteRestaurant: aRestaurant [
+	self class deleteRestaurant: aRestaurant
 ]
 
 { #category : 'accessing' }
@@ -216,6 +244,11 @@ MPORestaurant >> description [
 MPORestaurant >> description: aString [
 
 	description := aString
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> getOrdersatDate: aDate [
+	^(self orders at: aDate ifAbsent: []) 
 ]
 
 { #category : 'Not categorized' }
@@ -251,6 +284,11 @@ MPORestaurant >> getTopThreeRestaurants [
 		(topThree includes: highestRestaurant) 
 			ifFalse: [topThree add: highestRestaurant.]].
 	^topThree
+]
+
+{ #category : 'accessing' }
+MPORestaurant >> linktomenu: aString [
+	menu := aString
 ]
 
 { #category : 'accessing' }
@@ -293,6 +331,11 @@ MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson date: aDate not
 	myorder person: aPerson.
 	myorder food: aFood.
 	myorder note: aString.
+]
+
+{ #category : 'Not categorized' }
+MPORestaurant >> modifyRestaurant: aRestaurant [
+	"self class "
 ]
 
 { #category : 'accessing' }
