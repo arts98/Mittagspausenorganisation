@@ -78,7 +78,7 @@ MPOMe5LoginView >> logInClicked [
 	thePerson isNil
 		ifTrue: [self emailTextField dangerText: 'Falsche Email oder falsches Passwort.']
 		ifFalse: [
-			"self session person: thePerson."
+			self session person: thePerson.
 			self replaceView: MPOMe5DashboardView new]
 ]
 

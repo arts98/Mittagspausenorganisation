@@ -4,6 +4,12 @@ Class {
 	#category : 'MPOFrontendApp'
 }
 
+{ #category : 'API' }
+MPOMe5BaseView class >> sessionClass [
+
+	^Me5MPOSession 
+]
+
 { #category : 'Not categorized' }
 MPOMe5BaseView >> beforeCreateComponents [
 

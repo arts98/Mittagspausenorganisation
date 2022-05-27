@@ -182,7 +182,7 @@ MPOMe5RegistrationView >> registerClicked [
 				password: (MPOPerson hashPassword: self passwordTextField value);
 				yourself.
 			MPOPerson registerPerson: thePerson.
-			"self session person: thePerson."
+			self session person: thePerson.
 			self replaceView: MPOMe5DashboardView new]
 ]
 
