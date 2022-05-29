@@ -16,7 +16,7 @@ MPOMe5BillsPreviewView >> createComponents [
 				icon: (Me5I newFasInfo
 				yourself);
 			yourself);
-			text: 'Du schuldest PersonX noch 10€';
+			text: 'Du schuldest PersonX noch 10 Euro';
 			width: '350px';
 			yourself);
 		yourself

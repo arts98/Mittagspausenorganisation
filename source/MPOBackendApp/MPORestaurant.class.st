@@ -46,29 +46,29 @@ MPORestaurant class >> createRestaurants [
 					week: theOpeningTime;
 					orders: (Dictionary new
 						at: (Date new year: 2022 month: 5 day: 25)
-						put: (MPOOrder new
-							food: 'Doener';
-							note: 'Scharf';
-							price: 4;
-							person: (MPOPerson persons at: 'silas.schulz@hs-furtwangen.de' ifAbsent: []);
-							yourself);
-						at: (Date new year: 2022 month: 5 day: 25)
-						put: (MPOOrder new
-							food: 'Doener Box';
-							note: 'Viel Sosse';
-							price: 4;
-							person: (MPOPerson persons at: 'leonard.lemke@hs-furtwangen.de' ifAbsent: []);
-							yourself);
-						at: (Date new year: 2022 month: 5 day: 27)
-						put: (MPOOrder new
-							food: 'Salamipizza';
-							note: '';
-							price: 6.5;
-							person: (MPOPerson persons at: 'max.brombach@hs-furtwangen.de' ifAbsent: []);
+						put: (OrderedCollection new
+							add: (MPOOrder new
+								food: 'Doener';
+								note: 'Scharf';
+								price: 4;
+								person: (MPOPerson persons at: 'silas.schulz@hs-furtwangen.de' ifAbsent: []);
+								yourself);
+							add: (MPOOrder new
+								food: 'Doener Box';
+								note: 'Viel Sosse';
+								price: 4;
+								person: (MPOPerson persons at: 'leonard.lemke@hs-furtwangen.de' ifAbsent: []);
+								yourself);
+							add: (MPOOrder new
+								food: 'Salamipizza';
+								note: '';
+								price: 6.5;
+								person: (MPOPerson persons at: 'max.brombach@hs-furtwangen.de' ifAbsent: []);
+								yourself); 
 							yourself);
 						yourself);
-				yourself);
-			yourself).
+					yourself);
+				yourself).
 				
 			theOpeningTime := MPOOpeningTime new.
 			theOpeningTime week
@@ -89,19 +89,20 @@ MPORestaurant class >> createRestaurants [
 				description: 'Beschreibung von Hier und Jetzt';
 				week: theOpeningTime;
 				orders: (Dictionary new
-						at: (Date new year: 2022 month: 4 day: 13)
-						put: (MPOOrder new
-							food: 'Essen';
-							note: '';
-							price: 12;
-							person: (MPOPerson persons at: 'katrin.arts@hs-furtwangen.de' ifAbsent: []);
-							yourself);
-						at: (Date new year: 2022 month: 3 day: 25)
-						put: (MPOOrder new
-							food: 'Gericht';
-							note: '';
-							price: 15.5;
-							person: (MPOPerson persons at: 'siyar.kartal@hs-furtwangen.de' ifAbsent: []);
+						at: (Date new year: 2022 month: 5 day: 25)
+						put: (OrderedCollection new
+							add: (MPOOrder new
+								food: 'Essen';
+								note: '';
+								price: 12;
+								person: (MPOPerson persons at: 'katrin.arts@hs-furtwangen.de' ifAbsent: []);
+								yourself);
+							add: (MPOOrder new
+								food: 'Gericht';
+								note: '';
+								price: 15.5;
+								person: (MPOPerson persons at: 'siyar.kartal@hs-furtwangen.de' ifAbsent: []);
+								yourself); 
 							yourself);
 						yourself);
 				yourself).
@@ -125,22 +126,23 @@ MPORestaurant class >> createRestaurants [
 				description: 'Beschreibung von Die Kantina';
 				week: theOpeningTime;
 				orders: (Dictionary new
-						at: (Date new year: 2022 month: 4 day: 13)
-						put: (MPOOrder new
-							food: 'Mensamahl 1';
-							note: '';
-							price: 12;
-							person: (MPOPerson persons at: 'katrin.arts@hs-furtwangen.de' ifAbsent: []);
-							yourself);
-						at: (Date new year: 2022 month: 3 day: 25)
-						put: (MPOOrder new
-							food: 'Mensamahl 2';
-							note: '';
-							price: 15.5;
-							person: (MPOPerson persons at: 'siyar.kartal@hs-furtwangen.de' ifAbsent: []);
+						at: (Date new year: 2022 month: 5 day: 25)
+						put: (OrderedCollection new
+							add: (MPOOrder new
+								food: 'Mensamahl 1';
+								note: '';
+								price: 12;
+								person: (MPOPerson persons at: 'katrin.arts@hs-furtwangen.de' ifAbsent: []);
+								yourself);
+							add: (MPOOrder new
+								food: 'Mensamahl 2';
+								note: '';
+								price: 15.5;
+								person: (MPOPerson persons at: 'siyar.kartal@hs-furtwangen.de' ifAbsent: []);
+								yourself); 
 							yourself);
 						yourself);
-				yourself)]
+				yourself).]
 ]
 
 { #category : 'Not categorized' }
@@ -188,7 +190,6 @@ MPORestaurant >> addOrder: anOrder toDate: aDate [
 	(self orders at: aDate ifAbsentPut: [OrderedCollection new]) add: anOrder
 ]
 
-
 { #category : 'Not categorized' }
 MPORestaurant >> addOrdertoDictionary: aString price: aNumber person: aPerson date: aDate note: aNoteString [
 	| newOrder |
@@ -200,11 +201,6 @@ MPORestaurant >> addOrdertoDictionary: aString price: aNumber person: aPerson da
 	self addOrder: newOrder toDate: aDate
 	
 	
-]
-
-{ #category : 'accessing' }
-MPORestaurant >> addReview: aReview [
-	self reviews add:  aReview
 ]
 
 { #category : 'Accessing' }
@@ -226,7 +222,10 @@ MPORestaurant >> address: aString [
 	address := aString
 ]
 
-
+{ #category : 'accessing' }
+MPORestaurant >> addReview: aReview [
+	self reviews add:  aReview
+]
 
 { #category : 'Not categorized' }
 MPORestaurant >> averageRating [
@@ -282,7 +281,10 @@ MPORestaurant >> description: aString [
 
 { #category : 'Not categorized' }
 MPORestaurant >> getOrdersatDate: aDate [
-	^(self orders at: aDate ifAbsent: []) 
+	self orders isEmptyOrNil
+	ifTrue: [^nil] 
+	ifFalse: [^(self orders at: aDate ifAbsent: []) ]
+	
 ]
 
 { #category : 'Not categorized' }
@@ -340,7 +342,12 @@ MPORestaurant >> linkToMenu: aString [
 
 { #category : 'accessing' }
 MPORestaurant >> linktomenu: aString [
-	menu := aString
+	"The following source failed to compile (all double quotes have been doubled):"
+"
+	menu := aString"
+#tonelCompilationFailure.
+
+^ self halt: 'The source for this method failed to compile' 
 ]
 
 { #category : 'accessing' }

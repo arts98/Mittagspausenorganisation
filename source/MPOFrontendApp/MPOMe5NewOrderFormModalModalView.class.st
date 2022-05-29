@@ -1,6 +1,12 @@
 Class {
 	#name : 'MPOMe5NewOrderFormModalModalView',
 	#superclass : 'MPOMe5RestaurantsView',
+	#instVars : [
+		'dateField',
+		'foodTextField',
+		'noteTextField',
+		'priceTextField'
+	],
 	#category : 'MPOFrontendApp'
 }
 
@@ -15,7 +21,13 @@ MPOMe5NewOrderFormModalModalView class >> layoutClass [
 
 { #category : 'Events' }
 MPOMe5NewOrderFormModalModalView >> addOrderClicked [
-	self parentView addOrder: MPOOrder new.
+	self parentView currentRestaurant addOrder: (MPOOrder new
+		food: self foodTextField value;
+		note: self noteTextField value;
+		price: self priceTextField value;
+		yourself)
+		toDate: (self dateField value).
+	self parentView refreshOrders.
 	self closeModal
 ]
 
@@ -24,29 +36,21 @@ MPOMe5NewOrderFormModalModalView >> createComponents [
 	self modal
 		title: 'Neue Bestellung';
 		addChildToBody:(Me5Form new		
-			addChildToBody: (Me5DateField new
+			addChildToBody: (dateField := Me5DateField new
 				text: 'Datum';
 				value: Date today;
 				enableDatePicker: true;
 				setDatePickerButton;
 				yourself);
-			addChildToBody: (Me5TextField new
+			addChildToBody: (foodTextField := Me5TextField new
 				text: 'Essen';
 				yourself);
-			addChildToBody: (Me5TextArea new
+			addChildToBody: (noteTextField := Me5TextArea new
 				text: 'Extras';
 				yourself);
-			addChildToBody: (Me5TextField new
+			addChildToBody: (priceTextField := Me5TextField new
 				text: 'Preis';
 				helpText: 'in Euro';
-				yourself);
-			addChildToBody: (Me5RadioGroup new
-				text: 'Radio Group';
-				addObjects:  MPORestaurantType restaurantTypes;
-				yourself);
-			addChildToBody: (Me5SelectBox new
-				text: 'Select Box';
-				addObjects:  MPORestaurantType restaurantTypes;
 				yourself);
 			yourself);
 			addChildToFoot: (Me5Column new
@@ -60,4 +64,76 @@ MPOMe5NewOrderFormModalModalView >> createComponents [
 					yourself);
 				yourself);
 			yourself
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> dateField [
+
+	"<^iOf DateField>"
+	"Answer the dateField of the receiver"
+
+	^dateField
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> dateField: aDateField [
+
+	"<aDateField: iOf DateField, ^self>"
+	"Set the dateField of the receiver"
+
+	^dateField := aDateField
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> foodTextField [
+
+	"<^iOf TextField>"
+	"Answer the foodTextField of the receiver"
+
+	^foodTextField
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> foodTextField: aTextField [
+
+	"<aTextField: iOf TextField, ^self>"
+	"Set the foodTextField of the receiver"
+
+	^foodTextField := aTextField
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> noteTextField [
+
+	"<^iOf TextField>"
+	"Answer the noteTextField of the receiver"
+
+	^noteTextField
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> noteTextField: aTextField [
+
+	"<aTextField: iOf TextField, ^self>"
+	"Set the noteTextField of the receiver"
+
+	^noteTextField := aTextField
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> priceTextField [
+
+	"<^iOf TextField>"
+	"Answer the priceTextField of the receiver"
+
+	^priceTextField
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> priceTextField: aTextField [
+
+	"<aTextField: iOf TextField, ^self>"
+	"Set the priceTextField of the receiver"
+
+	^priceTextField := aTextField
 ]

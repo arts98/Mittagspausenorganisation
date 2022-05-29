@@ -156,16 +156,18 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 		ifFalse: [
 				self nameField dangerText: 'Bitte gib einen Namen ein.']
 		ifTrue: [
-			self parentView addRestaurant: (MPORestaurant new
+			 MPORestaurant restaurants add: (MPORestaurant new
 				name: self nameField value;
-				category: self restaurantTypeField value;
+				category: self restaurantTypeSelectBox value;
 				description: self descriptionTextArea value;
-				linkToWebsite: self website value;
-				linkToMenu: self menuLink value;
-				address: self address value;
+				linkToWebsite: (self website value ifEmpty: nil);
+				linkToMenu: (self menuLink value ifEmpty: nil);
+				address: (self address value ifEmpty: nil);
 				yourself).
+				self parentView refreshRestaurants.
 				self closeModal
 				]
+				
 
 ]
 

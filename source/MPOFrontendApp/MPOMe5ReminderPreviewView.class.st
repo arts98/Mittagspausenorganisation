@@ -16,7 +16,7 @@ MPOMe5ReminderPreviewView >> createComponents [
 				icon: (Me5I newFasFlag
 				yourself);
 			yourself);
-			text: 'Vergiss nicht für Donnerstag abzustimmen';
+			text: 'Vergiss nicht fuer Donnerstag abzustimmen';
 			width: '350px';
 		yourself);
 		addChild: (Me5Portlet new
@@ -24,7 +24,7 @@ MPOMe5ReminderPreviewView >> createComponents [
 				icon: (Me5I newFasFlag
 				yourself);
 			yourself);
-			text: 'PersonY schuldet dir noch 10€';
+			text: 'PersonY schuldet dir noch 10 Euro';
 			width: '350px';
 		yourself);
 	yourself

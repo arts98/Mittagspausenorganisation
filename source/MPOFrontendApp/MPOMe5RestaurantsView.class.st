@@ -77,15 +77,15 @@ MPOMe5RestaurantsView >> createComponents [
 							addChildToBody: (restaurantDescriptionText := Me5P new
 								text: 'Beschreibung';
 								yourself);
-							addChildToFootButtonGroup: (websiteRef := Me5A newBlockPrimary
+							addChildToFootButtonGroup: (websiteRef := Me5A newPillPrimary
 								href: 'https://www.google.com' ;
 								text: 'Webseite';
 								yourself);
-							addChildToFootButtonGroup: (menuRef :=Me5A newBlockPrimary
+							addChildToFootButtonGroup: (menuRef :=Me5A newPillPrimary
 								href: 'https://www.google.com/finance' ;
 								text: 'Speisekarte';
 								yourself);
-							addChildToFootButtonGroup: (addressRef := Me5A newBlockPrimary
+							addChildToFootButtonGroup: (addressRef := Me5A newPillPrimary
 								href: 'https://www.google.de/maps/' ;
 								text: 'Adresse';
 								yourself);
@@ -108,6 +108,7 @@ MPOMe5RestaurantsView >> createComponents [
 							value: Date today;
 							enableDatePicker: true;
 							setDatePickerButton;
+							addChangeEventSelector: #refreshOrders;
 							yourself);
 						addChildToContent:  (Me5Portlet new
 							addChildToBody: (orderList := Me5MetronicListGroup new
@@ -126,9 +127,9 @@ MPOMe5RestaurantsView >> createComponents [
 			yourself);
 		yourself. 
 
-	self refreshRestaurants: MPORestaurant restaurants.
+	self refreshRestaurants.
 	self currentRestaurant: MPORestaurant restaurants first.
-	self refreshOrders: ( self currentRestaurant orders "at: (Date new year: 2022 month: 5 day: 25) " ).
+	self refreshOrders.
 	"self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
 		title: 'Neues Restaurant';
 		subtitle: 'Neues Restaurant hinzufuegen.';
@@ -158,8 +159,9 @@ MPOMe5RestaurantsView >> createMasterDetailListGroupItemForRestaurant: aRestaura
 MPOMe5RestaurantsView >> createNewOrderListItem: anOrder [
 
 	^Me5MetronicListGroupItem new
-			title: anOrder food , ' (' , anOrder price asString, ' €)';
+			title: anOrder food , ' (' , anOrder price asString, ' Euro)';
 			subtitle: anOrder note;
+			componentObject: anOrder;
 			addChildToRightExtension: (Me5ButtonGroup newDivided
 				addChild: (Me5Button newPrimary
 					addCssClassBtnSm;
@@ -195,7 +197,12 @@ MPOMe5RestaurantsView >> currentRestaurant: anaMPORestaurant [
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> deleteOrderClicked: aMeEvent [
-	self showWarningNotificationWithMessage: 'Not implemented yet'
+
+	| theOrder |
+	theOrder := aMeEvent componentObject.
+	self currentRestaurant deleteOrder: theOrder atDate: (self orderDateField value).
+	self refreshOrders
+
 ]
 
 { #category : 'Events' }
@@ -225,10 +232,12 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 			self currentRestaurant: theRestaurant.
 			self masterDetailList detailFormPortletTitle: theRestaurant name , ' ('  , theRestaurant category , ')'.
 			self restaurantDescriptionText text: theRestaurant description.
-			self refreshOrders: theRestaurant orders.
+			self refreshOrders.
 			self websiteRef href: theRestaurant linkToWebsite.
 			self menuRef href: theRestaurant linkToMenu.
-			self addressRef href: 'https://www.google.com/maps/search/?api=1&query=', theRestaurant address.
+			theRestaurant address isEmptyOrNil
+			ifTrue: [self addressRef href: nil.] 
+			ifFalse: [self addressRef href: 'https://www.google.com/maps/search/?api=1&query=', theRestaurant address.]
 			]
 ]
 
@@ -334,17 +343,22 @@ MPOMe5RestaurantsView >> orderList: aList [
 ]
 
 { #category : 'Internal' }
-MPOMe5RestaurantsView >> refreshOrders: aOrderCollection [
+MPOMe5RestaurantsView >> refreshOrders [
+
+	| aOrderCollection |
 	self orderList removeAllChildren.
-	aOrderCollection do: [ :aOrder |
-		self addOrder: aOrder
-	].
+	aOrderCollection := self currentRestaurant getOrdersatDate: (self orderDateField value).
+	aOrderCollection isNil
+		ifTrue: [self orderList addChild: (Me5MetronicListGroupItem new	title: 'Keine Bestellungen an diesem Tag...'; yourself)]
+		ifFalse: [aOrderCollection do: [ :aOrder |
+			self addOrder: aOrder
+			].]
 ]
 
 { #category : 'Internal' }
-MPOMe5RestaurantsView >> refreshRestaurants: aRestaurantCollection [
+MPOMe5RestaurantsView >> refreshRestaurants [
 	self masterDetailList removeAllMasterDetailListGroupItems.
-	aRestaurantCollection do: [ :aRestaurant |
+	MPORestaurant restaurants do: [ :aRestaurant |
 		self addRestaurant: aRestaurant
 	].
 ]

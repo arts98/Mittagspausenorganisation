@@ -12,7 +12,7 @@ MPOMe5HistoryPreviewView >> createComponents [
 			text: 'Verlauf';
 			yourself);
 		addChild: (Me5Portlet new
-			text: 'Am Mittwoch warst du Döner essen';
+			text: 'Am Mittwoch warst du Doener essen';
 			width: '350px';
 			yourself);
 		addChild: (Me5Portlet new
