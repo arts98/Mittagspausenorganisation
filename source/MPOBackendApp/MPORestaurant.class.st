@@ -205,6 +205,7 @@ MPORestaurant >> addOrdertoDictionary: aString price: aNumber person: aPerson da
 { #category : 'accessing' }
 MPORestaurant >> addReview: aReview [
 	self reviews add:  aReview
+]
 
 { #category : 'Accessing' }
 MPORestaurant >> address [
