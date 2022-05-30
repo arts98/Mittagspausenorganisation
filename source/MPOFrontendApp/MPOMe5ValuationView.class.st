@@ -3,6 +3,12 @@ Class {
 	#superclass : 'MPOMe5BaseView',
 	#instVars : [
 		'heading',
+		'averageRating',
+		'averageStars',
+		'averageRatingStars',
+		'sortCollection',
+		'ratingCollection',
+		'ratingFromOneToFiveQuestion',
 		'starCount',
 		'masterDetailList',
 		'ratingList',
@@ -30,7 +36,7 @@ Class {
 { #category : 'Not categorized' }
 MPOMe5ValuationView class >> sessionClass [
 
-^MPOMe5CommentCounterSession  
+^MPOMe5CommentCounterSession", MPOMe5AverageRatingSession "
 ]
 
 { #category : 'Not categorized' }
@@ -66,32 +72,60 @@ self masterDetailList isNewDummyListGroupItemActive
 			theComment := anEvent componentObject.
 			self commentForm value: theComment note.
 			self starCount: theComment starRating.
-			"self sortEvaluation value: theComment starRating."
+			
 			]
 ]
 
 { #category : 'Not categorized' }
-MPOMe5ValuationView >> addRatingClickedTest [
+MPOMe5ValuationView >> averageRating [
 
-^Me5MetronicListGroup new
-		addClickEventSelector: #addRatingClickedTest2;
-		yourself
+	^averageRating
 ]
 
 { #category : 'Not categorized' }
-MPOMe5ValuationView >> addRatingClickedTest2 [
+MPOMe5ValuationView >> averageRating: anFloat [
 
-^Me5MetronicListGroupItem new
-				title: 'Pizza Salami2';
-				yourself
+	averageRating := anFloat
 ]
 
 { #category : 'Not categorized' }
-MPOMe5ValuationView >> addUserComment [
+MPOMe5ValuationView >> averageRatingStars [
 
-	^Me5TextArea new
-			text: 'Hans Peter (Anzahl Sterne)';
-			yourself
+	^averageRatingStars
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> averageRatingStars: anObject [
+
+	averageRatingStars := anObject
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> averageStars [
+
+	^averageStars
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> averageStars: anObject [
+
+	averageStars := anObject
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> checkStarCount [
+
+self starCount = 1
+ifTrue:[self averageRating: (self averageRating + 1)]
+ifFalse: [self starCount = 2
+	ifTrue: [self averageRating: (self averageRating + 2)]
+	ifFalse: [self starCount = 3
+		ifTrue: [self averageRating: (self averageRating + 3)]
+		ifFalse: [self starCount = 4
+			ifTrue: [self averageRating: (self averageRating + 4)]
+			ifFalse: [self starCount = 5
+				ifTrue: [self averageRating: (self averageRating + 5)]]]]]
+
 ]
 
 { #category : 'Not categorized' }
@@ -129,7 +163,10 @@ MPOMe5ValuationView >> createComponents [
 
 "Loeschfunktion fuer hinzugefuegte Kommentare noch einbauen!"
 
-"starCount := 0."
+starCount := nil.
+averageRating := 0.
+ratingCollection := OrderedCollection new
+yourself.
 	self
 		addChild: (heading := Me5H1 new
 			text: 'Bewertungsview: (Restaurantname)';
@@ -141,6 +178,8 @@ MPOMe5ValuationView >> createComponents [
 				addChild: self starsClicked;
 				addChild: self starsClicked;
 				addChild: self starsClicked;
+			addChild: (averageRatingStars := Me5H1 new
+				yourself);	
 				addChild: (Me5Form new
 					addCssClassOffsetLg3;
 					addChildToBody: (searchField := Me5TextField new
@@ -157,7 +196,7 @@ MPOMe5ValuationView >> createComponents [
 				text: 'Hier Restaurant bewerten';
 				yourself);
 			addChildToMasterFormPortletHeadTools: (Me5H3 new
-				text: 'Kommentare (';
+				text: 'Bewertungen (';
 				yourself);
 			addChildToMasterFormPortletHeadTools: (commentCounter :=Me5H3 new
 				text: self session counter;
@@ -167,16 +206,18 @@ MPOMe5ValuationView >> createComponents [
 				yourself);
 			addChildToMasterFormPortletHeadTools: (Me5Form new
 				addChildToBody: (sortEvaluation := Me5SelectBox new
+					"makeHoverable;"
 					disableColonPostfix;
-					objects: (OrderedCollection new
+					objects: ("sortCollection:="OrderedCollection new
 						add: 'Beste zuerst';
 						add: 'Schlechteste zuerst';
 						add: 'Aelteste zuerst';
 						add: 'Neueste zuerst';
 					yourself);
+					addChangeEventSelector: #sortByCollection;
 				yourself);
 			yourself);
-			addChildToDetailFormPortletBody: (Me5Section new
+			addChildToDetailFormPortletBody: (ratingFromOneToFiveQuestion := Me5Section new
 				text: 'Wie viele Sterne von 1-5 moechten Sie diesem Restaurant geben?';
 				yourself);
 			addChildToDetailFormPortletBody: (firstSmallStarBlack := self firstSmallStar);
@@ -208,29 +249,13 @@ MPOMe5ValuationView >> createComponents [
 			addChildToDetailFormPortletFootButtonGroup: (Me5Button newAirDanger
 				icon: Me5I newFasTrash;
 				addClickEventSelector: #decrementCommentCounter;
-				text: 'Kommentar loeschen';
+				text: 'Kommentar loeschen (Counter -1)';
 				yourself);
 			yourself);
-			"addChild: (userComments := Me5Form new
-				addChildToBody: (Me5Accordion newSeparatedTabs
-					addChild: (Me5AccordionItem new
-						expand;
-						icon: Me5I newFasComment;
-						title: 'Benutzerkommentare';
-						width: '1000px';
-						addChildToContent: (Me5Portlet new
-							addChildToBody: (ratingList := Me5MetronicListGroup new
-								enableHoverable;
-								addChild: (ratingListGroupItems :=self addRatingClickedTest);
-								yourself);
-							yourself);
-						yourself);
-					yourself);
-				yourself);"
-			yourself.
+		yourself.
 		
 		self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
-			title: 'Neuer Kommentar';
+			title: 'Neue Bewertung';
 			"subtitle: 'Anzahl Sterne';"
 			addAfterMasterDetailListGroupItemSelectedEventSelector: #addRatingClicked:;
 			itemSelectedWindowHistoryPushUrl: '?new';
@@ -245,12 +270,14 @@ MPOMe5ValuationView >> createMasterDetailListGroupItemForRating: aRating [
 		updateBlock: [ :theComponent | 
 			theComponent title: aRating starRating.
 			theComponent subtitle: aRating note.
-			"theComponent subtitle: aRating starRating"
+			"theComponent subtitle: aRating averageRating."
+			self ratingCollection add: "aRating."  theComponent.
 		];
 		componentObject: aRating;
 		addAfterMasterDetailListGroupItemSelectedEventSelector: #addRatingClicked:;
 		itemSelectedWindowHistoryPushUrl: '?',  aRating note;
 		yourself
+		
 ]
 
 { #category : 'Not categorized' }
@@ -259,14 +286,12 @@ MPOMe5ValuationView >> decrementCommentCounter [
 self session counter: (self session counter - 1).
 self session counter < 0
 ifTrue: [self reset].
-self commentCounter text: self session counter asString
-
+self commentCounter text: self session counter
 ]
 
 { #category : 'SmallStars' }
 MPOMe5ValuationView >> fifthSmallStar [
 
-"starCount := 5."
 	^Me5Button newLink
 			icon: (Me5I newFasStar);
 			color: 'black';
@@ -290,14 +315,13 @@ MPOMe5ValuationView >> fifthSmallStarBlack: anObject [
 { #category : 'SmallStars' }
 MPOMe5ValuationView >> fifthSmallStarsOrange [
 	
-	"starCount := commentCounter."
-	"starCount := 5 asString."
-	starCount := '5 Sterne'.
+	starCount := 5.
 	firstSmallStarBlack color: 'orange'.
 	secondSmallStarBlack color: 'orange'.
 	thirdSmallStarBlack color: 'orange'.
 	fourthSmallStarBlack color: 'orange'.
 	fifthSmallStarBlack color: 'orange'.
+	self ratingFromOneToFiveQuestion color: 'black'; text: 'Wie viele Sterne von 1-5 moechten Sie diesem Restaurant geben?'.
 ]
 
 { #category : 'SmallStars' }
@@ -326,13 +350,14 @@ MPOMe5ValuationView >> firstSmallStarBlack: anObject [
 { #category : 'SmallStars' }
 MPOMe5ValuationView >> firstSmallStarsOrange [
 	
-	"starCount := 1 asString."
-	starCount := '1 Stern'.
+	"starCount := '1 Stern'."
+	starCount := 1.
 	firstSmallStarBlack color: 'orange'.
 	secondSmallStarBlack color: 'black'.
 	thirdSmallStarBlack color: 'black'.
 	fourthSmallStarBlack color: 'black'.
 	fifthSmallStarBlack color: 'black'.
+	self ratingFromOneToFiveQuestion color: 'black'; text: 'Wie viele Sterne von 1-5 moechten Sie diesem Restaurant geben?'.
 ]
 
 { #category : 'SmallStars' }
@@ -361,13 +386,13 @@ MPOMe5ValuationView >> fourthSmallStarBlack: anObject [
 { #category : 'SmallStars' }
 MPOMe5ValuationView >> fourthSmallStarsOrange [
 	
-	"starCount := 4."
-	starCount := '4 Sterne'.
+	starCount := 4.
 	firstSmallStarBlack color: 'orange'.
 	secondSmallStarBlack color: 'orange'.
 	thirdSmallStarBlack color: 'orange'.
 	fourthSmallStarBlack color: 'orange'.
 	fifthSmallStarBlack color: 'black'.
+	self ratingFromOneToFiveQuestion color: 'black'; text: 'Wie viele Sterne von 1-5 moechten Sie diesem Restaurant geben?'.
 ]
 
 { #category : 'Not categorized' }
@@ -377,17 +402,16 @@ MPOMe5ValuationView >> heading [
 ]
 
 { #category : 'Not categorized' }
-MPOMe5ValuationView >> heading: anObject [
+MPOMe5ValuationView >> heading: aString [
 
-	heading := anObject
+	heading := aString
 ]
 
 { #category : 'Not categorized' }
 MPOMe5ValuationView >> incrementCommentCounter [
 
-"self session counter: (self session counter + 1)."
 self session counter: (self session counter + 1).
-self commentCounter text: self session counter asString
+self commentCounter text: self session counter "asString"
 ]
 
 { #category : 'Not categorized' }
@@ -400,6 +424,30 @@ MPOMe5ValuationView >> masterDetailList [
 MPOMe5ValuationView >> masterDetailList: anObject [
 
 	masterDetailList := anObject
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> ratingCollection [
+
+	^ratingCollection
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> ratingCollection: aCollection [
+
+	ratingCollection := aCollection
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> ratingFromOneToFiveQuestion [
+
+	^ratingFromOneToFiveQuestion
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> ratingFromOneToFiveQuestion: anObject [
+
+	ratingFromOneToFiveQuestion := anObject
 ]
 
 { #category : 'Not categorized' }
@@ -436,22 +484,37 @@ self commentCounter text: self session counter asString
 { #category : 'Not categorized' }
 MPOMe5ValuationView >> saveClickedRating [
 
+self starCount notNil
+	ifFalse: [
+	self firstSmallStarBlack color: 'red'.
+	self secondSmallStarBlack color: 'red'.
+	self thirdSmallStarBlack color: 'red'.
+	self fourthSmallStarBlack color: 'red'.
+	self fifthSmallStarBlack color: 'red'.
+	self ratingFromOneToFiveQuestion color: 'red'; text: 'Wie viele Sterne von 1-5 moechten Sie diesem Restaurant geben? Bitte klicken Sie auf einen der fuenf Sterne'.
+	]
+	ifTrue: [
+	self incrementCommentCounter.
+	self checkStarCount.
 	self masterDetailList isNewDummyListGroupItemActive
-		ifTrue: [ | theRating theMasterDetailListGroupItem "thePerson" |
+		ifTrue: [ |theReviews theRating theMasterDetailListGroupItem"thePerson: username aus MPOPerson noch einbauen" |
+			
 			theRating := MPORating new.
-			"thePerson := MPOPerson new."
 			self saveRating: theRating.
 			theMasterDetailListGroupItem := self createMasterDetailListGroupItemForRating: theRating.
+			
+			theReviews := MPORestaurant new averageRating: self averageRating commentCounter: self session counter. "Backend Methode averageRating (MPORestaurant) abgeandert in: averageRating: aRatings commentCounter: aNumber 
+																																																																										^(aRatings/aNumber) asFloatD"
+			self averageRatingStars text: theReviews.
+			"Das noch einbauen! reviews: self ratingCollection;"
+			
 			self masterDetailList addMasterDetailListGroupItem: (theMasterDetailListGroupItem
 				enableIsActive;
-				yourself)]
+				yourself).
+			]
 		ifFalse: [
-			self saveRating: self masterDetailList activeMasterDetailListGroupItemComponentObject.
-			"self saveRating: self masterDetailList masterDetailListGroupComponent."
-			self masterDetailList updateMasterDetailList].
-	self showSuccessNotificationWithMessage: 'Kommentar hinzugefuegt'.
-	self incrementCommentCounter.
-	"self starCount."
+			self masterDetailList updateMasterDetailList.
+			self showSuccessNotificationWithMessage: 'Kommentar hinzugefuegt'.]].
 ]
 
 { #category : 'Not categorized' }
@@ -459,8 +522,8 @@ MPOMe5ValuationView >> saveRating: aRating [
 	
 	aRating
 		note: self commentForm value;
-		starRating: self starCount value;
-		"starRating: self sortEvaluation value;"
+		starRating: self starCount;
+		"tags: self ratingCollection;"
 		yourself
 ]
 
@@ -479,7 +542,6 @@ MPOMe5ValuationView >> searchField: anObject [
 { #category : 'SmallStars' }
 MPOMe5ValuationView >> secondSmallStar [
 	
-	"firstSmallStarBlack = nil."
 	^Me5Button newLink
 			icon: (Me5I newFasStar);
 			color: 'black';
@@ -503,13 +565,13 @@ MPOMe5ValuationView >> secondSmallStarBlack: anObject [
 { #category : 'SmallStars' }
 MPOMe5ValuationView >> secondSmallStarsOrange [
 	
-	"starCount := 2 asString."
-	starCount := '2 Sterne'.
+	starCount := 2.
 	firstSmallStarBlack color: 'orange'.
 	secondSmallStarBlack color: 'orange'.
 	thirdSmallStarBlack color: 'black'.
 	fourthSmallStarBlack color: 'black'.
 	fifthSmallStarBlack color: 'black'.
+	self ratingFromOneToFiveQuestion color: 'black'; text: 'Wie viele Sterne von 1-5 moechten Sie diesem Restaurant geben?'.
 	
 ]
 
@@ -545,6 +607,33 @@ MPOMe5ValuationView >> smallStarsOrange: anObject [
 ]
 
 { #category : 'Not categorized' }
+MPOMe5ValuationView >> sortByCollection [
+
+"unvollstaendig bzw. fehlerbehaftet"
+
+	"self locale: "self sortEvaluation selectedObject = 'Neueste zuerst'
+		ifTrue: [MPORestaurant new orderReviewsByTimestamp]
+		ifFalse: [self sortEvaluation selectedObject = 'Beste zuerst'
+			ifTrue: [MPORestaurant new getSortedCommentsbasedonRating]
+			"ifFalse: [^0 fehlt noch]"]. 
+	self replaceView
+
+				
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> sortCollection [
+
+	^sortCollection
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> sortCollection: aCollection [
+
+	sortCollection := aCollection
+]
+
+{ #category : 'Not categorized' }
 MPOMe5ValuationView >> sortEvaluation [
 
 	^sortEvaluation
@@ -557,27 +646,15 @@ MPOMe5ValuationView >> sortEvaluation: anObject [
 ]
 
 { #category : 'Not categorized' }
-MPOMe5ValuationView >> starButtonColor [
-
-	^starButtonColor
-]
-
-{ #category : 'Not categorized' }
-MPOMe5ValuationView >> starButtonColor: anObject [
-
-	starButtonColor := Me5I newFasStar color: 'orange'; yourself
-]
-
-{ #category : 'Not categorized' }
 MPOMe5ValuationView >> starCount [
 
 	^starCount
 ]
 
 { #category : 'Not categorized' }
-MPOMe5ValuationView >> starCount: anObject [
+MPOMe5ValuationView >> starCount: anInteger [
 
-	starCount := anObject
+	starCount := anInteger
 ]
 
 { #category : 'Not categorized' }
@@ -616,13 +693,13 @@ MPOMe5ValuationView >> thirdSmallStarBlack: anObject [
 { #category : 'SmallStars' }
 MPOMe5ValuationView >> thirdSmallStarsOrange [
 	
-	"starCount := 3 asString."
-	starCount := '3 Sterne'.
+	starCount := 3.
 	firstSmallStarBlack color: 'orange'.
 	secondSmallStarBlack color: 'orange'.
 	thirdSmallStarBlack color: 'orange'.
 	fourthSmallStarBlack color: 'black'.
 	fifthSmallStarBlack color: 'black'.
+	self ratingFromOneToFiveQuestion color: 'black'; text: 'Wie viele Sterne von 1-5 moechten Sie diesem Restaurant geben?'.
 	
 ]
 
