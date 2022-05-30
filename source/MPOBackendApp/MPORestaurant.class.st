@@ -159,10 +159,11 @@ MPORestaurant class >> modifyRestaurant: aRestaurant [
 MPORestaurant class >> modifyRestaurant: aRestaurant newMenu: aStringMenu newName: aStringName newServices: aString newAdress: adress newCategory: aRestaurantType [
 
 	"
-	self restaurants do: [:aRestaurantee | (aRestaurantee = aRestaurant) ifTrue: [
-		
+	self restaurants do: [:eachRestaurante | (eachRestaurante = aRestaurant) ifTrue: [
+			eachRestaurante adress
 	]] 
 	"
+	
 ]
 
 { #category : 'Not categorized' }
