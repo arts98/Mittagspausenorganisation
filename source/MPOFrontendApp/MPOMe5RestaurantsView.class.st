@@ -102,9 +102,8 @@ MPOMe5RestaurantsView >> createComponents [
 						icon: Me5I newFasShoppingCart;
 						title: 'Bestellungen';
 						addChildToContent: (orderDateField := Me5DateField new
-							addCssClassCol12;
-							addCssClassColSm4;
 							text: 'Datum';
+							width: 400;
 							value: Date today;
 							enableDatePicker: true;
 							setDatePickerButton;
