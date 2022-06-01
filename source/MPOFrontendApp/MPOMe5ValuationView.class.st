@@ -3,6 +3,7 @@ Class {
 	#superclass : 'MPOMe5BaseView',
 	#instVars : [
 		'heading',
+		'restaurant',
 		'averageRating',
 		'averageStars',
 		'averageRatingStars',
@@ -71,9 +72,10 @@ self masterDetailList isNewDummyListGroupItemActive
 		ifFalse: [ | theComment |
 			theComment := anEvent componentObject.
 			self commentForm value: theComment note.
-			self starCount: theComment starRating.
+			self starCount: theComment starRating.	
 			
-			]
+			].
+			
 ]
 
 { #category : 'Not categorized' }
@@ -271,12 +273,14 @@ MPOMe5ValuationView >> createMasterDetailListGroupItemForRating: aRating [
 			theComponent title: aRating starRating.
 			theComponent subtitle: aRating note.
 			"theComponent subtitle: aRating averageRating."
-			self ratingCollection add: "aRating."  theComponent.
+			"self ratingCollection add: self.""aRating."  "theComponent."
+			"self ratingCollection add: aRating."
 		];
 		componentObject: aRating;
 		addAfterMasterDetailListGroupItemSelectedEventSelector: #addRatingClicked:;
 		itemSelectedWindowHistoryPushUrl: '?',  aRating note;
 		yourself
+		
 		
 ]
 
@@ -482,6 +486,27 @@ self commentCounter text: self session counter asString
 ]
 
 { #category : 'Not categorized' }
+MPOMe5ValuationView >> restaurant [
+
+	^restaurant
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> restaurant: aRestaurant [
+
+	restaurant := aRestaurant
+]
+
+{ #category : 'Not categorized' }
+MPOMe5ValuationView >> saveAverageRating: aRating [
+	
+	aRating
+		reviews: self ratingCollection;
+		averageRating;
+		yourself
+]
+
+{ #category : 'Not categorized' }
 MPOMe5ValuationView >> saveClickedRating [
 
 self starCount notNil
@@ -497,16 +522,19 @@ self starCount notNil
 	self incrementCommentCounter.
 	self checkStarCount.
 	self masterDetailList isNewDummyListGroupItemActive
-		ifTrue: [ |theReviews theRating theMasterDetailListGroupItem"thePerson: username aus MPOPerson noch einbauen" |
+		ifTrue: [ |theReviews theAverage theRestaurant theRating theMasterDetailListGroupItem"thePerson: username aus MPOPerson noch einbauen" |
 			
 			theRating := MPORating new.
 			self saveRating: theRating.
 			theMasterDetailListGroupItem := self createMasterDetailListGroupItemForRating: theRating.
 			
-			theReviews := MPORestaurant new averageRating: self averageRating commentCounter: self session counter. "Backend Methode averageRating (MPORestaurant) abgeandert in: averageRating: aRatings commentCounter: aNumber 
-																																																																										^(aRatings/aNumber) asFloatD"
+			"theReviews := MPORestaurant new averageRating: self averageRating commentCounter: self session counter." "Backend Methode averageRating (MPORestaurant) abgeandert in: averageRating: aRatings commentCounter: aNumber 
+																																																																	^(aRatings/aNumber) asFloatD"
+			
+			self ratingCollection add: theRating.
+			self restaurant reviews: self ratingCollection. "aktuelles geöffnetes Restaurant"
+			theReviews := self restaurant averageRating.
 			self averageRatingStars text: theReviews.
-			"Das noch einbauen! reviews: self ratingCollection;"
 			
 			self masterDetailList addMasterDetailListGroupItem: (theMasterDetailListGroupItem
 				enableIsActive;
@@ -610,11 +638,13 @@ MPOMe5ValuationView >> smallStarsOrange: anObject [
 MPOMe5ValuationView >> sortByCollection [
 
 "unvollstaendig bzw. fehlerbehaftet"
+|theRestaurant|
+theRestaurant := MPORestaurant new.
 
 	"self locale: "self sortEvaluation selectedObject = 'Neueste zuerst'
-		ifTrue: [MPORestaurant new orderReviewsByTimestamp]
+		ifTrue: [theRestaurant orderReviewsByTimestamp]
 		ifFalse: [self sortEvaluation selectedObject = 'Beste zuerst'
-			ifTrue: [MPORestaurant new getSortedCommentsbasedonRating]
+			ifTrue: [theRestaurant getSortedCommentsbasedonRating]
 			"ifFalse: [^0 fehlt noch]"]. 
 	self replaceView
 
