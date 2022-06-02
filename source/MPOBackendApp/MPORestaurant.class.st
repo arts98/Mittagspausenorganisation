@@ -4,15 +4,14 @@ Class {
 	#instVars : [
 		'name',
 		'address',
-		'services',
-		'reviews',
-		'location',
+		'description',
 		'category',
 		'linkToMenu',
+		'linkToWebsite',
+		'location',
+		'reviews',
 		'week',
-		'orders',
-		'description',
-		'linkToWebsite'
+		'orders'
 	],
 	#classVars : [
 		'Restaurants'
@@ -20,7 +19,7 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
-{ #category : 'Not categorized' }
+{ #category : 'Startup' }
 MPORestaurant class >> createRestaurants [
 
 	self restaurants isEmptyOrNil
@@ -145,17 +144,19 @@ MPORestaurant class >> createRestaurants [
 				yourself).]
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant class >> deleteRestaurant: aRestaurant [
-	Restaurants remove: aRestaurant
+
+	self restaurants remove: aRestaurant
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant class >> modifyRestaurant: aRestaurant [
-	self restaura
+
+	"self restaura"
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant class >> modifyRestaurant: aRestaurant newMenu: aStringMenu newName: aStringName newServices: aString newAdress: adress newCategory: aRestaurantType [
 
 	"
@@ -166,7 +167,7 @@ MPORestaurant class >> modifyRestaurant: aRestaurant newMenu: aStringMenu newNam
 	
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'Accessing' }
 MPORestaurant class >> restaurants [
 
 	"<^hOf Collection of: {iOf Restaurants}>"
@@ -175,7 +176,7 @@ MPORestaurant class >> restaurants [
 	^Restaurants
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'Accessing' }
 MPORestaurant class >> restaurants: aCollection [
 
 	"<aCollection: hOf Collection of: {iOf Restaurant}, ^self>"
@@ -184,24 +185,26 @@ MPORestaurant class >> restaurants: aCollection [
 	Restaurants := aCollection
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> addOrder: anOrder toDate: aDate [
+
 	self orders isNil
 		ifTrue: [self orders: Dictionary new].
 	(self orders at: aDate ifAbsentPut: [OrderedCollection new]) add: anOrder
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> addOrdertoDictionary: aString price: aNumber person: aPerson date: aDate note: aNoteString [
+
 	| newOrder |
-	newOrder := MPOOrder new.	
-	newOrder person: aPerson.
-	newOrder price: aNumber.
-	newOrder note: aNoteString.
-	newOrder food: aString.	
+	newOrder := (MPOOrder new
+		person: aPerson;
+		price: aNumber;
+		note: aNoteString;
+		food: aString;
+		yourself).
+	
 	self addOrder: newOrder toDate: aDate
-	
-	
 ]
 
 { #category : 'Accessing' }
@@ -223,13 +226,15 @@ MPORestaurant >> address: aString [
 	address := aString
 ]
 
-{ #category : 'accessing' }
+{ #category : 'logic' }
 MPORestaurant >> addReview: aReview [
+
 	self reviews add:  aReview
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> averageRating [
+
 	|average|
 	average := 0.
 	(self reviews size = 0)
@@ -243,53 +248,72 @@ MPORestaurant >> averageRating [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> category [
+
+	"<^iOf String>"
+	"Answer the category of the receiver"
+
 	^category
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> category: aString [
+
+	"<aString: iOf String, ^self>"
+	"Set the category of the receiver"
+
 	category := aString
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> deleteOrder: anOrder atDate: aDate [
+
 	(self orders at: aDate ifAbsent: []) remove: anOrder ifAbsent: [] 
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> deleteRestaurant: aRestaurant [
+
 	self class deleteRestaurant: aRestaurant
 ]
 
-{ #category : 'accessing' }
+{ #category : 'logic' }
 MPORestaurant >> deleteReview: aReview [
+
 	self reviews remove: aReview
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> description [
+
+	"<^iOf String>"
+	"Answer the description of the receiver"
 
 	^description
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> description: aString [
+
+	"<aString: iOf String, ^self>"
+	"Set the description of the receiver"
 
 	description := aString
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> getOrdersatDate: aDate [
+
 	self orders isEmptyOrNil
 	ifTrue: [^nil] 
 	ifFalse: [^(self orders at: aDate ifAbsent: []) ]
 	
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> getSortedCommentsbasedonRating [
+
 	|sortedRatings starratingForSorting|
 	sortedRatings := OrderedCollection new.
 	starratingForSorting := 0.
@@ -304,8 +328,9 @@ MPORestaurant >> getSortedCommentsbasedonRating [
 	
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> getTopThreeRestaurants [
+
 	| topThree averageofRestaurant highestRestaurant|
 	averageofRestaurant := 10.
 	topThree := OrderedCollection new.
@@ -341,40 +366,45 @@ MPORestaurant >> linkToMenu: aString [
 	linkToMenu := aString
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> linktomenu: aString [
-	"The following source failed to compile (all double quotes have been doubled):"
-"
-	menu := aString"
-#tonelCompilationFailure.
-
-^ self halt: 'The source for this method failed to compile' 
-]
-
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> linkToWebsite [
+
+	"<^iOf String>"
+	"Answer the linkToWebsite of the receiver"
 
 	^linkToWebsite
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> linkToWebsite: aString [
-	
+
+	"<aString: iOf String, ^self>"
+	"Set the linkToWebsite of the receiver"
+
 	linkToWebsite := aString
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> location [
+
+	"<^iOf String>"
+	"Answer the location of the receiver"
+
 	^location
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> location: aLocation [
-	location := aLocation
+{ #category : 'Accessing' }
+MPORestaurant >> location: aString [
+
+	"<aString: iOf String, ^self>"
+	"Set the location of the receiver"
+
+	location := aString
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson date: aDate note: aString [
+
 	| myorder |
 	(self orders at: aDate ifAbsent: []) remove: aOrder ifAbsent: [].
 	myorder := MPOOrder new.
@@ -383,22 +413,30 @@ MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson date: aDate not
 	myorder note: aString.
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> modifyRestaurant: aRestaurant [
 	"self class "
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> name [
+
+	"<^iOf String>"
+	"Answer the name of the receiver"
+
 	^name
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> name: aString [
+
+	"<aString: iOf String, ^self>"
+	"Set the name of the receiver"
+
 	name := aString
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> orderByTimestamp [
 	
 	^SortedCollection new 
@@ -406,7 +444,7 @@ MPORestaurant >> orderByTimestamp [
 		yourself
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> orderReviewsByTimestamp [
 	
 	^SortedCollection new 
@@ -414,38 +452,45 @@ MPORestaurant >> orderReviewsByTimestamp [
 		yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> orders [
+
+	"<^hOf Dictionary: {key: iOf Date, value: iOf OrderedCollection}>"
+	"Answer the orders of the receiver"
+
 	^orders
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> orders: aDictionary [
+
+	"<aDictionary: hOf Dictionary: {key: iOf Date, value: iOf OrderedCollection}, ^self>"
+	"Set the orders of the receiver"
+
 	orders := aDictionary
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> reviews [
+
+	"<^hOf Dictionary: {key: iOf Date, value: iOf MPORating}>"
+	"Answer the reviews of the receiver"
+
 	^reviews
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> reviews: aReviewCollection [
-	reviews := aReviewCollection
+{ #category : 'Accessing' }
+MPORestaurant >> reviews: aDictionary [
+
+	"<aDictionary: hOf Dictionary: {key: iOf Date, value: iOf MPORating}, ^self>"
+	"Set the reviews of the receiver"
+
+	reviews := aDictionary
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> services [
-	^services
-]
-
-{ #category : 'accessing' }
-MPORestaurant >> services: aFoodCollection [
-	services := aFoodCollection
-]
-
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> sumOfOrderPerson: aPerson atDate: aDate [
+
 	|sum|
 	sum := 0.
 	(self orders at: aDate ifAbsent: []) do: [ :orderelm  | (orderelm person = aPerson) ifTrue: [
@@ -456,20 +501,29 @@ MPORestaurant >> sumOfOrderPerson: aPerson atDate: aDate [
 	^sum
 ]
 
-{ #category : 'Not categorized' }
+{ #category : 'logic' }
 MPORestaurant >> sumofOrderPrice: aDate [
+
 	|sum|
 	sum := 0.	
 	(self orders at: aDate ifAbsent: []) do: [ :orderelm | sum := (sum + orderelm price)].
 	^sum
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPORestaurant >> week [
+
+	"<^iOf MPOOpeningTime>"
+	"Answer the week of the receiver"
+
 	^week
 ]
 
-{ #category : 'accessing' }
-MPORestaurant >> week: anObject [
-	week := anObject
+{ #category : 'Accessing' }
+MPORestaurant >> week: aMPOOpeningTime [
+
+	"<aMPOOpeningTime: iOf MPOOpeningTime, ^self>"
+	"Set the week of the receiver"
+
+	week := aMPOOpeningTime
 ]
