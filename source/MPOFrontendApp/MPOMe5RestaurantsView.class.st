@@ -218,13 +218,13 @@ MPOMe5RestaurantsView >> editOrderClicked: aMeEvent [
 	
 	| theOrder |
 	theOrder := aMeEvent componentObject.
-	self openModal: MPOMe5NewOrderFormModalModalView new: theOrder date: (self orderDateField value).
+	self openModal: (MPOMe5NewOrderFormModalModalView new: theOrder date: (self orderDateField value)).
 ]
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> editRestaurantClicked [
 
-	self showWarningNotificationWithMessage: 'Not implemented yet'
+	self openModal: (MPOMe5NewRestaurantFormModalModalView new: self currentRestaurant).
 ]
 
 { #category : 'Events' }

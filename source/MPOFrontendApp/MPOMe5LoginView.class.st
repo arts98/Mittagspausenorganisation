@@ -10,7 +10,7 @@ Class {
 
 { #category : 'Initial-Events' }
 MPOMe5LoginView >> beforeCreateComponents [
-	"do nothing"
+	self session person: nil.
 ]
 
 { #category : 'Initial-Events' }

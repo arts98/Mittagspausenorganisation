@@ -414,6 +414,21 @@ MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson date: aDate not
 ]
 
 { #category : 'logic' }
+MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson oldDate: anOldDate newDate: aNewDate note: aString price: aNumber [
+
+	| myorder |
+	(self orders at: anOldDate ifAbsent: []) remove: aOrder ifAbsent: [].
+	myorder := MPOOrder new.
+	myorder person: aPerson.
+	myorder food: aFood.
+	myorder note: aString.
+	myorder price: aNumber.
+	self addOrder: myorder toDate: aNewDate.
+
+	
+]
+
+{ #category : 'logic' }
 MPORestaurant >> modifyRestaurant: aRestaurant [
 	"self class "
 ]

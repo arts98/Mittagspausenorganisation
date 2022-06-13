@@ -6,7 +6,8 @@ Class {
 		'foodTextField',
 		'noteTextField',
 		'priceTextField',
-		'order'
+		'order',
+		'date'
 	],
 	#category : 'MPOFrontendApp'
 }
@@ -18,6 +19,15 @@ MPOMe5NewOrderFormModalModalView class >> layoutClass [
 	"Answer the receiver's layout."
 
 	^Me5ModalViewLayout
+]
+
+{ #category : 'Initial-Events' }
+MPOMe5NewOrderFormModalModalView class >> new: aOrder date: aDate [
+	| theNewObject |
+	theNewObject := self new.
+	theNewObject order: aOrder.
+	theNewObject date: aDate.
+	^theNewObject
 ]
 
 { #category : 'Events' }
@@ -34,6 +44,9 @@ MPOMe5NewOrderFormModalModalView >> addOrderClicked [
 	ifFalse: [
 		self parentView currentRestaurant modifyOrder: (self order)
 			food: (self foodTextField value)
+			person: (self session person)
+			oldDate: (self date)
+			newDate: (self dateField value)
 			note: (self noteTextField value)
 			price: (self priceTextField value).
 	].
@@ -74,7 +87,33 @@ MPOMe5NewOrderFormModalModalView >> createComponents [
 					dataDismiss: MeConstantModal;
 					yourself);
 				yourself);
-			yourself
+			yourself.
+			
+			self order isNil
+			ifFalse: [
+				self dateField value: self date.
+				self foodTextField value: self order food.
+				self noteTextField value: self order note.
+				self priceTextField value: self order price.
+			] 
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> date [
+
+	"<^iOf Date>"
+	"Answer the date of the receiver"
+
+	^date
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> date: aDate [
+
+	"<aDate: iOf Date, ^self>"
+	"Set the date of the receiver"
+
+	date := aDate
 ]
 
 { #category : 'Accessing' }
@@ -111,16 +150,6 @@ MPOMe5NewOrderFormModalModalView >> foodTextField: aTextField [
 	"Set the foodTextField of the receiver"
 
 	^foodTextField := aTextField
-]
-
-{ #category : 'Initial-Events' }
-MPOMe5NewOrderFormModalModalView >> new: aOrder date: aDate [
-	self order: aOrder.
-	self dateField: aDate.
-	self foodTextField: aOrder food.
-	self noteTextField: aOrder note.
-	self priceTextField: aOrder price.
-	
 ]
 
 { #category : 'Accessing' }

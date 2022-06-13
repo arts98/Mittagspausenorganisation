@@ -13,18 +13,11 @@ MPOMe5BaseView class >> sessionClass [
 { #category : 'Not categorized' }
 MPOMe5BaseView >> beforeCreateComponents [
 	self session hasPerson
-		ifFalse: [self replaceView: MPOMe5LoginView new].
+		ifFalse: [self replaceView: MPOMe5LoginView new. ^self].
 		
 	"Title"
 	self pageTitle: 'Mittagspausenorganisation'.
-	
-	self removeAllPageBreadcrumbItems.
-	
-	self addPageBreadcrumbItem:  ( Me5Button newPillDanger
-		icon: Me5I newFasEject;
-		addClickEventSelector: #logOutClicked;
-		yourself).
-	
+		
 	"Sidebar"
 	self addItemsByPageSidebarNode: (Me5PageSidebarItemNode new
 		addChildNode: (Me5PageSidebarItemNode new
@@ -40,7 +33,7 @@ MPOMe5BaseView >> beforeCreateComponents [
 			viewClass: MPOMe5CalendarView;
 			yourself);
 		addChildNode: (Me5PageSidebarItemNode new
-			nodeTitle: 'Login (nur zum vorfuehren hier im menu)';
+			nodeTitle: 'Logout';
 			viewClass: MPOMe5LoginView;
 			yourself);
 		yourself) roles: nil.
