@@ -129,6 +129,7 @@ MPOMe5RestaurantsView >> createComponents [
 	self refreshRestaurants.
 	self currentRestaurant: MPORestaurant restaurants first.
 	self refreshOrders.
+	
 	"self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
 		title: 'Neues Restaurant';
 		subtitle: 'Neues Restaurant hinzufuegen.';
@@ -159,17 +160,18 @@ MPOMe5RestaurantsView >> createNewOrderListItem: anOrder [
 
 	^Me5MetronicListGroupItem new
 			title: anOrder food , ' (' , anOrder price asString, ' Euro)';
-			subtitle: anOrder note;
-			componentObject: anOrder;
+			subtitle: anOrder note;			
 			addChildToRightExtension: (Me5ButtonGroup newDivided
 				addChild: (Me5Button newPrimary
 					addCssClassBtnSm;
 					icon: Me5I newFasEdit;
+					componentObject: anOrder;
 					addClickEventSelector: #editOrderClicked:;
 					yourself);
 				addChild: (Me5Button newDanger
 					addCssClassBtnSm;
 					icon: Me5I newFasTrash;
+					componentObject: anOrder;
 					addClickEventSelector: #deleteOrderClicked:;
 					yourself);
 				yourself)
@@ -207,12 +209,16 @@ MPOMe5RestaurantsView >> deleteOrderClicked: aMeEvent [
 { #category : 'Events' }
 MPOMe5RestaurantsView >> deleteRestaurantClicked [
 
-	self showWarningNotificationWithMessage: 'Not implemented yet'
+	MPORestaurant deleteRestaurant: currentRestaurant.
+	self refreshRestaurants.
 ]
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> editOrderClicked: aMeEvent [
-	self showWarningNotificationWithMessage: 'Not implemented yet'
+	
+	| theOrder |
+	theOrder := aMeEvent componentObject.
+	self openModal: MPOMe5NewOrderFormModalModalView new: theOrder date: (self orderDateField value).
 ]
 
 { #category : 'Events' }

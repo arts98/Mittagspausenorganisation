@@ -12,9 +12,18 @@ MPOMe5BaseView class >> sessionClass [
 
 { #category : 'Not categorized' }
 MPOMe5BaseView >> beforeCreateComponents [
-
+	self session hasPerson
+		ifFalse: [self replaceView: MPOMe5LoginView new].
+		
 	"Title"
 	self pageTitle: 'Mittagspausenorganisation'.
+	
+	self removeAllPageBreadcrumbItems.
+	
+	self addPageBreadcrumbItem:  ( Me5Button newPillDanger
+		icon: Me5I newFasEject;
+		addClickEventSelector: #logOutClicked;
+		yourself).
 	
 	"Sidebar"
 	self addItemsByPageSidebarNode: (Me5PageSidebarItemNode new
@@ -34,5 +43,14 @@ MPOMe5BaseView >> beforeCreateComponents [
 			nodeTitle: 'Login (nur zum vorfuehren hier im menu)';
 			viewClass: MPOMe5LoginView;
 			yourself);
-		yourself) roles: nil
+		yourself) roles: nil.
+		
+	
+]
+
+{ #category : 'Events' }
+MPOMe5BaseView >> logOutClicked [
+
+	self session person: nil.
+	self replaceView: MPOMe5LoginView new
 ]

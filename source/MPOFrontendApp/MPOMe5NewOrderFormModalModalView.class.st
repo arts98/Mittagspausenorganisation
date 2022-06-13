@@ -5,7 +5,8 @@ Class {
 		'dateField',
 		'foodTextField',
 		'noteTextField',
-		'priceTextField'
+		'priceTextField',
+		'order'
 	],
 	#category : 'MPOFrontendApp'
 }
@@ -21,12 +22,22 @@ MPOMe5NewOrderFormModalModalView class >> layoutClass [
 
 { #category : 'Events' }
 MPOMe5NewOrderFormModalModalView >> addOrderClicked [
-	self parentView currentRestaurant addOrder: (MPOOrder new
-		food: self foodTextField value;
-		note: self noteTextField value;
-		price: self priceTextField value;
-		yourself)
-		toDate: (self dateField value).
+	self order isNil
+	ifTrue: [
+		self parentView currentRestaurant addOrder: (MPOOrder new
+			food: self foodTextField value;
+			note: self noteTextField value;
+			price: self priceTextField value;
+			yourself)
+			toDate: (self dateField value).
+	]
+	ifFalse: [
+		self parentView currentRestaurant modifyOrder: (self order)
+			food: (self foodTextField value)
+			note: (self noteTextField value)
+			price: (self priceTextField value).
+	].
+	
 	self parentView refreshOrders.
 	self closeModal
 ]
@@ -102,6 +113,16 @@ MPOMe5NewOrderFormModalModalView >> foodTextField: aTextField [
 	^foodTextField := aTextField
 ]
 
+{ #category : 'Initial-Events' }
+MPOMe5NewOrderFormModalModalView >> new: aOrder date: aDate [
+	self order: aOrder.
+	self dateField: aDate.
+	self foodTextField: aOrder food.
+	self noteTextField: aOrder note.
+	self priceTextField: aOrder price.
+	
+]
+
 { #category : 'Accessing' }
 MPOMe5NewOrderFormModalModalView >> noteTextField [
 
@@ -118,6 +139,24 @@ MPOMe5NewOrderFormModalModalView >> noteTextField: aTextField [
 	"Set the noteTextField of the receiver"
 
 	^noteTextField := aTextField
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> order [
+
+	"<^iOf MPOOrder>"
+	"Answer the order of the receiver"
+
+	^order
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewOrderFormModalModalView >> order: aMPOOrder [
+
+	"<aMPOOrder: iOf MPOOrder, ^self>"
+	"Set the order of the receiver"
+
+	order := aMPOOrder
 ]
 
 { #category : 'Accessing' }

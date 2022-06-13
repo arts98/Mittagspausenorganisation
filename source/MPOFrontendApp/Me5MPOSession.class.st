@@ -16,17 +16,17 @@ Me5MPOSession >> hasPerson [
 { #category : 'Accessing' }
 Me5MPOSession >> person [
 
-	"<^iOf Object>"
+	"<^iOf MPOPerson>"
 	"Answer the person of the receiver"
 
 	^person
 ]
 
 { #category : 'Accessing' }
-Me5MPOSession >> person: anObject [
+Me5MPOSession >> person: aMPOPerson [
 
-	"<anObject: iOf Object, ^self>"
+	"<aMPOPerson: iOf MPOPerson, ^self>"
 	"Set the person of the receiver"
 
-	person := anObject
+	person := aMPOPerson
 ]

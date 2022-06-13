@@ -1,12 +1,17 @@
 Class {
 	#name : 'MPOMe5LoginView',
-	#superclass : 'Me5BaseView',
+	#superclass : 'MPOMe5BaseView',
 	#instVars : [
 		'emailTextField',
 		'passwordTextField'
 	],
 	#category : 'MPOFrontendApp'
 }
+
+{ #category : 'Initial-Events' }
+MPOMe5LoginView >> beforeCreateComponents [
+	"do nothing"
+]
 
 { #category : 'Initial-Events' }
 MPOMe5LoginView >> createComponents [

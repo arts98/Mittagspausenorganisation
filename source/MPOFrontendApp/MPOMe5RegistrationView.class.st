@@ -1,6 +1,6 @@
 Class {
 	#name : 'MPOMe5RegistrationView',
-	#superclass : 'Me5BaseView',
+	#superclass : 'MPOMe5BaseView',
 	#instVars : [
 		'registerForm',
 		'usernameTextField',
@@ -12,6 +12,11 @@ Class {
 	],
 	#category : 'MPOFrontendApp'
 }
+
+{ #category : 'Initial-Events' }
+MPOMe5RegistrationView >> beforeCreateComponents [
+	"do nothing"
+]
 
 { #category : 'Events' }
 MPOMe5RegistrationView >> cancelClicked [
