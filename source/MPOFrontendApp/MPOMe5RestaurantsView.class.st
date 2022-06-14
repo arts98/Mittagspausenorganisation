@@ -4,15 +4,14 @@ Class {
 	#instVars : [
 		'masterDetailList',
 		'currentRestaurant',
-		'restaurantNameField',
-		'restaurantTypeField',
 		'restaurantDescriptionText',
-		'reviewList',
+		'restaurantRatingText',
 		'orderDateField',
 		'orderList',
-		'websiteRef',
-		'menuRef',
-		'addressRef'
+		'ratingButton',
+		'websiteButton',
+		'menuButton',
+		'addressButton'
 	],
 	#category : 'MPOFrontendApp'
 }
@@ -23,21 +22,21 @@ MPOMe5RestaurantsView >> addOrder: anOrder [
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> addressRef [
+MPOMe5RestaurantsView >> addressButton [
 
 	"<^iOf Me5A>"
 	"Answer the addressRef of the receiver"
 
-	^addressRef
+	^addressButton
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> addressRef: aMe5A [
+MPOMe5RestaurantsView >> addressButton: aMe5A [
 
 	"<aMe5A: iOf Me5A, ^self>"
-	"Set the addressRef of the receiver"
+	"Set the addressButton of the receiver"
 
-	addressRef := aMe5A
+	addressButton := aMe5A
 ]
 
 { #category : 'Events' }
@@ -46,6 +45,12 @@ MPOMe5RestaurantsView >> addRestaurant: aRestaurant [
 		(self createMasterDetailListGroupItemForRestaurant: aRestaurant)
 		enableIsActive;
 		yourself)
+]
+
+{ #category : 'Initial-Events' }
+MPOMe5RestaurantsView >> afterCreateComponents [
+	
+	self masterDetailList newDummyListGroupItem removeComponent
 ]
 
 { #category : 'Initial-Events' }
@@ -74,28 +79,27 @@ MPOMe5RestaurantsView >> createComponents [
 						icon: Me5I newFasInfoCircle;
 						title: 'Beschreibung';
 						addChildToContent:  (Me5Portlet new
-							addChildToBody: (restaurantDescriptionText := Me5P new
+							addChildToBody: (restaurantDescriptionText:= Me5P new
 								text: 'Beschreibung';
 								yourself);
-							addChildToFootButtonGroup: (websiteRef := Me5A newPillPrimary
+							addChildToBody: (restaurantRatingText := Me5P new
+								text: 'Durchschnittliche Bewertung: ';
+								yourself);
+							addChildToFootButtonGroup: (ratingButton := Me5A newPillPrimary
+								addClickEventSelector: #showRatingsClicked;
+								yourself);
+							addChildToFootButtonGroup: (websiteButton := Me5A newPillPrimary
 								href: 'https://www.google.com' ;
 								text: 'Webseite';
 								yourself);
-							addChildToFootButtonGroup: (menuRef :=Me5A newPillPrimary
+							addChildToFootButtonGroup: (menuButton :=Me5A newPillPrimary
 								href: 'https://www.google.com/finance' ;
 								text: 'Speisekarte';
 								yourself);
-							addChildToFootButtonGroup: (addressRef := Me5A newPillPrimary
+							addChildToFootButtonGroup: (addressButton := Me5A newPillPrimary
 								href: 'https://www.google.de/maps/' ;
 								text: 'Adresse';
 								yourself);
-							yourself);
-						yourself);
-					addChild: (Me5AccordionItem new
-						icon: Me5I newFasStar;
-						title: 'Bewertungen';
-						addChildToContent: (Me5ViewHolder new
-							holdingView: MPOMe5CalendarPreviewView new;
 							yourself);
 						yourself);
 					addChild: (Me5AccordionItem new
@@ -127,15 +131,8 @@ MPOMe5RestaurantsView >> createComponents [
 		yourself. 
 
 	self refreshRestaurants.
-	self currentRestaurant: MPORestaurant restaurants first.
 	self refreshOrders.
-	"self masterDetailList newDummyListGroupItem: (Me5MasterDetailListGroupItem new
-		title: 'Neues Restaurant';
-		subtitle: 'Neues Restaurant hinzufuegen.';
-		addAfterMasterDetailListGroupItemSelectedEventSelector: #itemRestaurantClicked:;
-		itemSelectedWindowHistoryPushUrl: '?new';
-		enableIsActive;
-		yourself)."
+
 
 	
 ]
@@ -159,17 +156,18 @@ MPOMe5RestaurantsView >> createNewOrderListItem: anOrder [
 
 	^Me5MetronicListGroupItem new
 			title: anOrder food , ' (' , anOrder price asString, ' Euro)';
-			subtitle: anOrder note;
-			componentObject: anOrder;
+			subtitle: anOrder note;			
 			addChildToRightExtension: (Me5ButtonGroup newDivided
 				addChild: (Me5Button newPrimary
 					addCssClassBtnSm;
 					icon: Me5I newFasEdit;
+					componentObject: anOrder;
 					addClickEventSelector: #editOrderClicked:;
 					yourself);
 				addChild: (Me5Button newDanger
 					addCssClassBtnSm;
 					icon: Me5I newFasTrash;
+					componentObject: anOrder;
 					addClickEventSelector: #deleteOrderClicked:;
 					yourself);
 				yourself)
@@ -179,19 +177,19 @@ MPOMe5RestaurantsView >> createNewOrderListItem: anOrder [
 { #category : 'Accessing' }
 MPOMe5RestaurantsView >> currentRestaurant [
 
-	"<^iOf aMPORestaurant>"
+	"<^iOf MPORestaurant>"
 	"Answer the currentRestaurant of the receiver"
 
 	^currentRestaurant
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> currentRestaurant: anaMPORestaurant [
+MPOMe5RestaurantsView >> currentRestaurant: anMPORestaurant [
 
-	"<anaMPORestaurant: iOf aMPORestaurant, ^self>"
+	"<anMPORestaurant: iOf MPORestaurant, ^self>"
 	"Set the currentRestaurant of the receiver"
 
-	currentRestaurant := anaMPORestaurant
+	currentRestaurant := anMPORestaurant
 ]
 
 { #category : 'Events' }
@@ -207,18 +205,22 @@ MPOMe5RestaurantsView >> deleteOrderClicked: aMeEvent [
 { #category : 'Events' }
 MPOMe5RestaurantsView >> deleteRestaurantClicked [
 
-	self showWarningNotificationWithMessage: 'Not implemented yet'
+	MPORestaurant deleteRestaurant: currentRestaurant.
+	self refreshRestaurants.
 ]
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> editOrderClicked: aMeEvent [
-	self showWarningNotificationWithMessage: 'Not implemented yet'
+	
+	| theOrder |
+	theOrder := aMeEvent componentObject.
+	self openModal: (MPOMe5NewOrderFormModalModalView new: theOrder date: (self orderDateField value)).
 ]
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> editRestaurantClicked [
 
-	self showWarningNotificationWithMessage: 'Not implemented yet'
+	self openModal: (MPOMe5NewRestaurantFormModalModalView new: self currentRestaurant).
 ]
 
 { #category : 'Events' }
@@ -229,14 +231,16 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 		ifFalse: [ | theRestaurant |
 			theRestaurant := anEvent componentObject.
 			self currentRestaurant: theRestaurant.
-			self masterDetailList detailFormPortletTitle: theRestaurant name , ' ('  , theRestaurant category , ')'.
+			self masterDetailList detailFormPortletTitle: theRestaurant name , ' ('  , theRestaurant category, ')'.
 			self restaurantDescriptionText text: theRestaurant description.
+			self restaurantRatingText text: 'Durchschnittliche Bewertung: ', theRestaurant averageRating asString .
+			self ratingButton text: 'Bewertungen (' , theRestaurant reviews size asString, ')' .
 			self refreshOrders.
-			self websiteRef href: theRestaurant linkToWebsite.
-			self menuRef href: theRestaurant linkToMenu.
+			self websiteButton href: theRestaurant linkToWebsite.
+			self menuButton href: theRestaurant linkToMenu.
 			theRestaurant address isEmptyOrNil
-			ifTrue: [self addressRef href: nil.] 
-			ifFalse: [self addressRef href: 'https://www.google.com/maps/search/?api=1&query=', theRestaurant address.]
+			ifTrue: [self addressButton href: nil.] 
+			ifFalse: [self addressButton href: 'https://www.google.com/maps/search/?api=1&query=', theRestaurant address.]
 			]
 ]
 
@@ -259,21 +263,21 @@ MPOMe5RestaurantsView >> masterDetailList: anObject [
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> menuRef [
+MPOMe5RestaurantsView >> menuButton [
 
 	"<^iOf Me5A>"
 	"Answer the menuRef of the receiver"
 
-	^menuRef
+	^menuButton
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> menuRef: aMe5A [
+MPOMe5RestaurantsView >> menuButton: aMe5A [
 
 	"<aMe5A: iOf Me5A, ^self>"
-	"Set the menuRef of the receiver"
+	"Set the menuButton of the receiver"
 
-	menuRef := aMe5A
+	menuButton := aMe5A
 ]
 
 { #category : 'Events' }
@@ -284,31 +288,6 @@ MPOMe5RestaurantsView >> newOrderClicked [
 { #category : 'Events' }
 MPOMe5RestaurantsView >> newRestaurantClicked [
 	self openModal: MPOMe5NewRestaurantFormModalModalView new
-]
-
-{ #category : 'Events' }
-MPOMe5RestaurantsView >> newReviewClicked [
-	self replaceView: MPOMe5ValuationView new
-	"self reviewList addChild: (Me5MetronicListGroupItem new
-			pictureSrc: ('%1/default/dist/default/assets/app/media/img/users/100_7.jpg' bindWith: self cloudFrontDistributionFrameworkUrl);
-				title: 'Bewertung';
-				subtitle: 'Bewertungstext.';
-				addChildToRightExtension: (Me5ButtonGroup newDivided
-					addChild: (Me5Button newPrimary
-						addCssClassBtnSm;
-						icon: Me5I newFasEdit;
-						text: 'Bearbeiten';
-						addClickEventSelector: #editReviewClicked:;
-						yourself);
-					addChild: (Me5Button newDanger
-						addCssClassBtnSm;
-						icon: Me5I newFasTrash;
-						text: 'Loeschen';
-						addClickEventSelector: #deleteReviewClicked:;
-						yourself);
-					yourself);
-				yourself)		"
-
 ]
 
 { #category : 'Accessing' }
@@ -341,6 +320,24 @@ MPOMe5RestaurantsView >> orderList: aList [
 	orderList := aList
 ]
 
+{ #category : 'Accessing' }
+MPOMe5RestaurantsView >> ratingButton [
+
+	"<^iOf Me5A>"
+	"Answer the ratingButton of the receiver"
+
+	^ratingButton
+]
+
+{ #category : 'Accessing' }
+MPOMe5RestaurantsView >> ratingButton: aMe5A [
+
+	"<aMe5A: iOf Me5A, ^self>"
+	"Set the ratingButton of the receiver"
+
+	ratingButton := aMe5A
+]
+
 { #category : 'Internal' }
 MPOMe5RestaurantsView >> refreshOrders [
 
@@ -356,102 +353,70 @@ MPOMe5RestaurantsView >> refreshOrders [
 
 { #category : 'Internal' }
 MPOMe5RestaurantsView >> refreshRestaurants [
+	
 	self masterDetailList removeAllMasterDetailListGroupItems.
 	MPORestaurant restaurants do: [ :aRestaurant |
 		self addRestaurant: aRestaurant
 	].
+	self currentRestaurant: MPORestaurant restaurants first.
 ]
 
 { #category : 'Accessing' }
 MPOMe5RestaurantsView >> restaurantDescriptionText [
 
-	"<^iOf Object>"
-	"Answer the restaurantDescriptionTextArea of the receiver"
+	"<^iOf Me5P>"
+	"Answer the restaurantDescriptionText of the receiver"
 
 	^restaurantDescriptionText
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantDescriptionText: anObject [
+MPOMe5RestaurantsView >> restaurantDescriptionText: aMe5P [
 
-	"<anObject: iOf Object, ^self>"
-	"Set the restaurantDescriptionTextArea of the receiver"
+	"<aMe5P: iOf Me5P, ^self>"
+	"Set the restaurantDescriptionText of the receiver"
 
-	restaurantDescriptionText := anObject
+	^restaurantDescriptionText := aMe5P
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantNameField [
+MPOMe5RestaurantsView >> restaurantRatingText [
 
-	^restaurantNameField
-	
+	"<^iOf Me5P>"
+	"Answer the restaurantRatingText of the receiver"
+
+	^restaurantRatingText
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantNameField: anObject [
+MPOMe5RestaurantsView >> restaurantRatingText: aMe5P [
 
-	restaurantNameField := anObject
-]
+	"<aMe5P: iOf Me5P, ^self>"
+	"Set the restaurantRatingText of the receiver"
 
-{ #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantTypeField [
-
-	^restaurantTypeField
-]
-
-{ #category : 'Accessing' }
-MPOMe5RestaurantsView >> restaurantTypeField: anObject [
-
-	restaurantTypeField := anObject
-]
-
-{ #category : 'Accessing' }
-MPOMe5RestaurantsView >> reviewList [
-
-	^reviewList
-]
-
-{ #category : 'Accessing' }
-MPOMe5RestaurantsView >> reviewList: aList [
-
-	reviewList := aList
+	^restaurantRatingText := aMe5P
 ]
 
 { #category : 'Events' }
-MPOMe5RestaurantsView >> saveClicked [
+MPOMe5RestaurantsView >> showRatingsClicked [
+	self replaceView: MPOMe5ValuationView new
 
-	self restaurantNameField hasValue
-		ifFalse: [
-				self restaurantNameField dangerText: 'Bitte gib einen Namen ein.']
-		ifTrue: [
-			self masterDetailList isNewDummyListGroupItemActive
-				ifTrue: [ | theRestaurant theMasterDetailListGroupItem |
-					theRestaurant := MPORestaurant new.
-					self addRestaurant:  theRestaurant.
-					theMasterDetailListGroupItem := self createMasterDetailListGroupItemForRestaurant: theRestaurant.
-					self masterDetailList addMasterDetailListGroupItem: (theMasterDetailListGroupItem
-						enableIsActive;
-						yourself)]
-				ifFalse: [
-					self addRestaurant:  self masterDetailList activeMasterDetailListGroupItemComponentObject.
-					self masterDetailList updateMasterDetailList.
-					self showSuccessNotificationWithMessage: 'Saved?']]
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> websiteRef [
+MPOMe5RestaurantsView >> websiteButton [
 
 	"<^iOf Me5A>"
 	"Answer the websiteRef of the receiver"
 
-	^websiteRef
+	^websiteButton
 ]
 
 { #category : 'Accessing' }
-MPOMe5RestaurantsView >> websiteRef: aMe5A [
+MPOMe5RestaurantsView >> websiteButton: aMe5A [
 
 	"<aMe5A: iOf Me5A, ^self>"
-	"Set the websiteRef of the receiver"
+	"Set the websiteButton of the receiver"
 
-	websiteRef := aMe5A
+	websiteButton := aMe5A
 ]

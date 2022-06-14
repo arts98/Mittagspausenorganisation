@@ -1,12 +1,18 @@
 Class {
 	#name : 'MPOMe5LoginView',
-	#superclass : 'Me5BaseView',
+	#superclass : 'MPOMe5BaseView',
 	#instVars : [
 		'emailTextField',
 		'passwordTextField'
 	],
 	#category : 'MPOFrontendApp'
 }
+
+{ #category : 'Initial-Events' }
+MPOMe5LoginView >> beforeCreateComponents [
+	"dont show side menu"
+	self session person: nil.
+]
 
 { #category : 'Initial-Events' }
 MPOMe5LoginView >> createComponents [
@@ -36,11 +42,6 @@ MPOMe5LoginView >> createComponents [
 						text: 'Log in';
 						addClickEventSelector: #logInClicked;
 						yourself);
-					addChild: (Me5Button newSuccess
-						icon: Me5I newFasSignInAlt;
-						text: 'Log in mit Google';
-						addClickEventSelector: #logInWithGoogleClicked;
-						yourself);
 					addChild: (Me5Button newInfo
 						icon: Me5I newFasAddressCard;
 						text: 'Registrieren';
@@ -55,19 +56,19 @@ MPOMe5LoginView >> createComponents [
 { #category : 'Accessing' }
 MPOMe5LoginView >> emailTextField [
 
-	"<^iOf Object>"
+	"<^iOf TextField>"
 	"Answer the emailTextField of the receiver"
 
 	^emailTextField
 ]
 
 { #category : 'Accessing' }
-MPOMe5LoginView >> emailTextField: anObject [
+MPOMe5LoginView >> emailTextField: aTextField [
 
-	"<anObject: iOf Object, ^self>"
+	"<aTextField: iOf TextField, ^self>"
 	"Set the emailTextField of the receiver"
 
-	emailTextField := anObject
+	^emailTextField := aTextField
 ]
 
 { #category : 'Events' }
@@ -82,37 +83,22 @@ MPOMe5LoginView >> logInClicked [
 			self replaceView: MPOMe5DashboardView new]
 ]
 
-{ #category : 'Events' }
-MPOMe5LoginView >> logInWithGoogleClicked [
-
-	| thePerson |
-	
-	self showWarningNotificationWithMessage: 'Not implemented yet'
-	
-	"thePerson := MPOMe5Person logInEmail: self emailTextField value password: self passwordTextField value. -> get from google?"
-	"thePerson isNil
-		ifTrue: [self emailTextField dangerText: 'Falsche Email oder falsches Passwort.']
-		ifFalse: [
-			self session person: thePerson.
-			self replaceView: MPOMe5Dashboard new]"
-]
-
 { #category : 'Accessing' }
 MPOMe5LoginView >> passwordTextField [
 
-	"<^iOf Object>"
+	"<^iOf TextField>"
 	"Answer the passwordTextField of the receiver"
 
 	^passwordTextField
 ]
 
 { #category : 'Accessing' }
-MPOMe5LoginView >> passwordTextField: anObject [
+MPOMe5LoginView >> passwordTextField: aTextField [
 
-	"<anObject: iOf Object, ^self>"
+	"<aTextField: iOf TextField, ^self>"
 	"Set the passwordTextField of the receiver"
 
-	passwordTextField := anObject
+	^passwordTextField := aTextField
 ]
 
 { #category : 'Events' }

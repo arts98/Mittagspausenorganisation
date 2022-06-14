@@ -7,7 +7,8 @@ Class {
 		'descriptionTextArea',
 		'website',
 		'menuLink',
-		'address'
+		'address',
+		'oldRestaurant'
 	],
 	#category : 'MPOFrontendApp'
 }
@@ -19,6 +20,14 @@ MPOMe5NewRestaurantFormModalModalView class >> layoutClass [
 	"Answer the receiver's layout."
 
 	^Me5ModalViewLayout
+]
+
+{ #category : 'Initial-Events' }
+MPOMe5NewRestaurantFormModalModalView class >> new: aRestaurant [
+	| theNewObject |
+	theNewObject := self new.
+	theNewObject oldRestaurant: aRestaurant.
+	^theNewObject
 ]
 
 { #category : 'Accessing' }
@@ -52,7 +61,6 @@ MPOMe5NewRestaurantFormModalModalView >> createComponents [
 			addChildToBody: (restaurantTypeSelectBox := Me5SelectBox new
 				text: 'Typ';
 				addObjects: MPORestaurantType restaurantTypes;
-				"selectObject: 'Pizzeria';"
 				yourself);
 			addChildToBody: (descriptionTextArea := Me5TextArea new
 				text: 'Beschreibung';
@@ -81,7 +89,17 @@ MPOMe5NewRestaurantFormModalModalView >> createComponents [
 					dataDismiss: MeConstantModal;
 					yourself);
 				yourself);
-			yourself
+			yourself.
+			
+			self oldRestaurant isNil
+			ifFalse: [
+				self nameField value: self oldRestaurant name.
+				self restaurantTypeSelectBox value: self oldRestaurant category.
+				self descriptionTextArea value: self oldRestaurant description.
+				self website value: self oldRestaurant linkToWebsite.
+				self menuLink value: self oldRestaurant linkToMenu.
+				self address value: self oldRestaurant address.
+			] 
 ]
 
 { #category : 'Accessing' }
@@ -133,6 +151,24 @@ MPOMe5NewRestaurantFormModalModalView >> nameField: aTextField [
 ]
 
 { #category : 'Accessing' }
+MPOMe5NewRestaurantFormModalModalView >> oldRestaurant [
+
+	"<^iOf MPORestaurant>"
+	"Answer the oldRestaurant of the receiver"
+
+	^oldRestaurant
+]
+
+{ #category : 'Accessing' }
+MPOMe5NewRestaurantFormModalModalView >> oldRestaurant: aMPORestaurant [
+
+	"<aMPORestaurant: iOf MPORestaurant, ^self>"
+	"Set the oldRestaurant of the receiver"
+
+	oldRestaurant := aMPORestaurant
+]
+
+{ #category : 'Accessing' }
 MPOMe5NewRestaurantFormModalModalView >> restaurantTypeSelectBox [
 
 	"<^iOf SelectBox>"
@@ -156,17 +192,21 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 		ifFalse: [
 				self nameField dangerText: 'Bitte gib einen Namen ein.']
 		ifTrue: [
-			 MPORestaurant restaurants add: (MPORestaurant new
-				name: self nameField value;
-				category: self restaurantTypeSelectBox value;
-				description: self descriptionTextArea value;
-				linkToWebsite: (self website value ifEmpty: nil);
-				linkToMenu: (self menuLink value ifEmpty: nil);
-				address: (self address value ifEmpty: nil);
-				yourself).
+			self oldRestaurant isNil
+				ifFalse: [
+					MPORestaurant restaurants remove: self oldRestaurant.
+				].
+				MPORestaurant restaurants add: (MPORestaurant new
+					name: self nameField value;
+					category: self restaurantTypeSelectBox value;
+					description: self descriptionTextArea value;
+					linkToWebsite: (self website value ifEmpty: nil);
+					linkToMenu: (self menuLink value ifEmpty: nil);
+					address: (self address value ifEmpty: nil);
+					yourself).
 				self parentView refreshRestaurants.
 				self closeModal
-				]
+			]
 				
 
 ]

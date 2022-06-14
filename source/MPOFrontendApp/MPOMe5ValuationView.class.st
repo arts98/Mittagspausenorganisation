@@ -532,7 +532,7 @@ self starCount notNil
 																																																																	^(aRatings/aNumber) asFloatD"
 			
 			self ratingCollection add: theRating.
-			self restaurant reviews: self ratingCollection. "aktuelles geöffnetes Restaurant"
+			self restaurant reviews: self ratingCollection. "aktuell geoeffnetes Restaurant"
 			theReviews := self restaurant averageRating.
 			self averageRatingStars text: theReviews.
 			

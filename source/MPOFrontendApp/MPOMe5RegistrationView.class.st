@@ -1,6 +1,6 @@
 Class {
 	#name : 'MPOMe5RegistrationView',
-	#superclass : 'Me5BaseView',
+	#superclass : 'MPOMe5BaseView',
 	#instVars : [
 		'registerForm',
 		'usernameTextField',
@@ -12,6 +12,11 @@ Class {
 	],
 	#category : 'MPOFrontendApp'
 }
+
+{ #category : 'Initial-Events' }
+MPOMe5RegistrationView >> beforeCreateComponents [
+	"do nothing (dont show side menu)"
+]
 
 { #category : 'Events' }
 MPOMe5RegistrationView >> cancelClicked [
@@ -77,73 +82,73 @@ MPOMe5RegistrationView >> createComponents [
 { #category : 'Accessing' }
 MPOMe5RegistrationView >> emailTextField [
 
-	"<^iOf Object>"
+	"<^iOf TextField>"
 	"Answer the emailTextField of the receiver"
 
 	^emailTextField
 ]
 
 { #category : 'Accessing' }
-MPOMe5RegistrationView >> emailTextField: anObject [
+MPOMe5RegistrationView >> emailTextField: aTextField [
 
-	"<anObject: iOf Object, ^self>"
+	"<aTextField: iOf TextField, ^self>"
 	"Set the emailTextField of the receiver"
 
-	emailTextField := anObject
+	^emailTextField := aTextField
 ]
 
 { #category : 'Accessing' }
 MPOMe5RegistrationView >> firstnameTextField [
 
-	"<^iOf Object>"
+	"<^iOf TextField>"
 	"Answer the firstnameTextField of the receiver"
 
 	^firstnameTextField
 ]
 
 { #category : 'Accessing' }
-MPOMe5RegistrationView >> firstnameTextField: anObject [
+MPOMe5RegistrationView >> firstnameTextField: aTextField [
 
-	"<anObject: iOf Object, ^self>"
+	"<aTextField: iOf TextField, ^self>"
 	"Set the firstnameTextField of the receiver"
 
-	firstnameTextField := anObject
+	^firstnameTextField := aTextField
 ]
 
 { #category : 'Accessing' }
 MPOMe5RegistrationView >> lastnameTextField [
 
-	"<^iOf Object>"
+	"<^iOf TextField>"
 	"Answer the lastnameTextField of the receiver"
 
 	^lastnameTextField
 ]
 
 { #category : 'Accessing' }
-MPOMe5RegistrationView >> lastnameTextField: anObject [
+MPOMe5RegistrationView >> lastnameTextField: aTextField [
 
-	"<anObject: iOf Object, ^self>"
+	"<aTextField: iOf TextField, ^self>"
 	"Set the lastnameTextField of the receiver"
 
-	lastnameTextField := anObject
+	^lastnameTextField := aTextField
 ]
 
 { #category : 'Accessing' }
 MPOMe5RegistrationView >> passwordTextField [
 
-	"<^iOf Object>"
+	"<^iOf TextField>"
 	"Answer the passwordTextField of the receiver"
 
 	^passwordTextField
 ]
 
 { #category : 'Accessing' }
-MPOMe5RegistrationView >> passwordTextField: anObject [
+MPOMe5RegistrationView >> passwordTextField: aTextField [
 
-	"<anObject: iOf Object, ^self>"
+	"<aTextField: iOf TextField, ^self>"
 	"Set the passwordTextField of the receiver"
 
-	passwordTextField := anObject
+	^passwordTextField := aTextField
 ]
 
 { #category : 'Events' }
@@ -189,53 +194,53 @@ MPOMe5RegistrationView >> registerClicked [
 { #category : 'Accessing' }
 MPOMe5RegistrationView >> registerForm [
 
-	"<^iOf Object>"
+	"<^iOf Me5Form>"
 	"Answer the registerForm of the receiver"
 
 	^registerForm
 ]
 
 { #category : 'Accessing' }
-MPOMe5RegistrationView >> registerForm: anObject [
+MPOMe5RegistrationView >> registerForm: aMe5Form [
 
-	"<anObject: iOf Object, ^self>"
+	"<aMe5Form: iOf Me5Form, ^self>"
 	"Set the registerForm of the receiver"
 
-	registerForm := anObject
+	^registerForm := aMe5Form
 ]
 
 { #category : 'Accessing' }
 MPOMe5RegistrationView >> repeatPasswordTextField [
 
-	"<^iOf Object>"
+	"<^iOf TextField>"
 	"Answer the repeatPasswordTextField of the receiver"
 
 	^repeatPasswordTextField
 ]
 
 { #category : 'Accessing' }
-MPOMe5RegistrationView >> repeatPasswordTextField: anObject [
+MPOMe5RegistrationView >> repeatPasswordTextField: aTextField [
 
-	"<anObject: iOf Object, ^self>"
+	"<aTextField: iOf TextField, ^self>"
 	"Set the repeatPasswordTextField of the receiver"
 
-	repeatPasswordTextField := anObject
+	^repeatPasswordTextField := aTextField
 ]
 
 { #category : 'Accessing' }
 MPOMe5RegistrationView >> usernameTextField [
 
-	"<^iOf Object>"
+	"<^iOf TextField>"
 	"Answer the usernameTextField of the receiver"
 
 	^usernameTextField
 ]
 
 { #category : 'Accessing' }
-MPOMe5RegistrationView >> usernameTextField: anObject [
+MPOMe5RegistrationView >> usernameTextField: aTextField [
 
-	"<anObject: iOf Object, ^self>"
+	"<aTextField: iOf TextField, ^self>"
 	"Set the usernameTextField of the receiver"
 
-	usernameTextField := anObject
+	^usernameTextField := aTextField
 ]
