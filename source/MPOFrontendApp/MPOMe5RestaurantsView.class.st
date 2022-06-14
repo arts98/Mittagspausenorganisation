@@ -49,6 +49,12 @@ MPOMe5RestaurantsView >> addRestaurant: aRestaurant [
 ]
 
 { #category : 'Initial-Events' }
+MPOMe5RestaurantsView >> afterCreateComponents [
+	
+	self masterDetailList newDummyListGroupItem removeComponent
+]
+
+{ #category : 'Initial-Events' }
 MPOMe5RestaurantsView >> createComponents [
 
 	self

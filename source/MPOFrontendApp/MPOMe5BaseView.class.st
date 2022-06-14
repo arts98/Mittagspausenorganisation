@@ -13,7 +13,7 @@ MPOMe5BaseView class >> sessionClass [
 { #category : 'Not categorized' }
 MPOMe5BaseView >> beforeCreateComponents [
 	self session hasPerson
-		ifFalse: [self replaceView: MPOMe5LoginView new. ^self].
+		ifFalse: [self redirectUrl: 'http://localhost:9003/MPOMe5LoginView'. ^self].
 		
 	"Title"
 	self pageTitle: 'Mittagspausenorganisation'.
