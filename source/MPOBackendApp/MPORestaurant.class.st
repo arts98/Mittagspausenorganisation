@@ -19,6 +19,11 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
+{ #category : 'logic' }
+MPORestaurant class >> addRestaurant: aRestaurant [
+	self restaurants add: aRestaurant
+]
+
 { #category : 'Startup' }
 MPORestaurant class >> createRestaurants [
 
@@ -151,19 +156,18 @@ MPORestaurant class >> deleteRestaurant: aRestaurant [
 ]
 
 { #category : 'logic' }
-MPORestaurant class >> modifyRestaurant: aRestaurant [
-
-	"self restaura"
-]
-
-{ #category : 'logic' }
-MPORestaurant class >> modifyRestaurant: aRestaurant newMenu: aStringMenu newName: aStringName newServices: aString newAdress: adress newCategory: aRestaurantType [
-
-	"
-	self restaurants do: [:eachRestaurante | (eachRestaurante = aRestaurant) ifTrue: [
-			eachRestaurante adress
+MPORestaurant class >> modifyRestaurant: aRestaurant newaddress: aStringaddress newcategory: aStringcategory newDescription: aStringDescription newLinktoMenu: aStringLinktoMenu newLinkToWebsite: aStringLinkToWebsite newLocation: aStringLocation newName: aStringName [
+		
+	self restaurants do: [:eachRestaurant | (eachRestaurant = aRestaurant) ifTrue: [
+			eachRestaurant address: aStringaddress.
+			eachRestaurant category: aStringcategory.
+			eachRestaurant description: aStringDescription.
+			eachRestaurant linkToMenu: aStringLinktoMenu.
+			eachRestaurant linkToWebsite: aStringLinkToWebsite.
+			eachRestaurant location: aStringLinkToWebsite.
+			eachRestaurant name: aStringName.
 	]] 
-	"
+	
 	
 ]
 
@@ -183,6 +187,24 @@ MPORestaurant class >> restaurants: aCollection [
 	"Set the restaurants of the receiver"
 	
 	Restaurants := aCollection
+]
+
+{ #category : 'logic' }
+MPORestaurant class >> sortRestaurantsByMostOrdersatDate: aDate [
+	| highest restaurantList highestRestaurant |	
+	restaurantList := OrderedCollection new.
+	
+	0 to: (self restaurants size) do: [highest := 0.
+		self restaurants do: [:aRestaurant | ((((aRestaurant orders at: aDate ifAbsent: []) size) > highest ) and: [(restaurantList includes: aRestaurant) not]) 
+			ifTrue: [
+				highest := ((aRestaurant orders at: aDate) size).
+				highestRestaurant := aRestaurant.
+			]
+		].
+		restaurantList  add: highestRestaurant.
+	].
+	^restaurantList
+	
 ]
 
 { #category : 'logic' }
@@ -227,6 +249,11 @@ MPORestaurant >> address: aString [
 ]
 
 { #category : 'logic' }
+MPORestaurant >> addRestaurant: aRestaurant [
+	self class addRestaurant: aRestaurant
+]
+
+{ #category : 'logic' }
 MPORestaurant >> addReview: aReview [
 
 	self reviews add:  aReview
@@ -235,16 +262,14 @@ MPORestaurant >> addReview: aReview [
 { #category : 'logic' }
 MPORestaurant >> averageRating [
 
-	|average|
-	average := 0.
-	(self reviews size = 0)
+	^(self reviews size = 0)
 		ifTrue: [
-		^0
+			0
 		]
 		ifFalse: [
-				self reviews do: [:aReview | average := (average + aReview starRating)].		
-				^(average / (self reviews size))
+			(self reviews inject: 0 into: [:theSum :eachReview | theSum + eachReview starRating ]) / self reviews size 
 		].
+		
 
 ]
 
@@ -413,6 +438,12 @@ MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson date: aDate not
 	myorder note: aString.
 ]
 
+
+{ #category : 'Not categorized' }
+MPORestaurant >> modifyRestaurant: aRestaurant newaddress: aStringaddress newcategory: aStringCategory newDescription: aStringDescription newLinktoMenu: aStringLinktoMenu newLinkToWebsite: aStringLinkToWebsite newLocation: aStringLocation newName: aStringName [
+	self class modifyRestaurant: aRestaurant  newaddress: aStringaddress newcategory: aStringCategory newDescription: aStringDescription newLinktoMenu: aStringLinktoMenu newLinkToWebsite: aStringLinkToWebsite newLocation: aStringLocation newName: aStringName
+]
+  
 { #category : 'logic' }
 MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson oldDate: anOldDate newDate: aNewDate note: aString price: aNumber [
 
@@ -428,10 +459,7 @@ MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson oldDate: anOldD
 	
 ]
 
-{ #category : 'logic' }
-MPORestaurant >> modifyRestaurant: aRestaurant [
-	"self class "
-]
+
 
 { #category : 'Accessing' }
 MPORestaurant >> name [
@@ -501,6 +529,11 @@ MPORestaurant >> reviews: aDictionary [
 	"Set the reviews of the receiver"
 
 	reviews := aDictionary
+]
+
+{ #category : 'logic' }
+MPORestaurant >> sortRestaurantsByMostOrdersatDate: aDate [
+	self class sortRestaurantsByMostOrdersatDate: aDate
 ]
 
 { #category : 'logic' }
