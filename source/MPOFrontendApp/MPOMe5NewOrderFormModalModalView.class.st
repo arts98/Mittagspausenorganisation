@@ -56,6 +56,11 @@ MPOMe5NewOrderFormModalModalView >> addOrderClicked [
 ]
 
 { #category : 'Initial-Events' }
+MPOMe5NewOrderFormModalModalView >> afterCreateComponents [
+	"doNothing"
+]
+
+{ #category : 'Initial-Events' }
 MPOMe5NewOrderFormModalModalView >> createComponents [
 	self modal
 		title: 'Neue Bestellung';
