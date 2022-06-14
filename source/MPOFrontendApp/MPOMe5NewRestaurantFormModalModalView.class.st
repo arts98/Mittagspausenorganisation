@@ -61,7 +61,6 @@ MPOMe5NewRestaurantFormModalModalView >> createComponents [
 			addChildToBody: (restaurantTypeSelectBox := Me5SelectBox new
 				text: 'Typ';
 				addObjects: MPORestaurantType restaurantTypes;
-				"selectObject: 'Pizzeria';"
 				yourself);
 			addChildToBody: (descriptionTextArea := Me5TextArea new
 				text: 'Beschreibung';

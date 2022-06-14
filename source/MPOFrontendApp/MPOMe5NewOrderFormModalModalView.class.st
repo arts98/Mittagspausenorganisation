@@ -35,10 +35,10 @@ MPOMe5NewOrderFormModalModalView >> addOrderClicked [
 	self order isNil
 	ifTrue: [
 		self parentView currentRestaurant addOrder: (MPOOrder new
-			food: self foodTextField value;
-			note: self noteTextField value;
-			price: self priceTextField value;
-			yourself)
+				food: self foodTextField value;
+				note: self noteTextField value;
+				price: self priceTextField value;
+				yourself)
 			toDate: (self dateField value).
 	]
 	ifFalse: [
