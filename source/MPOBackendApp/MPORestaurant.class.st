@@ -10,7 +10,7 @@ Class {
 		'linkToWebsite',
 		'location',
 		'reviews',
-		'week',
+		'openingTime',
 		'orders'
 	],
 	#classVars : [
@@ -21,6 +21,7 @@ Class {
 
 { #category : 'logic' }
 MPORestaurant class >> addRestaurant: aRestaurant [
+
 	self restaurants add: aRestaurant
 ]
 
@@ -28,18 +29,7 @@ MPORestaurant class >> addRestaurant: aRestaurant [
 MPORestaurant class >> createRestaurants [
 
 	self restaurants isEmptyOrNil
-		ifTrue: [ | theOpeningTime |
-			theOpeningTime := MPOOpeningTime new.
-			theOpeningTime week 
-				at: 'Montag' put: '10:30 am - 11:00 pm';
-				at: 'Dienstag' put: '10:30 am - 11:00 pm';
-				at: 'Mittwoch' put: '10:30 am - 11:00 pm';
-				at: 'Donnerstag' put: '10:30 am - 11:00 pm';
-				at: 'Freitag' put: '10:30 am - 12:00 pm';
-				at: 'Samstag' put: '10:30 am - 12:00 pm';
-				at: 'Sonntag' put: '11:30 am - 11:00 pm';
-				yourself.
-			
+		ifTrue: [
 			self restaurants: (OrderedCollection new
 				add: (MPORestaurant new
 					name: 'Mr Doener';
@@ -47,7 +37,29 @@ MPORestaurant class >> createRestaurants [
 					location: 'Freiburg';
 					category: 'Doener';
 					description: 'Beschreibung von Mr Doener';
-					week: theOpeningTime;
+					reviews: (OrderedCollection new
+							add: (MPORating new
+								note: 'lecker';
+								starRating: 4;
+								yourself);
+							add: (MPORating new
+								note: 'mager';
+								starRating: 2;
+								yourself);
+							add: (MPORating new
+								note: 'sehr gut';
+								starRating: 5;
+								yourself);
+						yourself);
+					openingTime: (MPOOpeningTime new
+						addOpeningTime: '10:30 - 23:00' atDay: 'Montag';
+						addOpeningTime: '10:30 - 23:00' atDay: 'Dienstag';
+						addOpeningTime: '10:30 - 23:00' atDay: 'Mittwoch';
+						addOpeningTime: '10:30 - 23:00' atDay: 'Donnerstag';
+						addOpeningTime: '10:30 - 24:00' atDay: 'Freitag';
+						addOpeningTime: '10:30 - 24:00' atDay: 'Samstag';
+						addOpeningTime: '11:30 - 23:00' atDay: 'Sonntag';
+						yourself);
 					orders: (Dictionary new
 						at: (Date new year: 2022 month: 5 day: 25)
 						put: (OrderedCollection new
@@ -72,27 +84,36 @@ MPORestaurant class >> createRestaurants [
 							yourself);
 						yourself);
 					yourself);
-				yourself).
-				
-			theOpeningTime := MPOOpeningTime new.
-			theOpeningTime week
-				at: 'Montag' put: '12:00 - 14:00';
-				at: 'Dienstag' put: '12:00 - 14:00';
-				at: 'Mittwoch' put: '12:00 - 14:00, 17:30 - 23:00';
-				at: 'Donnerstag' put: '12:00 - 14:00, 17:30 - 23:00';
-				at: 'Freitag' put: '12:00 - 14:00, 17:30 - 23:00';
-				at: 'Samstag' put: '17:30 - 23:00';
-				at: 'Sonntag' put: '17:30 - 23:00';
-				yourself.
-				
-			self restaurants add: (MPORestaurant new
-				name: 'Hier und Jetzt';
-				address: 'Zaehringer Str. 44';
-				location: 'Freiburg';
-				category: 'Fast Food';
-				description: 'Beschreibung von Hier und Jetzt';
-				week: theOpeningTime;
-				orders: (Dictionary new
+				add: (MPORestaurant new
+					name: 'Hier und Jetzt';
+					address: 'Zaehringer Str. 44';
+					location: 'Freiburg';
+					category: 'Fast Food';
+					description: 'Beschreibung von Hier und Jetzt';
+					reviews: (OrderedCollection new
+							add: (MPORating new
+								note: 'klasse';
+								starRating: 5;
+								yourself);
+							add: (MPORating new
+								note: 'geht';
+								starRating: 2;
+								yourself);
+							add: (MPORating new
+								note: 'schlecht';
+								starRating: 1;
+								yourself);
+						yourself);
+					openingTime: (MPOOpeningTime new
+						addOpeningTime: '12:00 - 14:00' atDay: 'Montag';
+						addOpeningTime: '12:00 - 14:00' atDay: 'Dienstag';
+						addOpeningTime: '12:00 - 14:00, 17:30 - 23:00' atDay: 'Mittwoch';
+						addOpeningTime: '12:00 - 14:00, 17:30 - 23:00' atDay: 'Donnerstag';
+						addOpeningTime: '12:00 - 14:00, 17:30 - 23:00' atDay: 'Freitag';
+						addOpeningTime: '17:30 - 23:00' atDay: 'Samstag';
+						addOpeningTime: '17:30 - 23:00' atDay: 'Sonntag';
+						yourself);
+					orders: (Dictionary new
 						at: (Date new year: 2022 month: 5 day: 25)
 						put: (OrderedCollection new
 							add: (MPOOrder new
@@ -109,27 +130,37 @@ MPORestaurant class >> createRestaurants [
 								yourself); 
 							yourself);
 						yourself);
-				yourself).
-			
-			theOpeningTime := MPOOpeningTime new.
-					theOpeningTime week
-						at: 'Montag' put: '11:30 - 00:00';
-						at: 'Dienstag' put: '11:30 - 00:00';
-						at: 'Mittwoch' put: '11:30 - 00:00';
-						at: 'Donnerstag' put: '11:30 - 00:00';
-						at: 'Freitag' put: '11:30 - 00:00';
-						at: 'Samstag' put: '15:00 - 00:00';
-						at: 'Sonntag' put: '10:00 - 00:00';
-						yourself.	
-			
-			self restaurants add: (MPORestaurant new
-				name: 'Die Kantina';
-				address: 'Berta-Ottenstein-Strasse 3';
-				location: 'Freiburg';
-				category: 'Pizzeria';
-				description: 'Beschreibung von Die Kantina';
-				week: theOpeningTime;
-				orders: (Dictionary new
+					yourself);
+				add: (MPORestaurant new
+					name: 'Die Kantina';
+					address: 'Berta-Ottenstein-Strasse 3';
+					location: 'Freiburg';
+					category: 'Pizzeria';
+					description: 'Beschreibung von Die Kantina';
+					reviews: (OrderedCollection new
+							add: (MPORating new
+								note: 'Mega';
+								starRating: 5;
+								yourself);
+							add: (MPORating new
+								note: 'mager';
+								starRating: 5;
+								yourself);
+							add: (MPORating new
+								note: 'sehr gut';
+								starRating: 5;
+								yourself);
+						yourself);
+					openingTime: (MPOOpeningTime new
+						addOpeningTime: '11:30 - 24:00' atDay: 'Montag';
+						addOpeningTime: '11:30 - 24:00' atDay: 'Dienstag';
+						addOpeningTime: '11:30 - 24:00' atDay: 'Mittwoch';
+						addOpeningTime: '11:30 - 24:00' atDay: 'Donnerstag';
+						addOpeningTime: '11:30 - 24:00' atDay: 'Freitag';
+						addOpeningTime: '15:00 - 24:00' atDay: 'Samstag';
+						addOpeningTime: '10:00 - 24:00' atDay: 'Sonntag';
+						yourself);
+					orders: (Dictionary new
 						at: (Date new year: 2022 month: 5 day: 25)
 						put: (OrderedCollection new
 							add: (MPOOrder new
@@ -146,6 +177,7 @@ MPORestaurant class >> createRestaurants [
 								yourself); 
 							yourself);
 						yourself);
+					yourself);
 				yourself).]
 ]
 
@@ -156,19 +188,32 @@ MPORestaurant class >> deleteRestaurant: aRestaurant [
 ]
 
 { #category : 'logic' }
-MPORestaurant class >> modifyRestaurant: aRestaurant newaddress: aStringaddress newcategory: aStringcategory newDescription: aStringDescription newLinktoMenu: aStringLinktoMenu newLinkToWebsite: aStringLinkToWebsite newLocation: aStringLocation newName: aStringName [
-		
-	self restaurants do: [:eachRestaurant | (eachRestaurant = aRestaurant) ifTrue: [
-			eachRestaurant address: aStringaddress.
-			eachRestaurant category: aStringcategory.
-			eachRestaurant description: aStringDescription.
-			eachRestaurant linkToMenu: aStringLinktoMenu.
-			eachRestaurant linkToWebsite: aStringLinkToWebsite.
-			eachRestaurant location: aStringLinkToWebsite.
-			eachRestaurant name: aStringName.
-	]] 
+MPORestaurant class >> getTopThreeRestaurants [
+
+	| theSortedCollection theSize theTopThree |
 	
+	theSortedCollection := SortedCollection new.
+	theSortedCollection addAll: self restaurants.
+	theSize := theSortedCollection size.
+	theTopThree := (OrderedCollection new
+		add: (theSortedCollection at: theSize - 2);
+		add: (theSortedCollection at: theSize - 1);
+		add: (theSortedCollection at: theSize);
+		yourself).
 	
+	^theTopThree
+]
+
+{ #category : 'logic' }
+MPORestaurant class >> modifyRestaurant: aRestaurant address: aStringAddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName [
+
+		aRestaurant address: aStringAddress.
+		aRestaurant category: aStringCategory.
+		aRestaurant description: aStringDescription.
+		aRestaurant linkToMenu: aStringLinktoMenu.
+		aRestaurant linkToWebsite: aStringLinkToWebsite.
+		aRestaurant location: aStringLinkToWebsite.
+		aRestaurant name: aStringName.
 ]
 
 { #category : 'Accessing' }
@@ -190,21 +235,29 @@ MPORestaurant class >> restaurants: aCollection [
 ]
 
 { #category : 'logic' }
-MPORestaurant class >> sortRestaurantsByMostOrdersatDate: aDate [
-	| highest restaurantList highestRestaurant |	
-	restaurantList := OrderedCollection new.
+MPORestaurant class >> sortRestaurantsByMostOrdersAtDate: aDate [
+
+	| theHighestOrders theRestaurants theHighestRestaurant |	
+	theRestaurants := OrderedCollection new.
 	
-	0 to: (self restaurants size) do: [highest := 0.
-		self restaurants do: [:aRestaurant | ((((aRestaurant orders at: aDate ifAbsent: []) size) > highest ) and: [(restaurantList includes: aRestaurant) not]) 
+	0 to: (self restaurants size) do: [theHighestOrders := 0.
+		self restaurants do: [:eachRestaurant | ((((eachRestaurant orders at: aDate ifAbsent: []) size) > theHighestOrders ) and: [(theRestaurants includes: eachRestaurant) not]) 
 			ifTrue: [
-				highest := ((aRestaurant orders at: aDate) size).
-				highestRestaurant := aRestaurant.
+				theHighestOrders := ((eachRestaurant orders at: aDate) size).
+				theHighestRestaurant := eachRestaurant.
 			]
 		].
-		restaurantList  add: highestRestaurant.
+		theRestaurants  add: theHighestRestaurant.
 	].
-	^restaurantList
+	^theRestaurants
 	
+]
+
+{ #category : 'logic' }
+MPORestaurant >> <= aRestaurant [
+
+	^self averageRating <= aRestaurant averageRating
+
 ]
 
 { #category : 'logic' }
@@ -216,17 +269,17 @@ MPORestaurant >> addOrder: anOrder toDate: aDate [
 ]
 
 { #category : 'logic' }
-MPORestaurant >> addOrdertoDictionary: aString price: aNumber person: aPerson date: aDate note: aNoteString [
+MPORestaurant >> addOrderToDictionary: aString price: aNumber person: aPerson date: aDate note: aNoteString [
 
-	| newOrder |
-	newOrder := (MPOOrder new
+	| theOrder |
+	theOrder := (MPOOrder new
 		person: aPerson;
 		price: aNumber;
 		note: aNoteString;
 		food: aString;
 		yourself).
 	
-	self addOrder: newOrder toDate: aDate
+	self addOrder: theOrder toDate: aDate
 ]
 
 { #category : 'Accessing' }
@@ -250,13 +303,14 @@ MPORestaurant >> address: aString [
 
 { #category : 'logic' }
 MPORestaurant >> addRestaurant: aRestaurant [
+
 	self class addRestaurant: aRestaurant
 ]
 
 { #category : 'logic' }
 MPORestaurant >> addReview: aReview [
 
-	self reviews add:  aReview
+	self reviews add: aReview
 ]
 
 { #category : 'logic' }
@@ -338,7 +392,7 @@ MPORestaurant >> getOrdersAtDate: aDate [
 { #category : 'logic' }
 MPORestaurant >> getSortedCommentsBasedOnRating [
 
-	|theSortedRating theStarratingForSorting|
+	| theSortedRating theStarratingForSorting |
 	theSortedRating := OrderedCollection new.
 	theStarratingForSorting := 0.
 
@@ -350,26 +404,6 @@ MPORestaurant >> getSortedCommentsBasedOnRating [
 	].
 	^theSortedRating
 	
-]
-
-{ #category : 'logic' }
-MPORestaurant >> getTopThreeRestaurants [
-
-	| topThree averageofRestaurant highestRestaurant|
-	averageofRestaurant := 10.
-	topThree := OrderedCollection new.
-	
-	0 to: 2 do: [
-		MPORestaurant restaurants do: [ :aRestaurant | 
-			(averageofRestaurant < aRestaurant averageRating) 
-				ifTrue: [ 
-					(topThree includes: aRestaurant) 
-						ifFalse: [
-							averageofRestaurant := aRestaurant averageRating. 
-							highestRestaurant := aRestaurant.]]].
-		(topThree includes: highestRestaurant) 
-			ifFalse: [topThree add: highestRestaurant.]].
-	^topThree
 ]
 
 { #category : 'Accessing' }
@@ -427,38 +461,23 @@ MPORestaurant >> location: aString [
 ]
 
 { #category : 'logic' }
-MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson date: aDate note: aString [
-
-	| myorder |
-	(self orders at: aDate ifAbsent: []) remove: aOrder ifAbsent: [].
-	myorder := MPOOrder new.
-	myorder person: aPerson.
-	myorder food: aFood.
-	myorder note: aString.
-]
-
-
-{ #category : 'Not categorized' }
-MPORestaurant >> modifyRestaurant: aRestaurant newaddress: aStringaddress newcategory: aStringCategory newDescription: aStringDescription newLinktoMenu: aStringLinktoMenu newLinkToWebsite: aStringLinkToWebsite newLocation: aStringLocation newName: aStringName [
-	self class modifyRestaurant: aRestaurant  newaddress: aStringaddress newcategory: aStringCategory newDescription: aStringDescription newLinktoMenu: aStringLinktoMenu newLinkToWebsite: aStringLinkToWebsite newLocation: aStringLocation newName: aStringName
-]
-  
-{ #category : 'logic' }
 MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson oldDate: anOldDate newDate: aNewDate note: aString price: aNumber [
 
-	| myorder |
-	(self orders at: anOldDate ifAbsent: []) remove: aOrder ifAbsent: [].
-	myorder := MPOOrder new.
-	myorder person: aPerson.
-	myorder food: aFood.
-	myorder note: aString.
-	myorder price: aNumber.
-	self addOrder: myorder toDate: aNewDate.
+	self deleteOrder: aOrder atDate: anOldDate.
+	aOrder food: aFood.
+	aOrder person: aPerson.
+	aOrder note: aString.
+	aOrder price: aNumber.
+	self addOrder: aOrder toDate: aNewDate.
 
 	
 ]
 
+{ #category : 'logic' }
+MPORestaurant >> modifyRestaurant: aRestaurant address: aStringaddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName [
 
+	self class modifyRestaurant: aRestaurant  address: aStringaddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName
+]
 
 { #category : 'Accessing' }
 MPORestaurant >> name [
@@ -476,6 +495,24 @@ MPORestaurant >> name: aString [
 	"Set the name of the receiver"
 
 	name := aString
+]
+
+{ #category : 'Accessing' }
+MPORestaurant >> openingTime [
+
+	"<^iOf MPOOpeningTime>"
+	"Answer the openingTime of the receiver"
+
+	^openingTime
+]
+
+{ #category : 'Accessing' }
+MPORestaurant >> openingTime: aMPOOpeningTime [
+
+	"<aMPOOpeningTime: iOf MPOOpeningTime, ^self>"
+	"Set the openingTime of the receiver"
+
+	openingTime := aMPOOpeningTime
 ]
 
 { #category : 'logic' }
@@ -523,46 +560,29 @@ MPORestaurant >> reviews: aDictionary [
 ]
 
 { #category : 'logic' }
-MPORestaurant >> sortRestaurantsByMostOrdersatDate: aDate [
-	self class sortRestaurantsByMostOrdersatDate: aDate
+MPORestaurant >> sortRestaurantsByMostOrdersAtDate: aDate [
+
+	self class sortRestaurantsByMostOrdersAtDate: aDate
 ]
 
 { #category : 'logic' }
 MPORestaurant >> sumOfOrderPerson: aPerson atDate: aDate [
 
-	|sum|
-	sum := 0.
-	(self orders at: aDate ifAbsent: []) do: [ :orderelm  | (orderelm person = aPerson) ifTrue: [
-		orderelm food do: [ :foodelem | sum := (sum + foodelem price)]
+	| theSum |
+	theSum := 0.
+	(self orders at: aDate ifAbsent: []) do: [ :eachOrder  | (eachOrder person = aPerson) ifTrue: [
+		eachOrder food do: [ :foodelem | theSum := (theSum + foodelem price)]
 	]		
 	].
 
-	^sum
+	^theSum
 ]
 
 { #category : 'logic' }
-MPORestaurant >> sumofOrderPrice: aDate [
+MPORestaurant >> sumOfOrderPrice: aDate [
 
-	|sum|
-	sum := 0.	
-	(self orders at: aDate ifAbsent: []) do: [ :orderelm | sum := (sum + orderelm price)].
-	^sum
-]
-
-{ #category : 'Accessing' }
-MPORestaurant >> week [
-
-	"<^iOf MPOOpeningTime>"
-	"Answer the week of the receiver"
-
-	^week
-]
-
-{ #category : 'Accessing' }
-MPORestaurant >> week: aMPOOpeningTime [
-
-	"<aMPOOpeningTime: iOf MPOOpeningTime, ^self>"
-	"Set the week of the receiver"
-
-	week := aMPOOpeningTime
+	| theSum |
+	theSum := 0.	
+	(self orders at: aDate ifAbsent: []) do: [ :eachOrder | theSum := (theSum + eachOrder price)].
+	^theSum
 ]

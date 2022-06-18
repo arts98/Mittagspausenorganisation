@@ -18,6 +18,7 @@ MPORating class >> new [
 
 { #category : 'logic' }
 MPORating >> < aMPORating [
+
 	^self timestamp < aMPORating timestamp 
 ]
 
@@ -89,10 +90,18 @@ MPORating >> tags: aCollection [
 
 { #category : 'Accessing' }
 MPORating >> timestamp [
+
+	"<^iOf aclwtimestamp>"
+	"Answer the timestamp of the receiver"
+
 	^timestamp
 ]
 
 { #category : 'Accessing' }
-MPORating >> timestamp: aclwtimestamp [
-	timestamp := aclwtimestamp
+MPORating >> timestamp: anaclwtimestamp [
+
+	"<anaclwtimestamp: iOf aclwtimestamp, ^self>"
+	"Set the timestamp of the receiver"
+
+	timestamp := anaclwtimestamp
 ]

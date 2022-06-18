@@ -23,7 +23,7 @@ MPOLunchbreak >> addRestaurant: aRestaurant [
 { #category : 'logic' }
 MPOLunchbreak >> initialize [
 	
-	self restaurant: OrderedCollection new
+	self restaurants: OrderedCollection new
 ]
 
 { #category : 'Accessing' }

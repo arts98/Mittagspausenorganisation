@@ -2,7 +2,7 @@ Class {
 	#name : 'MPOOpeningTime',
 	#superclass : 'Object',
 	#instVars : [
-		'week'
+		'openingTimesForWeek'
 	],
 	#category : 'MPOBackendApp'
 }
@@ -17,29 +17,29 @@ MPOOpeningTime class >> new [
 { #category : 'logic' }
 MPOOpeningTime >> addOpeningTime: aOpeningTime atDay: aDay [
 
-	self week at: aDay put: aOpeningTime
+	self openingTimesForWeek at: aDay put: aOpeningTime
 ]
 
 { #category : 'logic' }
 MPOOpeningTime >> initialize [
 
-	self week: Dictionary new
+	self openingTimesForWeek: Dictionary new
 ]
 
 { #category : 'Accessing' }
-MPOOpeningTime >> week [
+MPOOpeningTime >> openingTimesForWeek [
 
 	"<^hOf Dictionary: {key: iOf String, value: iOf String}>"
-	"Answer the week of the receiver"
+	"Answer the openingTimesForWeek of the receiver"
 
-	^week
+	^openingTimesForWeek
 ]
 
 { #category : 'Accessing' }
-MPOOpeningTime >> week: aDictionary [
+MPOOpeningTime >> openingTimesForWeek: aDictionary [
 
 	"<aDictionary: hOf Dictionary: {key: iOf String, value: iOf String}, ^self>"
-	"Set the week of the receiver"
+	"Set the openingTimesForWeek of the receiver"
 
-	week := aDictionary
+	openingTimesForWeek := aDictionary
 ]

@@ -200,13 +200,13 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 			self oldRestaurant isNil
 				ifFalse: [
 					MPORestaurant modifyRestaurant: (self oldRestaurant)
-						newaddress: (self address value ifEmpty: nil)
-						newcategory: self restaurantTypeSelectBox value
-						newDescription: self descriptionTextArea value
-						newLinktoMenu:  (self menuLink value ifEmpty: nil)
-						newLinkToWebsite:  (self website value ifEmpty: nil)
-						newLocation: nil
-						newName: self nameField value.
+						address: (self address value ifEmpty: nil)
+						category: self restaurantTypeSelectBox value
+						description: self descriptionTextArea value
+						linkToMenu:  (self menuLink value ifEmpty: nil)
+						linkToWebsite:  (self website value ifEmpty: nil)
+						location: nil
+						name: self nameField value.
 				]
 				ifTrue: [
 					MPORestaurant restaurants add: (MPORestaurant new

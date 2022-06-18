@@ -8,45 +8,63 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
-{ #category : 'accessing' }
-MPOVoting >> addVote: aVote [
-	self voting add: aVote
+{ #category : 'logic' }
+MPOVoting >> addVote: aMPOVote [
+
+	self voting add: aMPOVote
 ]
 
-{ #category : 'accessing' }
-MPOVoting >> getFavorit [
-	|highest countvote top|
-	highest := 0.	
+{ #category : 'logic' }
+MPOVoting >> getHighest [
+
+	| theHighestVote theCurrentVote theHighest |
+	theHighestVote := 0.	
 	
-	self restaurantsToVote do: [:rest | 
-		countvote := 0.
-		self voting do: [:aVote | 
-			(aVote vote and: [aVote restaurant = rest]) 
-				ifTrue: [countvote := (countvote + 1)]].
-		(highest < countvote) 
+	self restaurantsToVote do: [:eachRestaurant | 
+		theCurrentVote := 0.
+		self voting do: [:eachVote | 
+			(eachVote vote and: [eachVote restaurant = eachRestaurant]) 
+				ifTrue: [theCurrentVote := (theCurrentVote + 1)]].
+		(theHighestVote < theCurrentVote) 
 			ifTrue: [
-				top := rest.
-				highest := countvote]].
-	^top
+				theHighest := eachRestaurant.
+				theHighestVote := theCurrentVote]].
+	^theHighest
 
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPOVoting >> restaurantsToVote [
+
+	"<^hOf Collection of: {iOf MPORestaurant}>"
+	"Answer the restaurantsToVote of the receiver"
+
 	^restaurantsToVote
 ]
 
-{ #category : 'accessing' }
-MPOVoting >> restaurantsToVote: anObject [
-	restaurantsToVote := anObject
+{ #category : 'Accessing' }
+MPOVoting >> restaurantsToVote: aCollection [
+
+	"<aCollection: hOf Collection of: {iOf MPORestaurant}, ^self>"
+	"Set the restaurantsToVote of the receiver"
+
+	restaurantsToVote := aCollection
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPOVoting >> voting [
+
+	"<^hOf Collection of: {iOf MPOVote}>"
+	"Answer the voting of the receiver"
+
 	^voting
 ]
 
-{ #category : 'accessing' }
-MPOVoting >> voting: aVote [
-	voting := aVote
+{ #category : 'Accessing' }
+MPOVoting >> voting: aCollection [
+
+	"<aCollection: hOf Collection of: {iOf MPOVote}, ^self>"
+	"Set the voting of the receiver"
+
+	voting := aCollection
 ]
