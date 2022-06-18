@@ -49,6 +49,11 @@ MPOMe5NewRestaurantFormModalModalView >> address: aTextField [
 ]
 
 { #category : 'Initial-Events' }
+MPOMe5NewRestaurantFormModalModalView >> afterCreateComponents [
+	"doNothing"
+]
+
+{ #category : 'Initial-Events' }
 MPOMe5NewRestaurantFormModalModalView >> createComponents [
 	self modal
 		title: 'Neues Restaurant';
@@ -194,16 +199,25 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 		ifTrue: [
 			self oldRestaurant isNil
 				ifFalse: [
-					MPORestaurant restaurants remove: self oldRestaurant.
+					MPORestaurant modifyRestaurant: (self oldRestaurant)
+						newaddress: (self address value ifEmpty: nil)
+						newcategory: self restaurantTypeSelectBox value
+						newDescription: self descriptionTextArea value
+						newLinktoMenu:  (self menuLink value ifEmpty: nil)
+						newLinkToWebsite:  (self website value ifEmpty: nil)
+						newLocation: nil
+						newName: self nameField value.
+				]
+				ifTrue: [
+					MPORestaurant restaurants add: (MPORestaurant new
+						name: self nameField value;
+						category: self restaurantTypeSelectBox value;
+						description: self descriptionTextArea value;
+						linkToWebsite: (self website value ifEmpty: nil);
+						linkToMenu: (self menuLink value ifEmpty: nil);
+						address: (self address value ifEmpty: nil);
+						yourself).
 				].
-				MPORestaurant restaurants add: (MPORestaurant new
-					name: self nameField value;
-					category: self restaurantTypeSelectBox value;
-					description: self descriptionTextArea value;
-					linkToWebsite: (self website value ifEmpty: nil);
-					linkToMenu: (self menuLink value ifEmpty: nil);
-					address: (self address value ifEmpty: nil);
-					yourself).
 				self parentView refreshRestaurants.
 				self closeModal
 			]
