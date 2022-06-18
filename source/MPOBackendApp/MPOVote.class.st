@@ -9,32 +9,56 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPOVote >> person [
+
+	"<^iOf MPOPerson>"
+	"Answer the person of the receiver"
+
 	^person
 ]
 
-{ #category : 'accessing' }
-MPOVote >> person: aPerson [
-	person := aPerson
+{ #category : 'Accessing' }
+MPOVote >> person: aMPOPerson [
+
+	"<aMPOPerson: iOf MPOPerson, ^self>"
+	"Set the person of the receiver"
+
+	person := aMPOPerson
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPOVote >> restaurant [
+
+	"<^iOf MPORestaurant>"
+	"Answer the restaurant of the receiver"
+
 	^restaurant
 ]
 
-{ #category : 'accessing' }
-MPOVote >> restaurant: aRestaurant [
-	restaurant := aRestaurant
+{ #category : 'Accessing' }
+MPOVote >> restaurant: aMPORestaurant [
+
+	"<aMPORestaurant: iOf MPORestaurant, ^self>"
+	"Set the restaurant of the receiver"
+
+	restaurant := aMPORestaurant
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Accessing' }
 MPOVote >> vote [
+
+	"<^(true | false)>"
+	"Answer the vote of the receiver"
+
 	^vote
 ]
 
-{ #category : 'accessing' }
-MPOVote >> vote: aBool [
-	vote := aBool
+{ #category : 'Accessing' }
+MPOVote >> vote: aBoolean [
+
+	"<aBoolean: (true | false), ^self>"
+	"Set the vote of the receiver"
+
+	vote := aBoolean
 ]

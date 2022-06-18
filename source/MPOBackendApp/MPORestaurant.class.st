@@ -269,7 +269,7 @@ MPORestaurant >> category: aString [
 { #category : 'logic' }
 MPORestaurant >> deleteOrder: anOrder atDate: aDate [
 
-	(self orders at: aDate ifAbsent: []) remove: anOrder ifAbsent: [] 
+	(self orders at: aDate ifAbsent: [^nil]) remove: anOrder ifAbsent: [] 
 ]
 
 { #category : 'logic' }
@@ -303,28 +303,27 @@ MPORestaurant >> description: aString [
 ]
 
 { #category : 'logic' }
-MPORestaurant >> getOrdersatDate: aDate [
+MPORestaurant >> getOrdersAtDate: aDate [
 
-	self orders isEmptyOrNil
-	ifTrue: [^nil] 
-	ifFalse: [^(self orders at: aDate ifAbsent: []) ]
+	^self orders isEmptyOrNil
+		ifFalse: [self orders at: aDate ifAbsent: []]
 	
 ]
 
 { #category : 'logic' }
-MPORestaurant >> getSortedCommentsbasedonRating [
+MPORestaurant >> getSortedCommentsBasedOnRating [
 
-	|sortedRatings starratingForSorting|
-	sortedRatings := OrderedCollection new.
-	starratingForSorting := 0.
+	|theSortedRating theStarratingForSorting|
+	theSortedRating := OrderedCollection new.
+	theStarratingForSorting := 0.
 
 	0 to: 5 do:[
-		self reviews do: [:aReview | ( aReview starRating = starratingForSorting ) 
-			ifTrue: [sortedRatings add: aReview]
+		self reviews do: [:eachReview | ( eachReview starRating = theStarratingForSorting ) 
+			ifTrue: [theSortedRating add: eachReview]
 		].
-		starratingForSorting := starratingForSorting + 1.
+		theStarratingForSorting := theStarratingForSorting + 1.
 	].
-	^sortedRatings
+	^theSortedRating
 	
 ]
 
@@ -335,7 +334,7 @@ MPORestaurant >> getTopThreeRestaurants [
 	averageofRestaurant := 10.
 	topThree := OrderedCollection new.
 	
-	0 to: 3 do: [
+	0 to: 2 do: [
 		MPORestaurant restaurants do: [ :aRestaurant | 
 			(averageofRestaurant < aRestaurant averageRating) 
 				ifTrue: [ 
@@ -449,14 +448,6 @@ MPORestaurant >> name: aString [
 	"Set the name of the receiver"
 
 	name := aString
-]
-
-{ #category : 'logic' }
-MPORestaurant >> orderByTimestamp [
-	
-	^SortedCollection new 
-		addAll: self reviews;
-		yourself
 ]
 
 { #category : 'logic' }

@@ -343,7 +343,7 @@ MPOMe5RestaurantsView >> refreshOrders [
 
 	| aOrderCollection |
 	self orderList removeAllChildren.
-	aOrderCollection := self currentRestaurant getOrdersatDate: (self orderDateField value).
+	aOrderCollection := self currentRestaurant getOrdersAtDate: (self orderDateField value).
 	aOrderCollection isNil
 		ifTrue: [self orderList addChild: (Me5MetronicListGroupItem new	title: 'Keine Bestellungen an diesem Tag...'; yourself)]
 		ifFalse: [aOrderCollection do: [ :aOrder |

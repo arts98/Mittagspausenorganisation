@@ -644,7 +644,7 @@ theRestaurant := MPORestaurant new.
 	"self locale: "self sortEvaluation selectedObject = 'Neueste zuerst'
 		ifTrue: [theRestaurant orderReviewsByTimestamp]
 		ifFalse: [self sortEvaluation selectedObject = 'Beste zuerst'
-			ifTrue: [theRestaurant getSortedCommentsbasedonRating]
+			ifTrue: [theRestaurant getSortedCommentsBasedOnRating]
 			"ifFalse: [^0 fehlt noch]"]. 
 	self replaceView
 

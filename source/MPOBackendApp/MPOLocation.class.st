@@ -11,10 +11,11 @@ Class {
 MPOLocation class >> createLocations [
 
 	self locations isNil
-		ifTrue: [self locations: (OrderedCollection new
-			add: 'Freiburg';
-			add: 'Frankfurt';
-			add: 'Berlin';
+		ifTrue: [
+			self locations: (OrderedCollection new
+				add: 'Freiburg';
+				add: 'Frankfurt';
+				add: 'Berlin';
 			yourself)]
 ]
 

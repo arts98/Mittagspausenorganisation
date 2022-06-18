@@ -2,7 +2,7 @@ Class {
 	#name : 'MPOLunchbreak',
 	#superclass : 'Object',
 	#instVars : [
-		'restaurant',
+		'restaurants',
 		'voting'
 	],
 	#category : 'MPOBackendApp'
@@ -27,21 +27,21 @@ MPOLunchbreak >> initialize [
 ]
 
 { #category : 'Accessing' }
-MPOLunchbreak >> restaurant [
+MPOLunchbreak >> restaurants [
 
-	"<^hOf Collection of: {iOf Restaurant}>"
-	"Answer the restaurant of the receiver"
+	"<^hOf Collection of: {iOf MPORestaurant}>"
+	"Answer the restaurants of the receiver"
 
-	^restaurant
+	^restaurants
 ]
 
 { #category : 'Accessing' }
-MPOLunchbreak >> restaurant: aCollection [
+MPOLunchbreak >> restaurants: aCollection [
 
-	"<aCollection: hOf Collection of: {iOf Restaurant}, ^self>"
-	"Set the restaurant of the receiver"
+	"<aCollection: hOf Collection of: {iOf MPORestaurant}, ^self>"
+	"Set the restaurants of the receiver"
 
-	restaurant := aCollection
+	restaurants := aCollection
 ]
 
 { #category : 'Accessing' }
