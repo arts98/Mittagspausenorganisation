@@ -23,6 +23,12 @@ MPORating >> < aMPORating [
 ]
 
 { #category : 'logic' }
+MPORating >> <= aMPORating [
+
+	^self timestamp < aMPORating timestamp 
+]
+
+{ #category : 'logic' }
 MPORating >> addTag: aTag [
 
 	self tags add: aTag

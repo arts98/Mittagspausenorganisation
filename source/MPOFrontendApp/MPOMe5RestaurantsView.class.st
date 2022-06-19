@@ -399,8 +399,9 @@ MPOMe5RestaurantsView >> restaurantRatingText: aMe5P [
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> showRatingsClicked [
-	self replaceView: MPOMe5ValuationView new
-
+	self replaceView: (MPOMe5ValuationView new
+		restaurant: self currentRestaurant;
+		yourself)
 ]
 
 { #category : 'Accessing' }

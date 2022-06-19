@@ -201,7 +201,7 @@ yourself.
 				text: 'Bewertungen (';
 				yourself);
 			addChildToMasterFormPortletHeadTools: (commentCounter :=Me5H3 new
-				text: self session counter;
+				"text: self session counter;"
 				yourself);
 			addChildToMasterFormPortletHeadTools: (Me5H3 new
 				text: ')';
@@ -519,7 +519,7 @@ self starCount notNil
 	self ratingFromOneToFiveQuestion color: 'red'; text: 'Wie viele Sterne von 1-5 moechten Sie diesem Restaurant geben? Bitte klicken Sie auf einen der fuenf Sterne'.
 	]
 	ifTrue: [
-	self incrementCommentCounter.
+	"self incrementCommentCounter."
 	self checkStarCount.
 	self masterDetailList isNewDummyListGroupItemActive
 		ifTrue: [ |theReviews theAverage theRestaurant theRating theMasterDetailListGroupItem"thePerson: username aus MPOPerson noch einbauen" |

@@ -360,7 +360,7 @@ MPORestaurant >> deleteRestaurant: aRestaurant [
 { #category : 'logic' }
 MPORestaurant >> deleteReview: aReview [
 
-	self reviews remove: aReview
+	self reviews remove: aReview ifAbsent: []
 ]
 
 { #category : 'Accessing' }
@@ -396,7 +396,7 @@ MPORestaurant >> getSortedCommentsBasedOnRating [
 	theSortedRating := OrderedCollection new.
 	theStarratingForSorting := 0.
 
-	0 to: 5 do:[
+	0 to: 5 do:[ :eachNumber |
 		self reviews do: [:eachReview | ( eachReview starRating = theStarratingForSorting ) 
 			ifTrue: [theSortedRating add: eachReview]
 		].
