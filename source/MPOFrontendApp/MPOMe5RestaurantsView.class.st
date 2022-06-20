@@ -105,13 +105,26 @@ MPOMe5RestaurantsView >> createComponents [
 					addChild: (Me5AccordionItem new
 						icon: Me5I newFasShoppingCart;
 						title: 'Bestellungen';
-						addChildToContent: (orderDateField := Me5DateField new
-							text: 'Datum';
-							width: 400;
-							value: Date today;
-							enableDatePicker: true;
-							setDatePickerButton;
-							addChangeEventSelector: #refreshOrders;
+						addChildToContent: (Me5Row new 
+							addChild: (Me5Button newPillPrimary
+								icon: Me5I newFasArrowLeft;
+								height: 40;
+								addClickEventSelector: #previousDayClicked;
+								yourself);
+							addChild:  (orderDateField := Me5DateField new
+								text: 'Datum';
+								width: 350;
+								value: Date today;
+								enableDatePicker: true;
+								setDatePickerButton;
+								addChangeEventSelector: #refreshOrders;
+								yourself);
+							addChild: (Me5Button newPillPrimary
+								icon: Me5I newFasArrowRight;
+								height: 40;
+								marginLeft: 10;
+								addClickEventSelector: #nextDayClicked;
+								yourself);
 							yourself);
 						addChildToContent:  (Me5Portlet new
 							addChildToBody: (orderList := Me5MetronicListGroup new
@@ -234,7 +247,7 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 			self currentRestaurant: theRestaurant.
 			self masterDetailList detailFormPortletTitle: theRestaurant name , ' ('  , theRestaurant category, ')'.
 			self restaurantDescriptionText text: theRestaurant description.
-			self restaurantRatingText text: 'Durchschnittliche Bewertung: ', theRestaurant averageRating asString .
+			self restaurantRatingText text: 'Durchschnittliche Bewertung: ', (theRestaurant averageRating preciseRoundTo: 1) asString .
 			self ratingButton text: 'Bewertungen (' , theRestaurant reviews size asString, ')' .
 			self refreshOrders.
 			self websiteButton href: theRestaurant linkToWebsite.
@@ -291,6 +304,12 @@ MPOMe5RestaurantsView >> newRestaurantClicked [
 	self openModal: MPOMe5NewRestaurantFormModalModalView new
 ]
 
+{ #category : 'Events' }
+MPOMe5RestaurantsView >> nextDayClicked [
+	self orderDateField value: (self orderDateField value addDays: 1).
+	self refreshOrders.
+]
+
 { #category : 'Accessing' }
 MPOMe5RestaurantsView >> orderDateField [
 
@@ -319,6 +338,12 @@ MPOMe5RestaurantsView >> orderList [
 MPOMe5RestaurantsView >> orderList: aList [
 
 	orderList := aList
+]
+
+{ #category : 'Events' }
+MPOMe5RestaurantsView >> previousDayClicked [
+	self orderDateField value: (self orderDateField value subtractDays: 1).
+	self refreshOrders.
 ]
 
 { #category : 'Accessing' }
