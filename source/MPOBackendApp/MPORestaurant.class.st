@@ -214,6 +214,7 @@ MPORestaurant class >> modifyRestaurant: aRestaurant address: aStringAddress cat
 		aRestaurant linkToWebsite: aStringLinkToWebsite.
 		aRestaurant location: aStringLinkToWebsite.
 		aRestaurant name: aStringName.
+		^aRestaurant
 ]
 
 { #category : 'Accessing' }

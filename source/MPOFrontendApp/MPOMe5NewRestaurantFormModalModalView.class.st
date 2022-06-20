@@ -199,17 +199,18 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 		ifTrue: [
 			self oldRestaurant isNil
 				ifFalse: [
-					MPORestaurant modifyRestaurant: (self oldRestaurant)
+					self parentView currentRestaurant: (MPORestaurant 
+						modifyRestaurant: (self oldRestaurant)
 						address: (self address value ifEmpty: nil)
 						category: self restaurantTypeSelectBox value
 						description: self descriptionTextArea value
 						linkToMenu:  (self menuLink value ifEmpty: nil)
 						linkToWebsite:  (self website value ifEmpty: nil)
 						location: nil
-						name: self nameField value.
+						name: self nameField value).
 				]
 				ifTrue: [
-					MPORestaurant restaurants add: (MPORestaurant new
+					self parentView currentRestaurant: (MPORestaurant new
 						name: self nameField value;
 						category: self restaurantTypeSelectBox value;
 						description: self descriptionTextArea value;
@@ -217,6 +218,7 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 						linkToMenu: (self menuLink value ifEmpty: nil);
 						address: (self address value ifEmpty: nil);
 						yourself).
+					MPORestaurant restaurants add: (self parentView currentRestaurant)
 				].
 				self parentView refreshRestaurants.
 				self closeModal

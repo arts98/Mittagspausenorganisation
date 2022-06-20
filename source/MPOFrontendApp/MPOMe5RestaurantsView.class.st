@@ -131,6 +131,7 @@ MPOMe5RestaurantsView >> createComponents [
 		yourself. 
 
 	self refreshRestaurants.
+	self currentRestaurant: MPORestaurant restaurants first.
 	self refreshOrders.
 
 
@@ -358,7 +359,6 @@ MPOMe5RestaurantsView >> refreshRestaurants [
 	MPORestaurant restaurants do: [ :aRestaurant |
 		self addRestaurant: aRestaurant
 	].
-	self currentRestaurant: MPORestaurant restaurants first.
 ]
 
 { #category : 'Accessing' }
