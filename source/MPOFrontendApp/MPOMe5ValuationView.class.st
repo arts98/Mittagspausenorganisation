@@ -152,36 +152,42 @@ MPOMe5ValuationView >> checkAverageForStarColor [
 { #category : 'Not categorized' }
 MPOMe5ValuationView >> checkStarAverage: theReview [
 
-(theReview >=1 and:[theReview < 1.5])
-ifTrue:[firstBigStar color: 'orange'.
-	secondBigStar color: 'black'.
-	thirdBigStar color: 'black'.
-	fourthBigStar color: 'black'.
-	fifthBigStar color: 'black'.]
-ifFalse: [(theReview >=1.5 and:[theReview < 2.5])
-	ifTrue: [firstBigStar color: 'orange'.
-	secondBigStar color: 'orange'.
-	thirdBigStar color: 'black'.
-	fourthBigStar color: 'black'.
-	fifthBigStar color: 'black'.]
-	ifFalse: [(theReview >=2.5 and:[theReview < 3.5])
-		ifTrue: [firstBigStar color: 'orange'.
-	secondBigStar color: 'orange'.
-	thirdBigStar color: 'orange'.
-	fourthBigStar color: 'black'.
-	fifthBigStar color: 'black'.]
-		ifFalse: [(theReview >=3.5 and:[theReview < 4.5])
+theReview < 1
+ifTrue:[firstBigStar color: 'black'.
+		secondBigStar color: 'black'.
+		thirdBigStar color: 'black'.
+		fourthBigStar color: 'black'.
+		fifthBigStar color: 'black'.]
+	ifFalse: [(theReview >=1 and:[theReview < 1.5])
+		ifTrue:[firstBigStar color: 'orange'.
+			secondBigStar color: 'black'.
+			thirdBigStar color: 'black'.
+			fourthBigStar color: 'black'.
+			fifthBigStar color: 'black'.]
+		ifFalse: [(theReview >=1.5 and:[theReview < 2.5])
 			ifTrue: [firstBigStar color: 'orange'.
-	secondBigStar color: 'orange'.
-	thirdBigStar color: 'orange'.
-	fourthBigStar color: 'orange'.
-	fifthBigStar color: 'black'.]
-			ifFalse: [(theReview >=4.5 and:[theReview <= 5.0])
+				secondBigStar color: 'orange'.
+				thirdBigStar color: 'black'.
+				fourthBigStar color: 'black'.
+				fifthBigStar color: 'black'.]
+			ifFalse: [(theReview >=2.5 and:[theReview < 3.5])
 				ifTrue: [firstBigStar color: 'orange'.
-	secondBigStar color: 'orange'.
-	thirdBigStar color: 'orange'.
-	fourthBigStar color: 'orange'.
-	fifthBigStar color: 'orange'.]]]]]
+					secondBigStar color: 'orange'.
+					thirdBigStar color: 'orange'.
+					fourthBigStar color: 'black'.
+					fifthBigStar color: 'black'.]
+				ifFalse: [(theReview >=3.5 and:[theReview < 4.5])
+					ifTrue: [firstBigStar color: 'orange'.
+						secondBigStar color: 'orange'.
+						thirdBigStar color: 'orange'.
+						fourthBigStar color: 'orange'.
+						fifthBigStar color: 'black'.]
+					ifFalse: [(theReview >=4.5 and:[theReview <= 5.0])
+						ifTrue: [firstBigStar color: 'orange'.
+							secondBigStar color: 'orange'.
+							thirdBigStar color: 'orange'.
+							fourthBigStar color: 'orange'.
+							fifthBigStar color: 'orange'.]]]]]]
 
 ]
 
@@ -256,7 +262,7 @@ yourself.
 
 	self
 		addChild: (heading := Me5H1 new
-			text: 'Bewertungsview: (Restaurantname)';
+			text: self restaurant name;
 			yourself);
 		addBreak20;	
 			addChild: (Me5Row new
@@ -358,7 +364,7 @@ MPOMe5ValuationView >> createMasterDetailListGroupItemForRating: aRating [
 
 	^Me5MasterDetailListGroupItem new
 		updateBlock: [ :theComponent | 
-			theComponent text: self session person firstname.
+			theComponent text: self session person firstname, ' ', aRating starRating asString, ' Sterne'.
 			"theComponent title: aRating starRating asString, ' Sterne'."
 			theComponent subtitle: aRating note.
 		];
@@ -435,9 +441,18 @@ aRating := anEvent componentObject.
 { #category : 'Not categorized' }
 MPOMe5ValuationView >> deleteRatingClicked: aRating [
 
+	|theReviews|
 	self masterDetailList removeActiveMasterDetailListGroupItem.
 	self restaurant deleteReview: aRating componentObject.
+	
+	"self ratingCollection remove: aRating componentObject."
+	"self restaurant reviews: self ratingCollection." 
+	theReviews := self restaurant averageRating.
+	self averageRatingStars text: theReviews.
+	self checkStarAverage: theReviews.
+	
 	self decrementCommentCounter.
+
 	
 ]
 
@@ -755,7 +770,7 @@ self starCount notNil
 			self zeroSmallStar.
 			]
 		ifFalse: [
-			self masterDetailList updateMasterDetailList.
+			"self masterDetailList updateMasterDetailList."
 			]].
 
 ]
@@ -766,6 +781,7 @@ MPOMe5ValuationView >> saveRating: aRating [
 	aRating
 		note: self commentForm value;
 		starRating: self starCount;
+		timestamp: AbtTimestamp now;
 		"tags: self ratingCollection;"
 		yourself
 ]
@@ -865,14 +881,15 @@ MPOMe5ValuationView >> smallStarsOrange: anObject [
 MPOMe5ValuationView >> sortByCollection [
 
 "unvollstaendig bzw. fehlerbehaftet"
+|theSortedReviews|
 
 self masterDetailList removeAllMasterDetailListGroupItems.
-	self locale: (self sortEvaluation selectedObject = 'Neueste zuerst'
+	theSortedReviews := (self sortEvaluation selectedObject = 'Neueste zuerst'
 		ifTrue: [self restaurant orderReviewsByTimestamp]												"self ratingCollection: theRestaurant orderReviewsByTimestamp""theRestaurant orderReviewsByTimestamp""theRestaurant:=self restaurant orderReviewsByTimestamp"
 		ifFalse: [self sortEvaluation selectedObject = 'Beste zuerst'
-			ifTrue: [self restaurant getSortedCommentsbasedonRating]							"theRestaurant:=self restaurant getSortedCommentsbasedonRating"
-			"ifFalse: [^0 fehlt noch]"]). 
-	self locale do: [:eachReview| self createMasterDetailListGroupItemForRating: eachReview]
+			ifTrue: [self restaurant getSortedCommentsBasedOnRating]							"theRestaurant:=self restaurant getSortedCommentsbasedonRating"
+			ifFalse: [^0]]). 
+	theSortedReviews do: [:eachReview| self createMasterDetailListGroupItemForRating: eachReview]
 	
 
 
@@ -910,7 +927,7 @@ theRestaurant := MPORestaurant new."
 	"self locale: ("self sortEvaluation selectedObject = 'Neueste zuerst'
 		ifTrue: [theReviews orderReviewsByTimestamp"self ratingCollection: theRestaurant orderReviewsByTimestamp""theRestaurant orderReviewsByTimestamp""theRestaurant:=self restaurant orderReviewsByTimestamp"]
 		ifFalse: [self sortEvaluation selectedObject = 'Beste zuerst'
-			ifTrue: [theReviews getSortedCommentsbasedonRating"theRestaurant:=self restaurant getSortedCommentsbasedonRating"]
+			ifTrue: [theReviews getSortedCommentsBasedOnRating"theRestaurant:=self restaurant getSortedCommentsbasedonRating"]
 			"ifFalse: [^0 fehlt noch]"]. 
 	self replaceView
 	
