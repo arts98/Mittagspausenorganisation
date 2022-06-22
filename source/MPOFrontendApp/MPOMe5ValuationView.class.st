@@ -355,7 +355,7 @@ yourself.
 			enableIsActive;
 			yourself).
 		
-		self restaurant reviews do: [:eachReview| self createMasterDetailListGroupItemForRating: eachReview]
+		self restaurant reviews do: [:eachReview| self masterDetailList addMasterDetailListGroupItem: (self createMasterDetailListGroupItemForRating: eachReview)]
 		
 ]
 
@@ -889,7 +889,7 @@ self masterDetailList removeAllMasterDetailListGroupItems.
 		ifFalse: [self sortEvaluation selectedObject = 'Beste zuerst'
 			ifTrue: [self restaurant getSortedCommentsBasedOnRating]							"theRestaurant:=self restaurant getSortedCommentsbasedonRating"
 			ifFalse: [^0]]). 
-	theSortedReviews do: [:eachReview| self createMasterDetailListGroupItemForRating: eachReview]
+	theSortedReviews do: [:eachReview| self masterDetailList addMasterDetailListGroupItem: (self createMasterDetailListGroupItemForRating: eachReview)]
 	
 
 
