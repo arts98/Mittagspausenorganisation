@@ -204,19 +204,6 @@ MPORestaurant class >> getTopThreeRestaurants [
 	^theTopThree
 ]
 
-{ #category : 'logic' }
-MPORestaurant class >> modifyRestaurant: aRestaurant address: aStringAddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName [
-
-		aRestaurant address: aStringAddress.
-		aRestaurant category: aStringCategory.
-		aRestaurant description: aStringDescription.
-		aRestaurant linkToMenu: aStringLinktoMenu.
-		aRestaurant linkToWebsite: aStringLinkToWebsite.
-		aRestaurant location: aStringLinkToWebsite.
-		aRestaurant name: aStringName.
-		^aRestaurant
-]
-
 { #category : 'Accessing' }
 MPORestaurant class >> restaurants [
 
@@ -237,20 +224,12 @@ MPORestaurant class >> restaurants: aCollection [
 
 { #category : 'logic' }
 MPORestaurant class >> sortRestaurantsByMostOrdersAtDate: aDate [
-
-	| theHighestOrders theRestaurants theHighestRestaurant |	
-	theRestaurants := OrderedCollection new.
 	
-	0 to: (self restaurants size) do: [theHighestOrders := 0.
-		self restaurants do: [:eachRestaurant | ((((eachRestaurant orders at: aDate ifAbsent: []) size) > theHighestOrders ) and: [(theRestaurants includes: eachRestaurant) not]) 
-			ifTrue: [
-				theHighestOrders := ((eachRestaurant orders at: aDate) size).
-				theHighestRestaurant := eachRestaurant.
-			]
-		].
-		theRestaurants  add: theHighestRestaurant.
-	].
-	^theRestaurants
+	^SortedCollection new
+		sortBlock: [ :theFirstRestaurant :theSecondRestaurant | 
+			(theFirstRestaurant orders at: aDate ifAbsent: [0]) size > (theSecondRestaurant orders at: aDate ifAbsent: [0]) size];
+		addAll: self restaurants;
+		yourself
 	
 ]
 
@@ -475,9 +454,16 @@ MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson oldDate: anOldD
 ]
 
 { #category : 'logic' }
-MPORestaurant >> modifyRestaurant: aRestaurant address: aStringaddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName [
+MPORestaurant >> modifyRestaurantWithAddress: anAddressString category: aCategoryString description: aDescriptionString linkToMenu: aLinktoMenuString linkToWebsite: aLinkToWebsiteString location: aLocationString name: aNameString [
 
-	self class modifyRestaurant: aRestaurant  address: aStringaddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName
+	self address: anAddressString.
+		self category: aCategoryString.
+		self description: aDescriptionString.
+		self linkToMenu: aLinktoMenuString.
+		self linkToWebsite: aLinkToWebsiteString.
+		self location: aLocationString.
+		self name: aNameString.
+		^self
 ]
 
 { #category : 'Accessing' }
