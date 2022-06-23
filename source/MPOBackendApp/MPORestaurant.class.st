@@ -190,16 +190,11 @@ MPORestaurant class >> deleteRestaurant: aRestaurant [
 { #category : 'logic' }
 MPORestaurant class >> getTopThreeRestaurants [
 
-	| theSortedCollection theSize theTopThree |
+	| theSortedCollection theTopThree |
 	
 	theSortedCollection := SortedCollection new.
 	theSortedCollection addAll: self restaurants.
-	theSize := theSortedCollection size.
-	theTopThree := (OrderedCollection new
-		add: (theSortedCollection at: theSize - 2);
-		add: (theSortedCollection at: theSize - 1);
-		add: (theSortedCollection at: theSize);
-		yourself).
+	theTopThree := theSortedCollection last: 3.
 	
 	^theTopThree
 ]
@@ -457,13 +452,13 @@ MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson oldDate: anOldD
 MPORestaurant >> modifyRestaurantWithAddress: anAddressString category: aCategoryString description: aDescriptionString linkToMenu: aLinktoMenuString linkToWebsite: aLinkToWebsiteString location: aLocationString name: aNameString [
 
 	self address: anAddressString.
-		self category: aCategoryString.
-		self description: aDescriptionString.
-		self linkToMenu: aLinktoMenuString.
-		self linkToWebsite: aLinkToWebsiteString.
-		self location: aLocationString.
-		self name: aNameString.
-		^self
+	self category: aCategoryString.
+	self description: aDescriptionString.
+	self linkToMenu: aLinktoMenuString.
+	self linkToWebsite: aLinkToWebsiteString.
+	self location: aLocationString.
+	self name: aNameString.
+	^self
 ]
 
 { #category : 'Accessing' }
@@ -504,10 +499,13 @@ MPORestaurant >> openingTime: aMPOOpeningTime [
 
 { #category : 'logic' }
 MPORestaurant >> orderReviewsByTimestamp [
-	
+	self reviews isNil
+	ifFalse: [
 	^SortedCollection new 
 		addAll: self reviews;
 		yourself
+	]
+	
 ]
 
 { #category : 'Accessing' }

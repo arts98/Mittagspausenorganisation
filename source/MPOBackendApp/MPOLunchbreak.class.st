@@ -17,7 +17,7 @@ MPOLunchbreak class >> new [
 { #category : 'logic' }
 MPOLunchbreak >> addRestaurant: aRestaurant [
 
-	self restaurant add: aRestaurant
+	self restaurants add: aRestaurant
 ]
 
 { #category : 'logic' }
