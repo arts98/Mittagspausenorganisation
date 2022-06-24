@@ -49,7 +49,9 @@ MPOMe5RestaurantsView >> addRestaurant: aRestaurant [
 { #category : 'Initial-Events' }
 MPOMe5RestaurantsView >> afterCreateComponents [
 	
-	self masterDetailList newDummyListGroupItem removeComponent
+	self masterDetailList newDummyListGroupItem removeComponent.
+	self refreshRestaurants.
+	self refreshOrders.
 ]
 
 { #category : 'Initial-Events' }
@@ -142,8 +144,7 @@ MPOMe5RestaurantsView >> createComponents [
 			yourself);
 		yourself. 
 
-	self refreshRestaurants.
-	self refreshOrders.
+
 
 
 	
@@ -403,7 +404,7 @@ MPOMe5RestaurantsView >> refreshRestaurants [
 			].
 			self currentRestaurant isNil 
 				ifTrue: [self currentRestaurant: theRestaurants first.].
-			self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).
+			(self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant) enableIsActive.
 		].
 	
 	
