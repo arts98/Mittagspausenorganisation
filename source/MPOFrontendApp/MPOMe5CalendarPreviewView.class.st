@@ -1,10 +1,6 @@
 Class {
 	#name : 'MPOMe5CalendarPreviewView',
 	#superclass : 'MPOMe5BaseView',
-	#instVars : [
-		'calendar',
-		'overviewPortlet'
-	],
 	#category : 'MPOFrontendApp'
 }
 
@@ -17,12 +13,14 @@ self replaceRootViewAndScrollToTop: MPOMe5CalendarView new
 { #category : 'Not categorized' }
 MPOMe5CalendarPreviewView >> createComponents [
 
+|theCurrentDay|
+theCurrentDay := MPOMe5CalendarView new.
+
 	self
-		addChild: (Me5Section new
-			addCssClassOffset1;
-			addChildToBody: ((calendar := Me5CalendarMonth new fontSize: 11)
+		addChild:(Me5Section new 	
+			addChildToBody: ((Me5CalendarMonth new fontSize: 16)
 				days: (self dayCollectionForDate: Date today);
-				width: '350px';
+				width: '540px';
 				yourself);
 			yourself);
 		yourself
@@ -40,7 +38,6 @@ MPOMe5CalendarPreviewView >> dayCollectionForDate: aDate [
 				theCollection add: (Me5CalendarDay new
 					date: (Date newDay: theCounter monthIndex: aDate monthIndex year: aDate year);
 					setCursorToPointer;
-					"addClickEventSelector: #dayClicked:;"
 					yourself)].
 			theCounter := theCounter + 1].
 	^theCollection
