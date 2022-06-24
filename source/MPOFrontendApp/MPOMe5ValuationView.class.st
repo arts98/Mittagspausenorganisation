@@ -351,12 +351,7 @@ MPOMe5ValuationView >> deleteRatingClicked: aRating [
 
 	|theReviews|
 	"self session person username."
-	self masterDetailList activeMasterDetailListGroupItem enableIsActive.
-	self session person email. 
-	self masterDetailList activeMasterDetailListGroupItem = self dummy
-	ifTrue: [^0]
-	ifFalse:[
-	self masterDetailList removeActiveMasterDetailListGroupItem.
+	self masterDetailList removeAllMasterDetailListGroupItems.
 	self restaurant deleteReview: aRating componentObject.
 	theReviews := self restaurant averageRating.
 	self averageRatingStars text: theReviews.
@@ -364,10 +359,9 @@ MPOMe5ValuationView >> deleteRatingClicked: aRating [
 	"self dummy."
 	self commentCounter text: self restaurant reviews size.
 	self zeroSmallStar.
-	]
 	
-
-	
+	self masterDetailList addMasterDetailListGroupItem: self dummy.
+	self restaurant reviews do: [:eachReview| self masterDetailList addMasterDetailListGroupItem: (self createMasterDetailListGroupItemForRating: eachReview)]
 ]
 
 { #category : 'Accessing' }
