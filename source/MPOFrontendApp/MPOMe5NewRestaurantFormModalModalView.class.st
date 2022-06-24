@@ -199,9 +199,8 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 		ifTrue: [
 			self oldRestaurant isNil
 				ifFalse: [
-					self parentView currentRestaurant: (MPORestaurant 
-						modifyRestaurant: (self oldRestaurant)
-						address: (self address value ifEmpty: nil)
+					self parentView currentRestaurant: (self oldRestaurant
+						modifyRestaurantWithAddress: (self address value ifEmpty: nil)
 						category: self restaurantTypeSelectBox value
 						description: self descriptionTextArea value
 						linkToMenu:  (self menuLink value ifEmpty: nil)

@@ -43,7 +43,6 @@ MPOMe5RestaurantsView >> addressButton: aMe5A [
 MPOMe5RestaurantsView >> addRestaurant: aRestaurant [
 	self masterDetailList addMasterDetailListGroupItem: (
 		(self createMasterDetailListGroupItemForRestaurant: aRestaurant)
-		enableIsActive;
 		yourself)
 ]
 
@@ -89,15 +88,15 @@ MPOMe5RestaurantsView >> createComponents [
 								addClickEventSelector: #showRatingsClicked;
 								yourself);
 							addChildToFootButtonGroup: (websiteButton := Me5A newPillPrimary
-								href: 'https://www.google.com' ;
+								href: 'https://www.youtube.com/watch?v=-AXetJvTfU0' ;
 								text: 'Webseite';
 								yourself);
 							addChildToFootButtonGroup: (menuButton :=Me5A newPillPrimary
-								href: 'https://www.google.com/finance' ;
+								href: 'https://www.youtube.com/watch?v=-AXetJvTfU0' ;
 								text: 'Speisekarte';
 								yourself);
 							addChildToFootButtonGroup: (addressButton := Me5A newPillPrimary
-								href: 'https://www.google.de/maps/' ;
+								href: 'https://www.youtube.com/watch?v=-AXetJvTfU0' ;
 								text: 'Adresse';
 								yourself);
 							yourself);
@@ -211,15 +210,21 @@ MPOMe5RestaurantsView >> deleteOrderClicked: aMeEvent [
 	| theOrder |
 	theOrder := aMeEvent componentObject.
 	self currentRestaurant deleteOrder: theOrder atDate: (self orderDateField value).
-	self refreshOrders
+	self refreshOrders.
+	self refreshRestaurants.
 
 ]
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> deleteRestaurantClicked [
-
-	MPORestaurant deleteRestaurant: currentRestaurant.
-	self refreshRestaurants.
+	
+	self currentRestaurant isNil
+		ifFalse: [
+			MPORestaurant deleteRestaurant: self currentRestaurant.
+			self currentRestaurant: nil.
+			self refreshRestaurants.
+		].
+	
 ]
 
 { #category : 'Events' }
@@ -295,7 +300,9 @@ MPOMe5RestaurantsView >> menuButton: aMe5A [
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> newOrderClicked [
-	self openModal: MPOMe5NewOrderFormModalModalView new
+	self currentRestaurant isNil
+		ifFalse: [ self openModal: MPOMe5NewOrderFormModalModalView new ]
+	
 ]
 
 { #category : 'Events' }
@@ -368,24 +375,30 @@ MPOMe5RestaurantsView >> refreshOrders [
 
 	| aOrderCollection |
 	self orderList removeAllChildren.
-	aOrderCollection := self currentRestaurant getOrdersAtDate: (self orderDateField value).
-	aOrderCollection isNil
-		ifTrue: [self orderList addChild: (Me5MetronicListGroupItem new	title: 'Keine Bestellungen an diesem Tag...'; yourself)]
-		ifFalse: [aOrderCollection do: [ :aOrder |
-			self addOrder: aOrder
-			].]
+	self currentRestaurant isNil
+		ifFalse: [
+			aOrderCollection := self currentRestaurant getOrdersAtDate: (self orderDateField value).
+			aOrderCollection isEmptyOrNil
+				ifTrue: [self orderList addChild: (Me5MetronicListGroupItem new	title: 'Keine Bestellungen an diesem Tag...'; yourself)]
+				ifFalse: [aOrderCollection do: [ :aOrder |
+								self addOrder: aOrder
+								].
+							]
+		].
+	
 ]
 
 { #category : 'Internal' }
 MPOMe5RestaurantsView >> refreshRestaurants [
 	
 	self masterDetailList removeAllMasterDetailListGroupItems.
-	MPORestaurant restaurants do: [ :aRestaurant |
+	(MPORestaurant sortRestaurantsByMostOrdersAtDate: Date today) do: [ :aRestaurant |
 		self addRestaurant: aRestaurant
 	].
 	self currentRestaurant isNil 
-		ifTrue: [self currentRestaurant: MPORestaurant restaurants first.].
-	self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).
+		ifTrue: [self currentRestaurant: (MPORestaurant sortRestaurantsByMostOrdersAtDate: Date today) firstOrNil.].
+	self currentRestaurant isNil 
+		ifFalse: [self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).].
 ]
 
 { #category : 'Accessing' }

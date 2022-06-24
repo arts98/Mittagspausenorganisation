@@ -32,27 +32,33 @@ MPOMe5NewOrderFormModalModalView class >> new: aOrder date: aDate [
 
 { #category : 'Events' }
 MPOMe5NewOrderFormModalModalView >> addOrderClicked [
-	self order isNil
-	ifTrue: [
-		self parentView currentRestaurant addOrder: (MPOOrder new
-				food: self foodTextField value;
-				note: self noteTextField value;
-				price: self priceTextField value;
-				yourself)
-			toDate: (self dateField value).
-	]
-	ifFalse: [
-		self parentView currentRestaurant modifyOrder: (self order)
-			food: (self foodTextField value)
-			person: (self session person)
-			oldDate: (self date)
-			newDate: (self dateField value)
-			note: (self noteTextField value)
-			price: (self priceTextField value).
-	].
-	
-	self parentView refreshOrders.
-	self closeModal
+	self foodTextField hasValue
+		ifFalse: [
+				self foodTextField dangerText: 'Bitte gib einen Essensnamen ein.']
+		ifTrue: [
+			self order isNil
+			ifTrue: [
+				self parentView currentRestaurant addOrder: (MPOOrder new
+						food: self foodTextField value;
+						note: self noteTextField value;
+						price: (self priceTextField value ifEmptyOrNil: [0]);
+						yourself)
+					toDate: (self dateField value).
+			]
+			ifFalse: [
+				self parentView currentRestaurant modifyOrder: (self order)
+					food: (self foodTextField value)
+					person: (self session person)
+					oldDate: (self date)
+					newDate: (self dateField value)
+					note: (self noteTextField value)
+					price: (self priceTextField value ifEmptyOrNil: [0]).
+			].
+			
+			self parentView refreshOrders.
+			self parentView refreshRestaurants.
+			self closeModal.
+		].
 ]
 
 { #category : 'Initial-Events' }

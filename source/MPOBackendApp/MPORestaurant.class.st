@@ -222,7 +222,7 @@ MPORestaurant class >> sortRestaurantsByMostOrdersAtDate: aDate [
 	
 	^SortedCollection new
 		sortBlock: [ :theFirstRestaurant :theSecondRestaurant | 
-			(theFirstRestaurant orders at: aDate ifAbsent: [0]) size > (theSecondRestaurant orders at: aDate ifAbsent: [0]) size];
+			((theFirstRestaurant getOrdersAtDate: aDate) size ifNil: [0]) > ((theSecondRestaurant getOrdersAtDate: aDate) size ifNil: [0])];
 		addAll: self restaurants;
 		yourself
 	
