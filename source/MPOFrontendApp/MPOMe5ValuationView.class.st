@@ -360,6 +360,7 @@ MPOMe5ValuationView >> deleteRatingClicked: aRating [
 	self commentCounter text: self restaurant reviews size.
 	self zeroSmallStar.
 	
+	self masterDetailList addMasterDetailListGroupItem: self dummy.
 	self restaurant reviews do: [:eachReview| self masterDetailList addMasterDetailListGroupItem: (self createMasterDetailListGroupItemForRating: eachReview)]
 ]
 
