@@ -1,3 +1,6 @@
+"
+not used
+"
 Class {
 	#name : 'MPOVoting',
 	#superclass : 'Object',

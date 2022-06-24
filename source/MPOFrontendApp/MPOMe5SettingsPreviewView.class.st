@@ -5,15 +5,29 @@ Class {
 }
 
 { #category : 'Not categorized' }
+MPOMe5SettingsPreviewView class >> sessionClass [
+
+^Me5MPOSession 
+]
+
+{ #category : 'Not categorized' }
 MPOMe5SettingsPreviewView >> createComponents [
 
 	self
-		addChild: (Me5Section new
-			text: 'Einstellungen';
+		addChild: (Me5H3 new
+			text: 'Accountdaten:';
 			yourself);
-		addChild: ((Me5Button newAirButton fontSize: 100)
-			icon: ((Me5I newFasCogs fontSize: 100)
-				yourself);
+			addChild: ((Me5H2 new fontSize: 20)
+				text: 'Username:', self session person username;
+			yourself);
+			addChild: ((Me5H2 new fontSize: 20)
+				text: ('Nachname:', self session person lastname); 
+			yourself);
+			addChild: ((Me5H2 new fontSize: 20)
+				text: 'Vorname:', self session person firstname;
+			yourself);
+			addChild: ((Me5H2 new fontSize: 20)
+				text: 'EMail:', self session person email;
 			yourself);
 		yourself
 ]

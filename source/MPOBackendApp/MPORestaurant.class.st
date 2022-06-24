@@ -41,14 +41,17 @@ MPORestaurant class >> createRestaurants [
 							add: (MPORating new
 								note: 'lecker';
 								starRating: 4;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '10:15:26');
 								yourself);
 							add: (MPORating new
-								note: 'mager';
-								starRating: 2;
+								note: 'extraklasse';
+								starRating: 5;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '12:15:00');
 								yourself);
 							add: (MPORating new
 								note: 'sehr gut';
 								starRating: 5;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '22:10:00');
 								yourself);
 						yourself);
 					openingTime: (MPOOpeningTime new
@@ -94,14 +97,17 @@ MPORestaurant class >> createRestaurants [
 							add: (MPORating new
 								note: 'klasse';
 								starRating: 5;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '10:15:26');
 								yourself);
 							add: (MPORating new
 								note: 'geht';
 								starRating: 2;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '12:15:00');
 								yourself);
 							add: (MPORating new
 								note: 'schlecht';
 								starRating: 1;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '22:10:00');
 								yourself);
 						yourself);
 					openingTime: (MPOOpeningTime new
@@ -141,14 +147,17 @@ MPORestaurant class >> createRestaurants [
 							add: (MPORating new
 								note: 'Mega';
 								starRating: 5;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '10:15:26');
 								yourself);
 							add: (MPORating new
 								note: 'mager';
-								starRating: 5;
+								starRating: 1;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '12:15:00');
 								yourself);
 							add: (MPORating new
 								note: 'sehr gut';
 								starRating: 5;
+								timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '22:10:00');
 								yourself);
 						yourself);
 					openingTime: (MPOOpeningTime new
