@@ -22,7 +22,8 @@ Class {
 { #category : 'logic' }
 MPORestaurant class >> addRestaurant: aRestaurant [
 
-	self restaurants add: aRestaurant
+	self restaurants add: aRestaurant.
+	^aRestaurant.
 ]
 
 { #category : 'Startup' }

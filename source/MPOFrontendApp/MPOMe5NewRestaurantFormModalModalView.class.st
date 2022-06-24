@@ -209,15 +209,14 @@ MPOMe5NewRestaurantFormModalModalView >> saveRestaurantClicked [
 						name: self nameField value).
 				]
 				ifTrue: [
-					self parentView currentRestaurant: (MPORestaurant new
+					self parentView currentRestaurant: (MPORestaurant addRestaurant: (MPORestaurant new
 						name: self nameField value;
 						category: self restaurantTypeSelectBox value;
 						description: self descriptionTextArea value;
 						linkToWebsite: (self website value ifEmpty: nil);
 						linkToMenu: (self menuLink value ifEmpty: nil);
 						address: (self address value ifEmpty: nil);
-						yourself).
-					MPORestaurant restaurants add: (self parentView currentRestaurant)
+						yourself)). 
 				].
 				self parentView refreshRestaurants.
 				self closeModal

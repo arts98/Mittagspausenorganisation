@@ -301,7 +301,10 @@ MPOMe5RestaurantsView >> menuButton: aMe5A [
 { #category : 'Events' }
 MPOMe5RestaurantsView >> newOrderClicked [
 	self currentRestaurant isNil
-		ifFalse: [ self openModal: MPOMe5NewOrderFormModalModalView new ]
+		ifFalse: [ self openModal: (MPOMe5NewOrderFormModalModalView new
+			date: self orderDateField value;
+			yourself)
+		]
 	
 ]
 
@@ -390,15 +393,20 @@ MPOMe5RestaurantsView >> refreshOrders [
 
 { #category : 'Internal' }
 MPOMe5RestaurantsView >> refreshRestaurants [
-	
+	| theRestaurants |
+	theRestaurants := MPORestaurant sortRestaurantsByMostOrdersAtDate: Date today.
 	self masterDetailList removeAllMasterDetailListGroupItems.
-	(MPORestaurant sortRestaurantsByMostOrdersAtDate: Date today) do: [ :aRestaurant |
-		self addRestaurant: aRestaurant
-	].
-	self currentRestaurant isNil 
-		ifTrue: [self currentRestaurant: (MPORestaurant sortRestaurantsByMostOrdersAtDate: Date today) firstOrNil.].
-	self currentRestaurant isNil 
-		ifFalse: [self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).].
+	theRestaurants isEmptyOrNil
+		ifFalse: [
+			theRestaurants do: [ :aRestaurant |
+				self addRestaurant: aRestaurant
+			].
+			self currentRestaurant isNil 
+				ifTrue: [self currentRestaurant: theRestaurants first.].
+			self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).
+		].
+	
+	
 ]
 
 { #category : 'Accessing' }

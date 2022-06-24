@@ -73,7 +73,7 @@ MPOMe5NewOrderFormModalModalView >> createComponents [
 		addChildToBody:(Me5Form new		
 			addChildToBody: (dateField := Me5DateField new
 				text: 'Datum';
-				value: Date today;
+				value: (self date ifNil: [Date today]);
 				enableDatePicker: true;
 				setDatePickerButton;
 				yourself);
