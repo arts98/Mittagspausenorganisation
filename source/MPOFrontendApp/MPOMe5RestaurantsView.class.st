@@ -146,6 +146,7 @@ MPOMe5RestaurantsView >> createComponents [
 	self refreshRestaurants.
 	self currentRestaurant isNil 
 		ifTrue: [self currentRestaurant: MPORestaurant restaurants first.].
+	self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).
 	self refreshOrders.
 
 
