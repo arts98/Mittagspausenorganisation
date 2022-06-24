@@ -144,7 +144,8 @@ MPOMe5RestaurantsView >> createComponents [
 		yourself. 
 
 	self refreshRestaurants.
-	self currentRestaurant: MPORestaurant restaurants first.
+	self currentRestaurant isNil 
+		ifTrue: [self currentRestaurant: MPORestaurant restaurants first.].
 	self refreshOrders.
 
 
