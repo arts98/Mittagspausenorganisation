@@ -1,6 +1,3 @@
-"
-not used
-"
 Class {
 	#name : 'MPOVote',
 	#superclass : 'Object',

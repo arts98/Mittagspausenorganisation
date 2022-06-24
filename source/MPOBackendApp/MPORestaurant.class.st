@@ -305,7 +305,7 @@ MPORestaurant >> averageRating [
 			0
 		]
 		ifFalse: [
-			(self reviews inject: 0 into: [:theSum :eachReview | theSum + eachReview starRating ]) / self reviews size 
+			((self reviews inject: 0 into: [:theSum :eachReview | theSum + eachReview starRating ]) / self reviews size ) asFloat roundTo: 0.01
 		].
 		
 
@@ -371,6 +371,23 @@ MPORestaurant >> getOrdersAtDate: aDate [
 	^self orders isEmptyOrNil
 		ifFalse: [self orders at: aDate ifAbsent: []]
 	
+]
+
+{ #category : 'logic' }
+MPORestaurant >> getSortedBestCommentsBasedOnRating [
+
+	| theSortedRating theStarratingForSorting |
+	theSortedRating := OrderedCollection new.
+	theStarratingForSorting := 5. 
+
+	0 to: 5 do:[ :eachNumber |
+		self reviews do: [:eachReview | ( eachReview starRating = theStarratingForSorting ) 
+			ifTrue: [theSortedRating add: eachReview]
+		].
+		theStarratingForSorting := theStarratingForSorting - 1.
+	].
+	^theSortedRating
+
 ]
 
 { #category : 'logic' }
