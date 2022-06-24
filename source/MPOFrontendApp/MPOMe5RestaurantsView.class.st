@@ -144,9 +144,6 @@ MPOMe5RestaurantsView >> createComponents [
 		yourself. 
 
 	self refreshRestaurants.
-	self currentRestaurant isNil 
-		ifTrue: [self currentRestaurant: MPORestaurant restaurants first.].
-	self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).
 	self refreshOrders.
 
 
@@ -386,6 +383,9 @@ MPOMe5RestaurantsView >> refreshRestaurants [
 	MPORestaurant restaurants do: [ :aRestaurant |
 		self addRestaurant: aRestaurant
 	].
+	self currentRestaurant isNil 
+		ifTrue: [self currentRestaurant: MPORestaurant restaurants first.].
+	self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).
 ]
 
 { #category : 'Accessing' }
