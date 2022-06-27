@@ -11,12 +11,6 @@ Class {
 	#category : 'MPOBackendApp'
 }
 
-{ #category : 'Not categorized' }
-MPOOrder class >> new [
-
-	^super new initialize
-]
-
 { #category : 'Accessing' }
 MPOOrder >> date [
 
@@ -55,9 +49,14 @@ MPOOrder >> food: aString [
 
 { #category : 'Accessing' }
 MPOOrder >> initialize [
+	"The following source failed to compile (all double quotes have been doubled):"
+"
 
 	super initialize.
-	self date: ClwRkGlobals applicationToday date
+	self date: ClwRkGlobals applicationToday date"
+#tonelCompilationFailure.
+
+^ self halt: 'The source for this method failed to compile' 
 ]
 
 { #category : 'Accessing' }
@@ -117,7 +116,7 @@ MPOOrder >> price: aNumber [
 { #category : 'Accessing' }
 MPOOrder >> printSummary [
 
-	^'%1 %2: %3 für %4 Euro - Extras: %5 '
+	^'%1 %2: %3 fuer %4 Euro - Extras: %5 '
 		bindWith: self person firstname
 		with: self person lastname
 		with: self food

@@ -8,7 +8,7 @@ Class {
 MPOFrontendApp class >> startUp [
 
 	| theHttpServer |
-	theHttpServer := Me5SstHttpServer startHttpServerOnPort: '9003' serverApplicationClass: self.
+	theHttpServer := Me5SstHttpServer startUpHttpServerOnPort: '9003' serverApplicationClass: self.
 	theHttpServer
 		addViewClass: MPOMe5BaseView;
 		addViewClass: MPOMe5CalendarView;
