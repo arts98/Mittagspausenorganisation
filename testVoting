@@ -1,0 +1,28 @@
+
+theFirstRestaurant := MPORestaurant restaurants first.
+theSecondRestaurant := MPORestaurant restaurants second.
+MPOVoting new
+	restaurantsToVote: (OrderedCollection new 
+		add: theFirstRestaurant; 
+		add: theSecondRestaurant;
+		yourself);
+	voting: (OrderedCollection new
+		add: (MPOVote new
+			restaurant: theFirstRestaurant;
+			vote: true;
+			yourself);
+		add: (MPOVote new
+			restaurant: theFirstRestaurant;
+			vote: true;
+			yourself);
+		add: (MPOVote new
+			restaurant: theFirstRestaurant;
+			vote: false;
+			yourself);
+		add: (MPOVote new
+			restaurant: theSecondRestaurant;
+			vote: true;
+			yourself);
+		yourself);
+	getFavorit.
+	
