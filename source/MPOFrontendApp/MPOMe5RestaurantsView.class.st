@@ -43,14 +43,15 @@ MPOMe5RestaurantsView >> addressButton: aMe5A [
 MPOMe5RestaurantsView >> addRestaurant: aRestaurant [
 	self masterDetailList addMasterDetailListGroupItem: (
 		(self createMasterDetailListGroupItemForRestaurant: aRestaurant)
-		enableIsActive;
 		yourself)
 ]
 
 { #category : 'Initial-Events' }
 MPOMe5RestaurantsView >> afterCreateComponents [
 	
-	self masterDetailList newDummyListGroupItem removeComponent
+	self masterDetailList newDummyListGroupItem removeComponent.
+	self refreshRestaurants.
+	self refreshOrders.
 ]
 
 { #category : 'Initial-Events' }
@@ -89,15 +90,15 @@ MPOMe5RestaurantsView >> createComponents [
 								addClickEventSelector: #showRatingsClicked;
 								yourself);
 							addChildToFootButtonGroup: (websiteButton := Me5A newPillPrimary
-								href: 'https://www.google.com' ;
+								href: 'https://www.youtube.com/watch?v=-AXetJvTfU0' ;
 								text: 'Webseite';
 								yourself);
 							addChildToFootButtonGroup: (menuButton :=Me5A newPillPrimary
-								href: 'https://www.google.com/finance' ;
+								href: 'https://www.youtube.com/watch?v=-AXetJvTfU0' ;
 								text: 'Speisekarte';
 								yourself);
 							addChildToFootButtonGroup: (addressButton := Me5A newPillPrimary
-								href: 'https://www.google.de/maps/' ;
+								href: 'https://www.youtube.com/watch?v=-AXetJvTfU0' ;
 								text: 'Adresse';
 								yourself);
 							yourself);
@@ -143,9 +144,7 @@ MPOMe5RestaurantsView >> createComponents [
 			yourself);
 		yourself. 
 
-	self refreshRestaurants.
-	self currentRestaurant: MPORestaurant restaurants first.
-	self refreshOrders.
+
 
 
 	
@@ -169,23 +168,19 @@ MPOMe5RestaurantsView >> createMasterDetailListGroupItemForRestaurant: aRestaura
 MPOMe5RestaurantsView >> createNewOrderListItem: anOrder [
 
 	^Me5MetronicListGroupItem new
-			title: anOrder food , ' (' , anOrder price asString, ' Euro)';
-			subtitle: anOrder note;			
-			addChildToRightExtension: (Me5ButtonGroup newDivided
-				addChild: (Me5Button newPrimary
-					addCssClassBtnSm;
-					icon: Me5I newFasEdit;
-					componentObject: anOrder;
-					addClickEventSelector: #editOrderClicked:;
-					yourself);
+		title: anOrder food, ' (', anOrder price asString, ' Euro)';
+		subtitle: anOrder note;
+		isTrue: anOrder person = self session person do: [ :theItem | theItem addClickEventSelector: #editOrderClicked:];
+		componentObject: anOrder;
+		isTrue: anOrder person = self session person do: [ :theItem |
+			theItem addChildToRightExtension: (Me5ButtonGroup newDivided
 				addChild: (Me5Button newDanger
 					addCssClassBtnSm;
 					icon: Me5I newFasTrash;
 					componentObject: anOrder;
 					addClickEventSelector: #deleteOrderClicked:;
 					yourself);
-				yourself)
-									
+				yourself)]
 ]
 
 { #category : 'Accessing' }
@@ -212,15 +207,21 @@ MPOMe5RestaurantsView >> deleteOrderClicked: aMeEvent [
 	| theOrder |
 	theOrder := aMeEvent componentObject.
 	self currentRestaurant deleteOrder: theOrder atDate: (self orderDateField value).
-	self refreshOrders
+	self refreshOrders.
+	self refreshRestaurants.
 
 ]
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> deleteRestaurantClicked [
-
-	MPORestaurant deleteRestaurant: currentRestaurant.
-	self refreshRestaurants.
+	
+	self currentRestaurant isNil
+		ifFalse: [
+			MPORestaurant deleteRestaurant: self currentRestaurant.
+			self currentRestaurant: nil.
+			self refreshRestaurants.
+		].
+	
 ]
 
 { #category : 'Events' }
@@ -250,8 +251,15 @@ MPOMe5RestaurantsView >> itemRestaurantClicked: anEvent [
 			self restaurantRatingText text: 'Durchschnittliche Bewertung: ', (theRestaurant averageRating preciseRoundTo: 1) asString .
 			self ratingButton text: 'Bewertungen (' , theRestaurant reviews size asString, ')' .
 			self refreshOrders.
-			self websiteButton href: theRestaurant linkToWebsite.
-			self menuButton href: theRestaurant linkToMenu.
+			self websiteButton 
+				href: theRestaurant linkToWebsite;
+				isEnabled: theRestaurant linkToWebsite notEmptyAndNotNil;
+				yourself.
+			self menuButton 
+				href: theRestaurant linkToMenu;
+				isEnabled: theRestaurant linkToWebsite notEmptyAndNotNil;
+				yourself.
+			self addressButton isEnabled: theRestaurant address notEmptyAndNotNil.
 			theRestaurant address isEmptyOrNil
 			ifTrue: [self addressButton href: nil.] 
 			ifFalse: [self addressButton href: 'https://www.google.com/maps/search/?api=1&query=', theRestaurant address.]
@@ -296,7 +304,12 @@ MPOMe5RestaurantsView >> menuButton: aMe5A [
 
 { #category : 'Events' }
 MPOMe5RestaurantsView >> newOrderClicked [
-	self openModal: MPOMe5NewOrderFormModalModalView new
+	self currentRestaurant isNil
+		ifFalse: [ self openModal: (MPOMe5NewOrderFormModalModalView new
+			date: self orderDateField value;
+			yourself)
+		]
+	
 ]
 
 { #category : 'Events' }
@@ -369,21 +382,35 @@ MPOMe5RestaurantsView >> refreshOrders [
 
 	| aOrderCollection |
 	self orderList removeAllChildren.
-	aOrderCollection := self currentRestaurant getOrdersAtDate: (self orderDateField value).
-	aOrderCollection isNil
-		ifTrue: [self orderList addChild: (Me5MetronicListGroupItem new	title: 'Keine Bestellungen an diesem Tag...'; yourself)]
-		ifFalse: [aOrderCollection do: [ :aOrder |
-			self addOrder: aOrder
-			].]
+	self currentRestaurant isNil
+		ifFalse: [
+			aOrderCollection := self currentRestaurant getOrdersAtDate: (self orderDateField value).
+			aOrderCollection isEmptyOrNil
+				ifTrue: [self orderList addChild: (Me5MetronicListGroupItem new	title: 'Keine Bestellungen an diesem Tag...'; yourself)]
+				ifFalse: [aOrderCollection do: [ :aOrder |
+								self addOrder: aOrder
+								].
+							]
+		].
+	
 ]
 
 { #category : 'Internal' }
 MPOMe5RestaurantsView >> refreshRestaurants [
-	
+	| theRestaurants |
+	theRestaurants := MPORestaurant sortRestaurantsByMostOrdersAtDate: Date today.
 	self masterDetailList removeAllMasterDetailListGroupItems.
-	MPORestaurant restaurants do: [ :aRestaurant |
-		self addRestaurant: aRestaurant
-	].
+	theRestaurants isEmptyOrNil
+		ifFalse: [
+			theRestaurants do: [ :aRestaurant |
+				self addRestaurant: aRestaurant
+			].
+			self currentRestaurant isNil 
+				ifTrue: [self currentRestaurant: theRestaurants first.].
+			(self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant) enableIsActive.
+		].
+	
+	
 ]
 
 { #category : 'Accessing' }

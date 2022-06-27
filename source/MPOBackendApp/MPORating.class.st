@@ -5,7 +5,8 @@ Class {
 		'note',
 		'tags',
 		'starRating',
-		'timestamp'
+		'timestamp',
+		'userPerson'
 	],
 	#category : 'MPOBackendApp'
 }
@@ -110,4 +111,22 @@ MPORating >> timestamp: anaclwtimestamp [
 	"Set the timestamp of the receiver"
 
 	timestamp := anaclwtimestamp
+]
+
+{ #category : 'Accessing' }
+MPORating >> userPerson [
+
+	"<^iOf Person>"
+	"Answer the userPerson of the receiver"
+
+	^userPerson
+]
+
+{ #category : 'Accessing' }
+MPORating >> userPerson: aPerson [
+
+	"<aPerson: iOf Person, ^self>"
+	"Set the userPerson of the receiver"
+
+	userPerson := aPerson
 ]

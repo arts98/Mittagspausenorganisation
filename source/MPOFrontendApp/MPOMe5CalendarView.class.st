@@ -4,10 +4,23 @@ Class {
 	#instVars : [
 		'calendar',
 		'overviewPortlet',
-		'chooseDaySpan'
+		'chooseDaySpan',
+		'dateToOrderDictionary'
 	],
 	#category : 'MPOFrontendApp'
 }
+
+{ #category : 'Initial-Events' }
+MPOMe5CalendarView >> beforeCreateComponents [
+
+	super beforeCreateComponents.
+	self dateToOrderDictionary: Dictionary new.
+	(MPORestaurant restaurants collect: [ :eachR | eachR orders]) do: [ :eachDictionary |
+		eachDictionary keysAndValuesDo: [ :eachDate :eachOrderCollection |
+			self dateToOrderDictionary at: eachDate put: (OrderedCollection new
+				addAll: eachOrderCollection;
+				yourself)]]
+]
 
 { #category : 'Accessing' }
 MPOMe5CalendarView >> calendar [
@@ -68,12 +81,50 @@ MPOMe5CalendarView >> currentClicked [
 	self replaceCalendarForMonth: Date today monthIndex andYear: Date today year
 ]
 
+{ #category : 'Accessing' }
+MPOMe5CalendarView >> dateToOrderDictionary [
+
+	"<^hOf Dictionary: {key: iOf String, value: iOf Object}>"
+	"Answer the dateToOrderDictionary of the receiver"
+
+	^dateToOrderDictionary
+]
+
+{ #category : 'Accessing' }
+MPOMe5CalendarView >> dateToOrderDictionary: aDictionary [
+
+	"<aDictionary: hOf Dictionary: {key: iOf String, value: iOf Object}, ^self>"
+	"Set the dateToOrderDictionary of the receiver"
+
+	dateToOrderDictionary := aDictionary
+]
+
 { #category : 'Events' }
 MPOMe5CalendarView >> dayClicked: anEvent [
 
+	| theDate theOrdersToday theSummaryString thePaymentString |
+
+	theDate := anEvent eventBoundComponent date.
+	theOrdersToday := self dateToOrderDictionary at: theDate ifAbsent: [].
+	theSummaryString := '%1: %2'
+		bindWith: theDate
+		with: (theOrdersToday size isZero
+			ifTrue: ['Keine Bestellungen vorhanden']
+			ifFalse: [theOrdersToday printContentsStringCommaSeparatorPrintSelector: #printSummary]).
+	thePaymentString := 0.
+	self dateToOrderDictionary values do: [ :eachOrderCollection |
+		eachOrderCollection do: [ :eachOrder |
+			eachOrder person = self session person
+				ifTrue: [thePaymentString := thePaymentString + eachOrder price asNumber]]].
 	self chooseDaySpan hide.
-	self overviewPortlet 
-		addChildToBody: (Me5Span newWithText: anEvent eventBoundComponent date)
+	self overviewPortlet
+		removeAllChildrenFromBody;
+		addChildToBody: (Me5Span newWithText: ('Ausgaben im %1: %2 Euro'
+			bindWith: (theDate monthNameForLocale: ClwLocale g)
+			with: thePaymentString asString));
+		addChildToBody: Me5Div new;
+		addChildToBody: (Me5Span newWithText: theSummaryString);
+		yourself
 ]
 
 { #category : 'Internal' }

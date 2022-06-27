@@ -5,10 +5,35 @@ Class {
 		'person',
 		'food',
 		'note',
-		'price'
+		'price',
+		'date'
 	],
 	#category : 'MPOBackendApp'
 }
+
+{ #category : 'Not categorized' }
+MPOOrder class >> new [
+
+	^super new initialize
+]
+
+{ #category : 'Accessing' }
+MPOOrder >> date [
+
+	"<^iOf Date>"
+	"Answer the date of the receiver"
+
+	^date
+]
+
+{ #category : 'Accessing' }
+MPOOrder >> date: aDate [
+
+	"<aDate: iOf Date, ^self>"
+	"Set the date of the receiver"
+
+	date := aDate
+]
 
 { #category : 'Accessing' }
 MPOOrder >> food [
@@ -26,6 +51,13 @@ MPOOrder >> food: aString [
 	"Set the food of the receiver"
 
 	food := aString
+]
+
+{ #category : 'Accessing' }
+MPOOrder >> initialize [
+
+	super initialize.
+	self date: ClwRkGlobals applicationToday date
 ]
 
 { #category : 'Accessing' }
@@ -80,4 +112,15 @@ MPOOrder >> price: aNumber [
 	"Set the price of the receiver"
 
 	price := aNumber
+]
+
+{ #category : 'Accessing' }
+MPOOrder >> printSummary [
+
+	^'%1 %2: %3 für %4 Euro - Extras: %5 '
+		bindWith: self person firstname
+		with: self person lastname
+		with: self food
+		with: self price
+		with: self note
 ]

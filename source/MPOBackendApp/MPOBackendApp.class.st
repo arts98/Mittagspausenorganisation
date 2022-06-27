@@ -7,7 +7,7 @@ Class {
 { #category : 'Tonel-Metadata' }
 MPOBackendApp class >> startUp [
 
-	MPORestaurant createRestaurants.
 	MPOPerson fillPersons.
+	MPORestaurant createRestaurants.
 	MPORestaurantType createRestaurantTypes
 ]

@@ -15,6 +15,26 @@ MPOVoting >> addVote: aMPOVote [
 ]
 
 { #category : 'logic' }
+MPOVoting >> getFavorit [
+	| theRestaurantsDictionary theMostVotes theBestRestaurant |
+	
+	theRestaurantsDictionary := Dictionary new.
+	theMostVotes := 0.
+	self voting do: [ :eachVoting |
+		eachVoting vote
+			ifTrue: [
+				theRestaurantsDictionary at: eachVoting restaurant ifAbsentPut: [0].
+				theRestaurantsDictionary at: eachVoting restaurant put: (theRestaurantsDictionary at: eachVoting restaurant) +1]].
+	theRestaurantsDictionary keysAndValuesDo: [ :eachRestaurant :eachVoteNumber |
+		eachVoteNumber > theMostVotes
+			ifTrue: [
+				theMostVotes := eachVoteNumber.
+				theBestRestaurant := eachRestaurant]].
+	^theBestRestaurant
+
+]
+
+{ #category : 'logic' }
 MPOVoting >> getHighest [
 
 	| theHighestVote theCurrentVote theHighest |

@@ -22,7 +22,8 @@ Class {
 { #category : 'logic' }
 MPORestaurant class >> addRestaurant: aRestaurant [
 
-	self restaurants add: aRestaurant
+	self restaurants add: aRestaurant.
+	^aRestaurant.
 ]
 
 { #category : 'Startup' }
@@ -38,18 +39,24 @@ MPORestaurant class >> createRestaurants [
 					category: 'Doener';
 					description: 'Beschreibung von Mr Doener';
 					reviews: (OrderedCollection new
-							add: (MPORating new
-								note: 'lecker';
-								starRating: 4;
-								yourself);
-							add: (MPORating new
-								note: 'mager';
-								starRating: 2;
-								yourself);
-							add: (MPORating new
-								note: 'sehr gut';
-								starRating: 5;
-								yourself);
+						add: (MPORating new
+							note: 'lecker';
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							starRating: 4;
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '10:15:26');
+							yourself);
+						add: (MPORating new
+							note: 'extraklasse';
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							starRating: 5;
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '12:15:00');
+							yourself);
+						add: (MPORating new
+							note: 'sehr gut';
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							starRating: 5;
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '22:10:00');
+							yourself);
 						yourself);
 					openingTime: (MPOOpeningTime new
 						addOpeningTime: '10:30 - 23:00' atDay: 'Montag';
@@ -61,27 +68,26 @@ MPORestaurant class >> createRestaurants [
 						addOpeningTime: '11:30 - 23:00' atDay: 'Sonntag';
 						yourself);
 					orders: (Dictionary new
-						at: (Date new year: 2022 month: 5 day: 25)
-						put: (OrderedCollection new
-							add: (MPOOrder new
-								food: 'Doener';
-								note: 'Scharf';
-								price: 4;
-								person: (MPOPerson persons at: 'silas.schulz@hs-furtwangen.de' ifAbsent: []);
+						at: (Date new year: 2022 month: 5 day: 25) put: (OrderedCollection new
+								add: (MPOOrder new
+									food: 'Doener';
+									note: 'Scharf';
+									price: 4;
+									person: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+									yourself);
+								add: (MPOOrder new
+									food: 'Doener Box';
+									note: 'Viel Sosse';
+									price: 4;
+									person: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+									yourself);
+								add: (MPOOrder new
+									food: 'Salamipizza';
+									note: '';
+									price: 6.5;
+									person: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+									yourself);
 								yourself);
-							add: (MPOOrder new
-								food: 'Doener Box';
-								note: 'Viel Sosse';
-								price: 4;
-								person: (MPOPerson persons at: 'leonard.lemke@hs-furtwangen.de' ifAbsent: []);
-								yourself);
-							add: (MPOOrder new
-								food: 'Salamipizza';
-								note: '';
-								price: 6.5;
-								person: (MPOPerson persons at: 'max.brombach@hs-furtwangen.de' ifAbsent: []);
-								yourself); 
-							yourself);
 						yourself);
 					yourself);
 				add: (MPORestaurant new
@@ -91,18 +97,24 @@ MPORestaurant class >> createRestaurants [
 					category: 'Fast Food';
 					description: 'Beschreibung von Hier und Jetzt';
 					reviews: (OrderedCollection new
-							add: (MPORating new
-								note: 'klasse';
-								starRating: 5;
-								yourself);
-							add: (MPORating new
-								note: 'geht';
-								starRating: 2;
-								yourself);
-							add: (MPORating new
-								note: 'schlecht';
-								starRating: 1;
-								yourself);
+						add: (MPORating new
+							note: 'klasse';
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							starRating: 5;
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '10:15:26');
+							yourself);
+						add: (MPORating new
+							note: 'geht';
+							starRating: 2;
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '12:15:00');
+							yourself);
+						add: (MPORating new
+							note: 'schlecht';
+							starRating: 1;
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '22:10:00');
+							yourself);
 						yourself);
 					openingTime: (MPOOpeningTime new
 						addOpeningTime: '12:00 - 14:00' atDay: 'Montag';
@@ -114,21 +126,20 @@ MPORestaurant class >> createRestaurants [
 						addOpeningTime: '17:30 - 23:00' atDay: 'Sonntag';
 						yourself);
 					orders: (Dictionary new
-						at: (Date new year: 2022 month: 5 day: 25)
-						put: (OrderedCollection new
-							add: (MPOOrder new
-								food: 'Essen';
-								note: '';
-								price: 12;
-								person: (MPOPerson persons at: 'katrin.arts@hs-furtwangen.de' ifAbsent: []);
+						at: (Date new year: 2022 month: 5 day: 25) put: (OrderedCollection new
+								add: (MPOOrder new
+									food: 'Essen';
+									note: '';
+									price: 12;
+									person: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+									yourself);
+								add: (MPOOrder new
+									food: 'Gericht';
+									note: '';
+									price: 15.5;
+									person: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+									yourself);
 								yourself);
-							add: (MPOOrder new
-								food: 'Gericht';
-								note: '';
-								price: 15.5;
-								person: (MPOPerson persons at: 'siyar.kartal@hs-furtwangen.de' ifAbsent: []);
-								yourself); 
-							yourself);
 						yourself);
 					yourself);
 				add: (MPORestaurant new
@@ -138,18 +149,24 @@ MPORestaurant class >> createRestaurants [
 					category: 'Pizzeria';
 					description: 'Beschreibung von Die Kantina';
 					reviews: (OrderedCollection new
-							add: (MPORating new
-								note: 'Mega';
-								starRating: 5;
-								yourself);
-							add: (MPORating new
-								note: 'mager';
-								starRating: 5;
-								yourself);
-							add: (MPORating new
-								note: 'sehr gut';
-								starRating: 5;
-								yourself);
+						add: (MPORating new
+							note: 'Mega';
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							starRating: 5;
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '10:15:26');
+							yourself);
+						add: (MPORating new
+							note: 'mager';
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							starRating: 1;
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '12:15:00');
+							yourself);
+						add: (MPORating new
+							note: 'sehr gut';
+							starRating: 5;
+							userPerson: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+							timestamp: (AbtTimestamp date: (Date new year: 2022 month: 5 day: 25) time: '22:10:00');
+							yourself);
 						yourself);
 					openingTime: (MPOOpeningTime new
 						addOpeningTime: '11:30 - 24:00' atDay: 'Montag';
@@ -161,24 +178,23 @@ MPORestaurant class >> createRestaurants [
 						addOpeningTime: '10:00 - 24:00' atDay: 'Sonntag';
 						yourself);
 					orders: (Dictionary new
-						at: (Date new year: 2022 month: 5 day: 25)
-						put: (OrderedCollection new
-							add: (MPOOrder new
-								food: 'Mensamahl 1';
-								note: '';
-								price: 12;
-								person: (MPOPerson persons at: 'katrin.arts@hs-furtwangen.de' ifAbsent: []);
+						at: (Date new year: 2022 month: 5 day: 25) put: (OrderedCollection new
+								add: (MPOOrder new
+									food: 'Mensamahl 1';
+									note: '';
+									price: 12;
+									person: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+									yourself);
+								add: (MPOOrder new
+									food: 'Mensamahl 2';
+									note: '';
+									price: 15.5;
+									person: (MPOPerson persons at: (MPOPerson persons keys asOrderedCollection first));
+									yourself);
 								yourself);
-							add: (MPOOrder new
-								food: 'Mensamahl 2';
-								note: '';
-								price: 15.5;
-								person: (MPOPerson persons at: 'siyar.kartal@hs-furtwangen.de' ifAbsent: []);
-								yourself); 
-							yourself);
 						yourself);
 					yourself);
-				yourself).]
+				yourself)]
 ]
 
 { #category : 'logic' }
@@ -190,31 +206,13 @@ MPORestaurant class >> deleteRestaurant: aRestaurant [
 { #category : 'logic' }
 MPORestaurant class >> getTopThreeRestaurants [
 
-	| theSortedCollection theSize theTopThree |
-	
+	| theSortedCollection theTopThree |
+
 	theSortedCollection := SortedCollection new.
 	theSortedCollection addAll: self restaurants.
-	theSize := theSortedCollection size.
-	theTopThree := (OrderedCollection new
-		add: (theSortedCollection at: theSize - 2);
-		add: (theSortedCollection at: theSize - 1);
-		add: (theSortedCollection at: theSize);
-		yourself).
-	
+	theTopThree := theSortedCollection lastLimitedBySize: 3.
+
 	^theTopThree
-]
-
-{ #category : 'logic' }
-MPORestaurant class >> modifyRestaurant: aRestaurant address: aStringAddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName [
-
-		aRestaurant address: aStringAddress.
-		aRestaurant category: aStringCategory.
-		aRestaurant description: aStringDescription.
-		aRestaurant linkToMenu: aStringLinktoMenu.
-		aRestaurant linkToWebsite: aStringLinkToWebsite.
-		aRestaurant location: aStringLinkToWebsite.
-		aRestaurant name: aStringName.
-		^aRestaurant
 ]
 
 { #category : 'Accessing' }
@@ -237,20 +235,12 @@ MPORestaurant class >> restaurants: aCollection [
 
 { #category : 'logic' }
 MPORestaurant class >> sortRestaurantsByMostOrdersAtDate: aDate [
-
-	| theHighestOrders theRestaurants theHighestRestaurant |	
-	theRestaurants := OrderedCollection new.
 	
-	0 to: (self restaurants size) do: [theHighestOrders := 0.
-		self restaurants do: [:eachRestaurant | ((((eachRestaurant orders at: aDate ifAbsent: []) size) > theHighestOrders ) and: [(theRestaurants includes: eachRestaurant) not]) 
-			ifTrue: [
-				theHighestOrders := ((eachRestaurant orders at: aDate) size).
-				theHighestRestaurant := eachRestaurant.
-			]
-		].
-		theRestaurants  add: theHighestRestaurant.
-	].
-	^theRestaurants
+	^SortedCollection new
+		sortBlock: [ :theFirstRestaurant :theSecondRestaurant | 
+			((theFirstRestaurant getOrdersAtDate: aDate) size ifNil: [0]) > ((theSecondRestaurant getOrdersAtDate: aDate) size ifNil: [0])];
+		addAll: self restaurants;
+		yourself
 	
 ]
 
@@ -322,7 +312,7 @@ MPORestaurant >> averageRating [
 			0
 		]
 		ifFalse: [
-			(self reviews inject: 0 into: [:theSum :eachReview | theSum + eachReview starRating ]) / self reviews size 
+			((self reviews inject: 0 into: [:theSum :eachReview | theSum + eachReview starRating ]) / self reviews size ) asFloat roundTo: 0.01
 		].
 		
 
@@ -388,6 +378,23 @@ MPORestaurant >> getOrdersAtDate: aDate [
 	^self orders isEmptyOrNil
 		ifFalse: [self orders at: aDate ifAbsent: []]
 	
+]
+
+{ #category : 'logic' }
+MPORestaurant >> getSortedBestCommentsBasedOnRating [
+
+	| theSortedRating theStarratingForSorting |
+	theSortedRating := OrderedCollection new.
+	theStarratingForSorting := 5. 
+
+	0 to: 5 do:[ :eachNumber |
+		self reviews do: [:eachReview | ( eachReview starRating = theStarratingForSorting ) 
+			ifTrue: [theSortedRating add: eachReview]
+		].
+		theStarratingForSorting := theStarratingForSorting - 1.
+	].
+	^theSortedRating
+
 ]
 
 { #category : 'logic' }
@@ -475,9 +482,16 @@ MPORestaurant >> modifyOrder: aOrder food: aFood person: aPerson oldDate: anOldD
 ]
 
 { #category : 'logic' }
-MPORestaurant >> modifyRestaurant: aRestaurant address: aStringaddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName [
+MPORestaurant >> modifyRestaurantWithAddress: anAddressString category: aCategoryString description: aDescriptionString linkToMenu: aLinktoMenuString linkToWebsite: aLinkToWebsiteString location: aLocationString name: aNameString [
 
-	self class modifyRestaurant: aRestaurant  address: aStringaddress category: aStringCategory description: aStringDescription linkToMenu: aStringLinktoMenu linkToWebsite: aStringLinkToWebsite location: aStringLocation name: aStringName
+	self address: anAddressString.
+	self category: aCategoryString.
+	self description: aDescriptionString.
+	self linkToMenu: aLinktoMenuString.
+	self linkToWebsite: aLinkToWebsiteString.
+	self location: aLocationString.
+	self name: aNameString.
+	^self
 ]
 
 { #category : 'Accessing' }
@@ -518,10 +532,13 @@ MPORestaurant >> openingTime: aMPOOpeningTime [
 
 { #category : 'logic' }
 MPORestaurant >> orderReviewsByTimestamp [
-	
+	self reviews isNil
+	ifFalse: [
 	^SortedCollection new 
 		addAll: self reviews;
 		yourself
+	]
+	
 ]
 
 { #category : 'Accessing' }
