@@ -407,7 +407,8 @@ MPOMe5RestaurantsView >> refreshRestaurants [
 			].
 			self currentRestaurant isNil 
 				ifTrue: [self currentRestaurant: theRestaurants first.].
-			self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant).
+			"self masterDetailList activateMasterDetailListGroupItem: (self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant)."
+			(self masterDetailList masterDetailListGroupItemForObject: self currentRestaurant) enableIsActive.
 		].
 	
 	
