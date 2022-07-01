@@ -16,10 +16,12 @@ MPOMe5CalendarView >> beforeCreateComponents [
 	super beforeCreateComponents.
 	self dateToOrderDictionary: Dictionary new.
 	(MPORestaurant restaurants collect: [ :eachR | eachR orders]) do: [ :eachDictionary |
-		eachDictionary keysAndValuesDo: [ :eachDate :eachOrderCollection |
-			self dateToOrderDictionary at: eachDate put: (OrderedCollection new
-				addAll: eachOrderCollection;
-				yourself)]]
+		eachDictionary isEmptyOrNil
+			ifFalse: [
+				eachDictionary keysAndValuesDo: [ :eachDate :eachOrderCollection |
+					self dateToOrderDictionary at: eachDate put: (OrderedCollection new
+						addAll: eachOrderCollection;
+						yourself)]]]
 ]
 
 { #category : 'Accessing' }
@@ -104,6 +106,8 @@ MPOMe5CalendarView >> dayClicked: anEvent [
 
 	| theDate theOrdersToday theSummaryString thePaymentString |
 
+	anEvent eventBoundComponent class = Me5CalendarMonth
+		ifTrue: [^self].
 	theDate := anEvent eventBoundComponent date.
 	theOrdersToday := self dateToOrderDictionary at: theDate ifAbsent: [].
 	theSummaryString := '%1: %2'
